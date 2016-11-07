@@ -19,12 +19,12 @@ public class KeySequence {
 	//Constructors
 	/**
 	 * Create the KeySequence with the values passed.
-	 * @param tableName the name of the table the key sequence is for
-	 * @param lastKeyValue the last key sequence value
+	 * @param tableNameValue the name of the table the key sequence is for
+	 * @param lastKeyValueToSet the last key sequence value
 	 */
-	public KeySequence(String tableName, int lastKeyValue) {
-		this.tableName = tableName;
-		this.lastKeyValue = lastKeyValue;
+	public KeySequence(String tableNameValue, int lastKeyValueToSet) {
+		this.tableName = tableNameValue;
+		this.lastKeyValue = lastKeyValueToSet;
 	}
 
 	/**
@@ -53,10 +53,10 @@ public class KeySequence {
 
 	/**
 	 * Set the table name.
-	 * @param tableName the table name
+	 * @param tableNameValue the table name
 	 */
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setTableName(String tableNameValue) {
+		this.tableName = tableNameValue;
 	}
 
 	/**
@@ -69,13 +69,13 @@ public class KeySequence {
 
 	/**
 	 * Set the last key sequence value.
-	 * @param lastKeyValue the last key sequence value
+	 * @param lastKeyValueToSet the last key sequence value
 	 */
-	public void setLastKeyValue(int lastKeyValue) {
-		this.lastKeyValue = lastKeyValue;
+	public void setLastKeyValue(int lastKeyValueToSet) {
+		this.lastKeyValue = lastKeyValueToSet;
 	}
 
-	//Functions
+	//Methods
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

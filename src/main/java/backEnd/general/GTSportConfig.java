@@ -17,15 +17,23 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author Jonathan
+ *
+ */
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
 @ComponentScan("backEnd")
 public class GTSportConfig {
+	/**
+	 * Create a datasource to work with.
+	 * Has the information for dealing with the database.
+	 * @return the datasource.
+	 */
 	@Bean
 	public DataSource dataSource() {
 
-//		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		DriverManagerDataSource GTSportDataSource = new DriverManagerDataSource();
 
 		GTSportDataSource.setDriverClassName("org.postgresql.Driver");
@@ -35,11 +43,14 @@ public class GTSportConfig {
 		return GTSportDataSource;
 	}
 
+	/**
+	 * Create an entity manager factory to work with.
+	 * @return the entity manager factory.
+	 */
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//		CustomJpaVendorAdapter vendorAdapter = new CustomJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
 		vendorAdapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 
@@ -52,6 +63,10 @@ public class GTSportConfig {
 		return factory.getObject();
 	}
 
+	/**
+	 * Create the transaction manager to work with 
+	 * @return the platform transaction manager.
+	 */
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 
@@ -60,6 +75,11 @@ public class GTSportConfig {
 		return txManager;
 	}
 
+	/**
+	 * Create the hibernate exception translator.
+	 * I think this is needed by NGTest.
+	 * @return the hibernate exception translator.
+	 */
 	@Bean
 	public HibernateExceptionTranslator hibernateExceptionTranslator() {
 		return new HibernateExceptionTranslator();

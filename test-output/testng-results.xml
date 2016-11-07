@@ -2,16 +2,16 @@
 <testng-results skipped="1" failed="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="1724" started-at="2016-09-20T22:53:46Z" finished-at="2016-09-20T22:53:47Z">
+  <suite name="Default suite" duration-ms="1905" started-at="2016-11-06T12:42:17Z" finished-at="2016-11-06T12:42:19Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="1724" started-at="2016-09-20T22:53:46Z" finished-at="2016-09-20T22:53:47Z">
+    <test name="Default test" duration-ms="1905" started-at="2016-11-06T12:42:17Z" finished-at="2016-11-06T12:42:19Z">
       <class name="backEnd.general.KeySequenceServiceTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:backEnd.general.KeySequenceServiceTest@10feca44]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="7" started-at="2016-09-20T18:53:46Z" finished-at="2016-09-20T18:53:46Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="6" started-at="2016-11-06T07:42:17Z" finished-at="2016-11-06T07:42:17Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="FAIL" signature="springTestContextPrepareTestInstance()[pri:0, instance:backEnd.general.KeySequenceServiceTest@10feca44]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="0" started-at="2016-09-20T18:53:46Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2016-09-20T18:53:46Z">
+        <test-method status="FAIL" signature="springTestContextPrepareTestInstance()[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="0" started-at="2016-11-06T07:42:17Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2016-11-06T07:42:17Z">
           <exception class="java.lang.IllegalStateException">
             <message>
               <![CDATA[Failed to load ApplicationContext]]>
@@ -96,15 +96,19 @@ Caused by: java.lang.AbstractMethodError: org.springframework.data.jpa.repositor
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="SKIP" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:backEnd.general.KeySequenceServiceTest@10feca44]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2016-09-20T18:53:47Z" finished-at="2016-09-20T18:53:47Z">
+        <test-method status="SKIP" signature="beforeClass()[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="beforeClass" is-config="true" duration-ms="0" started-at="2016-11-06T07:42:19Z" finished-at="2016-11-06T07:42:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method status="SKIP" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2016-11-06T07:42:19Z" finished-at="2016-11-06T07:42:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="SKIP" signature="getNextKeyWithNewTable()[pri:0, instance:backEnd.general.KeySequenceServiceTest@10feca44]" name="getNextKeyWithNewTable" duration-ms="1" started-at="2016-09-20T18:53:47Z" finished-at="2016-09-20T18:53:47Z">
+        <test-method status="SKIP" signature="getNextKeyWithNewTable()[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="getNextKeyWithNewTable" duration-ms="1" started-at="2016-11-06T07:42:19Z" finished-at="2016-11-06T07:42:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getNextKeyWithNewTable -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:backEnd.general.KeySequenceServiceTest@10feca44]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="3" started-at="2016-09-20T18:53:47Z" finished-at="2016-09-20T18:53:47Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2016-11-06T07:42:19Z" finished-at="2016-11-06T07:42:19Z">
           <params>
             <param index="0">
               <value>
@@ -115,7 +119,11 @@ Caused by: java.lang.AbstractMethodError: org.springframework.data.jpa.repositor
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:backEnd.general.KeySequenceServiceTest@10feca44]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2016-09-20T18:53:47Z" finished-at="2016-09-20T18:53:47Z">
+        <test-method status="SKIP" signature="afterClass()[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="afterClass" is-config="true" duration-ms="0" started-at="2016-11-06T07:42:19Z" finished-at="2016-11-06T07:42:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterClass -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:backEnd.general.KeySequenceServiceTest@2fd66ad3]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2016-11-06T07:42:19Z" finished-at="2016-11-06T07:42:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
