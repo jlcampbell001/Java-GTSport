@@ -8,8 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate3.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-@ComponentScan("backEnd")
+@ComponentScan({"backEnd"})
 public class GTSportConfig {
 	/**
 	 * Create a datasource to work with.
