@@ -17,9 +17,14 @@ public class KeySequenceService {
 
 	@Autowired
 	private KeySequenceRepository keySequenceRepository;
-	
-	//KeySequenceRepository keySequenceRepository = new KeySequenceRepository();
-	
+		
+	/**
+	 * Creates and returns the next primary key for the passed table.
+	 * 
+	 * @param tableName - the table to create a primary key for
+	 * @param keyPrefix - the primary key prefix to add to the beginning of the key
+	 * @return - the primary key value
+	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public String getNextKey(String tableName, String keyPrefix) {
 		// Get the next key value for the table.
@@ -31,6 +36,44 @@ public class KeySequenceService {
 		return primaryKey;
 	}
 
+	/**
+	 * Sets a table's key value to the passed value.
+	 * 
+	 * @param tableName - the table to set
+	 * @param keyValue - the key value to set to
+	 */
+	public void resetKeyValue(String tableName, Integer keyValue) {
+		boolean createNewKeySequence = false;
+
+		KeySequence keySequence = null;
+
+		// Try and get the current key sequence record if it exists.
+		try {
+			keySequence = keySequenceRepository.findOne(tableName);
+
+			if (keySequence == null) {
+				createNewKeySequence = true;
+			}
+		} catch (NoResultException e) {
+			createNewKeySequence = true;
+		}
+
+		// If it is not found then create a new record.
+		if (createNewKeySequence) {
+			keySequence = new KeySequence(tableName, 0);
+		}
+
+		keySequence.setLastKeyValue(keyValue);
+
+		keySequenceRepository.saveAndFlush(keySequence);
+	}
+	
+	/**
+	 * Gets the next key value for the passed table.
+	 * 
+	 * @param tableName - the table to get the next key value for
+	 * @return - the key value
+	 */
 	private Integer getNextKeyValue(String tableName) {
 		boolean createNewKeySequence = false;
 

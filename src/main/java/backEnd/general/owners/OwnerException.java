@@ -11,7 +11,7 @@ public class OwnerException extends Exception {
 	public static final String OWNER_NAME_EXISTS_ALREADY_ERROR = "An owner with the name already exists: ";
 
 	/**
-	 * 
+	 * Exceptions error control and messages for the owner service.
 	 */
 	public OwnerException() {
 		super();

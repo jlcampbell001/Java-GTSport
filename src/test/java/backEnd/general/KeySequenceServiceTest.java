@@ -21,6 +21,10 @@ public class KeySequenceServiceTest extends AbstractTestNGSpringContextTests {
 	private static final String EXPECTED_NEW_VALUE = KEY_PREFIX + "000000001";	
 	private static final String EXPECTED_EXISTING_VALUE = KEY_PREFIX + "000000002";
 	
+	private static final Integer NEW_KEY_VALUE = 999;
+	
+	private static final String EXPECTED_EXISTING_VALUE_AFTER_RESET = KEY_PREFIX + "000001000";
+	
 	@Autowired
 	private KeySequenceService keySequenceService;
 	
@@ -52,6 +56,15 @@ public class KeySequenceServiceTest extends AbstractTestNGSpringContextTests {
 	  
 	    assertEquals(newKey, EXPECTED_EXISTING_VALUE);	  
     }
+	
+	@Test(dependsOnMethods = {"getNextKeyWithExistingTable"}) 
+	public void resetKeyValue() {
+		keySequenceService.resetKeyValue(TESTING_TABLE_NAME, NEW_KEY_VALUE);
+		
+	    String newKey = keySequenceService.getNextKey(TESTING_TABLE_NAME, KEY_PREFIX);
+		  
+	    assertEquals(newKey, EXPECTED_EXISTING_VALUE_AFTER_RESET);	  
+	}
 
 	private void deleteTestRecord() {
 		KeySequence testKeySequence = keySequenceRepository.findOne(TESTING_TABLE_NAME);

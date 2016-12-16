@@ -1,4 +1,4 @@
-package backEnd.owners;
+package backEnd.general.owners;
 
 import static org.testng.Assert.assertEquals;
 import backEnd.general.GTSportConfig;

@@ -116,6 +116,10 @@ public class OwnerService {
 		ownerRepository.delete(primaryKey);
 	}
 
+	/**
+	 * Gets a list of owner records.
+	 * @return a list of ownerjsons.
+	 */
 	@Transactional
 	public List<OwnerJson> getOwnersList() {
 		List<OwnerJson> ownerJsons =  new ArrayList<OwnerJson>();
@@ -131,6 +135,9 @@ public class OwnerService {
 		return ownerJsons;
 	}
 	
+	/**
+	 * Finds the max value key in the owners table and set the key sequence record for the owners table to it.
+	 */
 	@Transactional
 	public void resetKeys() {
 		String maxKey = ownerRepository.getMaxKey();
