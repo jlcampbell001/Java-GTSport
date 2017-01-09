@@ -42,6 +42,7 @@ public class KeySequenceService {
 	 * @param tableName - the table to set
 	 * @param keyValue - the key value to set to
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void resetKeyValue(String tableName, Integer keyValue) {
 		boolean createNewKeySequence = false;
 

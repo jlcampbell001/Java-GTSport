@@ -21,15 +21,15 @@ public class OwnerRepositoryTest extends AbstractTestNGSpringContextTests {
 
 	private static final String OWNER_1_KEY = "XXX900000001";
 	private static final String OWNER_1_NAME = "XXX_Test_Owner_1_XXX";
-	private static final Boolean OWNER_1_CURRENT = false;
+	private static final Boolean OWNER_1_DEFAULT = false;
 
 	private static final String OWNER_2_KEY = "XXX900000002";
 	private static final String OWNER_2_NAME = "XXX_Test_Owner_2_XXX";
-	private static final Boolean OWNER_2_CURRENT = true;
+	private static final Boolean OWNER_2_DEFAULT = true;
 
 	private static final String OWNER_3_KEY = MAX_OWN_KEY;
 	private static final String OWNER_3_NAME = "XXX_Test_Owner_3_XXX";
-	private static final Boolean OWNER_3_CURRENT = false;
+	private static final Boolean OWNER_3_DEFAULT = false;
 
 	private static final String BAD_OWNER_NAME = "XXX_";
 	
@@ -40,13 +40,13 @@ public class OwnerRepositoryTest extends AbstractTestNGSpringContextTests {
 	@Rollback(false)
 	public void beforeClass() {
 		// add the 3 owners to work with.
-		Owner owner1 = new Owner(OWNER_1_KEY, OWNER_1_NAME, OWNER_1_CURRENT);
+		Owner owner1 = new Owner(OWNER_1_KEY, OWNER_1_NAME, OWNER_1_DEFAULT);
 		ownerRepository.saveAndFlush(owner1);
 
-		Owner owner2 = new Owner(OWNER_2_KEY, OWNER_2_NAME, OWNER_2_CURRENT);
+		Owner owner2 = new Owner(OWNER_2_KEY, OWNER_2_NAME, OWNER_2_DEFAULT);
 		ownerRepository.saveAndFlush(owner2);
 
-		Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, OWNER_3_CURRENT);
+		Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, OWNER_3_DEFAULT);
 		ownerRepository.saveAndFlush(owner3);
 	}
 
@@ -74,8 +74,8 @@ public class OwnerRepositoryTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void findCurrentOwner() {
-		Owner foundOwner = ownerRepository.findCurrentOwner();
+	public void findDefaultOwner() {
+		Owner foundOwner = ownerRepository.findDefaultOwner();
 		
 		assertEquals(foundOwner.getPrimaryKey(), OWNER_2_KEY);
 	}

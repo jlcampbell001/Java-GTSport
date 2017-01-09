@@ -11,8 +11,8 @@ public interface OwnerRepository extends JpaRepository<Owner, String> {
 	@Query("select own from Owner own where own.ownerName = :ownerName")
 	Owner findByName(@Param("ownerName") String ownerName);
 
-	@Query("select own from Owner own where own.currentOwner = true")
-	Owner findCurrentOwner();
+	@Query("select own from Owner own where own.defaultOwner = true")
+	Owner findDefaultOwner();
 	
 	@Query("select max(own.primaryKey) as maxkey from Owner own")
 	String getMaxKey();

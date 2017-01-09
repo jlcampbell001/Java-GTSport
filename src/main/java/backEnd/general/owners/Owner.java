@@ -16,19 +16,19 @@ public class Owner {
 	@Column(name = "OwnName", unique = true)
 	private String ownerName = "";
 	
-	@Column(name = "OwnCurrent")
-	private Boolean currentOwner = false;
+	@Column(name = "OwnDefault")
+	private Boolean defaultOwner = false;
 
 	/**
 	 * @param primaryKey
 	 * @param ownerName
-	 * @param currentOwner
+	 * @param defaultOwner
 	 * Create an owner based on the passed parameter values.
 	 */
-	public Owner(String primaryKey, String ownerName, Boolean currentOwner) {
+	public Owner(String primaryKey, String ownerName, Boolean defaultOwner) {
 		this.primaryKey = primaryKey;
 		this.ownerName = ownerName;
-		this.currentOwner = currentOwner;
+		this.defaultOwner = defaultOwner;
 	}
 
 	/**
@@ -67,17 +67,17 @@ public class Owner {
 	}
 
 	/**
-	 * @return the currentOwner
+	 * @return the defaultOwner
 	 */
-	public Boolean getCurrentOwner() {
-		return currentOwner;
+	public Boolean getDefaultOwner() {
+		return defaultOwner;
 	}
 
 	/**
-	 * @param currentOwner the currentOwner to set
+	 * @param defaultOwner the currentOwner to set
 	 */
-	public void setCurrentOwner(Boolean currentOwner) {
-		this.currentOwner = currentOwner;
+	public void setDefaultOwner(Boolean defaultOwner) {
+		this.defaultOwner = defaultOwner;
 	}
 
 	/* (non-Javadoc)
@@ -85,7 +85,7 @@ public class Owner {
 	 */
 	@Override
 	public String toString() {
-		return "Owner [primaryKey=" + primaryKey + ", ownerName=" + ownerName + ", currentOwner=" + currentOwner + "]";
+		return "Owner [primaryKey=" + primaryKey + ", ownerName=" + ownerName + ", defaultOwner=" + defaultOwner + "]";
 	}
 
 }

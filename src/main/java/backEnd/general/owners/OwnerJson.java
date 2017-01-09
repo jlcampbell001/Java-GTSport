@@ -10,7 +10,7 @@ public class OwnerJson {
 
 	private String primaryKey = "";
 	private String ownerName = "";
-	private Boolean Current = false;
+	private Boolean defaultOwner = false;
 
 	/**
 	 * Get the primary key.
@@ -51,22 +51,22 @@ public class OwnerJson {
 	}
 
 	/**
-	 * Get the owner current setting.
+	 * Get the owner default setting.
 	 * 
-	 * @return the current
+	 * @return the default
 	 */
-	public Boolean getCurrent() {
-		return Current;
+	public Boolean getDefaultOwner() {
+		return defaultOwner;
 	}
 
 	/**
-	 * Set the owner current setting.
+	 * Set the owner default setting.
 	 * 
-	 * @param current
+	 * @param defaultOwner
 	 *            the current to set
 	 */
-	public void setCurrent(Boolean current) {
-		Current = current;
+	public void setDefaultOwner(Boolean defaultOwner) {
+		this.defaultOwner = defaultOwner;
 	}
 
 	/*
@@ -76,7 +76,7 @@ public class OwnerJson {
 	 */
 	@Override
 	public String toString() {
-		return "OwnerJson [primaryKey=" + primaryKey + ", ownerName=" + ownerName + ", Current=" + Current + "]";
+		return "OwnerJson [primaryKey=" + primaryKey + ", ownerName=" + ownerName + ", defaultOwner=" + defaultOwner + "]";
 	}
 
 }
