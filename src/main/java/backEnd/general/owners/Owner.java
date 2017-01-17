@@ -17,7 +17,7 @@ public class Owner {
 	private String ownerName = "";
 	
 	@Column(name = "OwnDefault")
-	private Boolean defaultOwner = false;
+	private boolean defaultOwner = false;
 
 	/**
 	 * @param primaryKey
@@ -25,7 +25,7 @@ public class Owner {
 	 * @param defaultOwner
 	 * Create an owner based on the passed parameter values.
 	 */
-	public Owner(String primaryKey, String ownerName, Boolean defaultOwner) {
+	public Owner(String primaryKey, String ownerName, boolean defaultOwner) {
 		this.primaryKey = primaryKey;
 		this.ownerName = ownerName;
 		this.defaultOwner = defaultOwner;
@@ -69,14 +69,14 @@ public class Owner {
 	/**
 	 * @return the defaultOwner
 	 */
-	public Boolean getDefaultOwner() {
+	public boolean getDefaultOwner() {
 		return defaultOwner;
 	}
 
 	/**
 	 * @param defaultOwner the currentOwner to set
 	 */
-	public void setDefaultOwner(Boolean defaultOwner) {
+	public void setDefaultOwner(boolean defaultOwner) {
 		this.defaultOwner = defaultOwner;
 	}
 

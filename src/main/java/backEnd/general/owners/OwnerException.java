@@ -6,7 +6,7 @@ public class OwnerException extends Exception {
 
 	public static final String OWNER_NOT_FOUND_KEY_ERROR = "Could not find owner by key: ";
 	public static final String OWNER_NOT_FOUND_NAME_ERROR = "Could not find owner: ";
-	public static final String OWNER_NOT_FOUND_KEY_DELETE_ERROR = "Could not find onwer by key to delete: ";
+	public static final String OWNER_NOT_FOUND_KEY_DELETE_ERROR = "Could not find owner by key to delete: ";
 	public static final String OWNER_NAME_NOT_SET = "The owner name was not set.";
 	public static final String OWNER_NAME_EXISTS_ALREADY_ERROR = "An owner with the name already exists: ";
 

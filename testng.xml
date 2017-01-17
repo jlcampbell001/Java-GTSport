@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="false">
+  <test name="Test">
+    <classes>
+      <class name="backEnd.general.KeySequenceServiceTest"/>
+      <class name="backEnd.general.owners.OwnerRepositoryTest"/>
+      <class name="backEnd.general.owners.OwnerValidateTest"/>
+      <class name="backEnd.general.owners.OwnerServiceTest"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

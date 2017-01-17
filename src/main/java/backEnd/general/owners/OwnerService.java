@@ -1,16 +1,16 @@
 package backEnd.general.owners;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.inject.New;
 import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.IfProfileValue;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 import backEnd.general.KeySequenceService;
-import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 /**
  * @author Jonathan
@@ -18,13 +18,20 @@ import javassist.bytecode.stackmap.BasicBlock.Catch;
  */
 @Service
 public class OwnerService {
-	static final String DEFAULT_OWNER_NAME = "DEFAULT";
+	/**
+	 * If there is no default owner setup a new one will be created using this as the owner name
+	 * or if the owner already exists it will be set as the default owner.
+	 */
+	public static final String DEFAULT_OWNER_NAME = "DEFAULT";
 	
 	@Autowired
 	private OwnerRepository ownerRepository;
 
 	@Autowired
 	private KeySequenceService keySequenceService;
+	
+	@Autowired
+	private OwnerValidate ownerValidate;
 
 	/**
 	 * Looks for an owner record by the primary key and returns an OwnerJson.
@@ -85,7 +92,7 @@ public class OwnerService {
 	public OwnerJson getDefaultOwnerJson() throws OwnerException {
 		// Try and get the default owner if one is set.
 		Owner defaultOwner = null;
-		Boolean foundDefaultOwner = false;
+		boolean foundDefaultOwner = false;
 
 		try {
 			defaultOwner = ownerRepository.findDefaultOwner();
@@ -148,7 +155,7 @@ public class OwnerService {
 	 */
 	@Transactional
 	public void saveOwner(OwnerJson ownerJson) throws OwnerException {
-		validateOwnerSave(ownerJson);
+		ownerValidate.validateOwnerSave(ownerJson);
 
 		// New records do not have the primary key filled, so if it is not
 		// filled get one.
@@ -160,6 +167,11 @@ public class OwnerService {
 		Owner owner = toOwner(ownerJson);
 
 		ownerRepository.saveAndFlush(owner);
+		
+		//If the owner is the default owner make sure it is the only one.
+		if (ownerJson.isDefaultOwner()) {
+			clearOtherDefaultOwners(ownerJson);
+		}
 	}
 
 	/**
@@ -172,7 +184,7 @@ public class OwnerService {
 	 */
 	@Transactional
 	public void deleteOwner(String primaryKey) throws OwnerException {
-		validateOwnerDelete(primaryKey);
+		ownerValidate.validateOwnerDelete(primaryKey);
 
 		ownerRepository.delete(primaryKey);
 	}
@@ -180,7 +192,7 @@ public class OwnerService {
 	/**
 	 * Gets a list of owner records.
 	 * 
-	 * @return a list of ownerjsons.
+	 * @return a list of owner jsons.
 	 */
 	@Transactional
 	public List<OwnerJson> getOwnersList() {
@@ -205,7 +217,7 @@ public class OwnerService {
 	public void resetKeys() {
 		String maxKey = ownerRepository.getMaxKey();
 
-		Integer maxKeyValue = 0;
+		int maxKeyValue = 0;
 
 		if (maxKey != null && !maxKey.trim().isEmpty()) {
 			maxKeyValue = Integer.valueOf(maxKey.substring(3));
@@ -214,6 +226,25 @@ public class OwnerService {
 		keySequenceService.resetKeyValue("OWNER", maxKeyValue);
 	}
 
+
+	/**
+	 * Set all other owners default setting to false.
+	 * 
+	 * @param currentDefaultOwner - the owner that should be the default owner
+	 */
+	private void clearOtherDefaultOwners(OwnerJson currentDefaultOwner) {
+		List<Owner> defaultOwners = ownerRepository.findAllDefaultOwners();
+		
+		for (Owner owner : defaultOwners) {
+			
+			if (!owner.getPrimaryKey().equals(currentDefaultOwner.getPrimaryKey())) {
+				owner.setDefaultOwner(false);
+				
+				ownerRepository.saveAndFlush(owner);
+			}
+		}
+	}
+	
 	/**
 	 * Converts an owner object to an ownerJson object.
 	 * 
@@ -243,50 +274,8 @@ public class OwnerService {
 
 		owner.setPrimaryKey(ownerJson.getPrimaryKey());
 		owner.setOwnerName(ownerJson.getOwnerName());
-		owner.setDefaultOwner(ownerJson.getDefaultOwner());
+		owner.setDefaultOwner(ownerJson.isDefaultOwner());
 
 		return owner;
-	}
-
-	/**
-	 * Checks to see if the owner data to save is valid.
-	 * 
-	 * @param ownerJson
-	 *            - the owner data to check
-	 * @throws OwnerException
-	 *             - errors thrown if the owner will not be allowed to be saved.
-	 */
-	private void validateOwnerSave(OwnerJson ownerJson) throws OwnerException {
-		// Make sure the owner name is set.
-		if (ownerJson.getOwnerName().trim().isEmpty()) {
-			throw new OwnerException(OwnerException.OWNER_NAME_NOT_SET);
-		}
-
-		// Make sure the owner name dose not already exist.
-		Owner existingOwner = ownerRepository.findByName(ownerJson.getOwnerName());
-
-		if (existingOwner != null) {
-			if (ownerJson.getPrimaryKey().trim().isEmpty()
-					|| !ownerJson.getPrimaryKey().trim().equals(existingOwner.getPrimaryKey().trim())) {
-				throw new OwnerException(OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + ownerJson.getOwnerName());
-			}
-		}
-	}
-
-	/**
-	 * TODO: need to check the owned cars table for records before allowing
-	 * delete.
-	 * 
-	 * @param primaryKey
-	 *            - the primary key of the owner to delete
-	 * @throws OwnerException
-	 *             - errors thrown if the owner will not be allowed to be
-	 *             deleted
-	 */
-	private void validateOwnerDelete(String primaryKey) throws OwnerException {
-		// Make sure the owner record exists to delete.
-		if (!ownerRepository.exists(primaryKey)) {
-			throw new OwnerException(OwnerException.OWNER_NOT_FOUND_KEY_DELETE_ERROR + primaryKey);
-		}
 	}
 }

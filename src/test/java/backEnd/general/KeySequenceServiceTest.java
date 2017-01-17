@@ -31,34 +31,59 @@ public class KeySequenceServiceTest extends AbstractTestNGSpringContextTests {
 	@Autowired
 	private KeySequenceRepository keySequenceRepository;
 		
+	/**
+	 * Clear any test records that may have been left.
+	 */
 	@BeforeClass
 	@Rollback(false)
 	public void beforeClass() {
+		logger.info("Before Class");
+		
 		deleteTestRecord();
 	}
 	
+	/**
+	 * Delete the test records.
+	 */
 	@AfterClass
 	@Rollback(false)
 	public void afterClass() {
+		logger.info("After Class");
+
 		deleteTestRecord();
 	}
 	
-	@Test(groups = "first")
+	/**
+	 * Test getting a key for a new record with a new table name.
+	 */
+	@Test()
     public void getNextKeyWithNewTable() {		
-	    String newKey = keySequenceService.getNextKey(TESTING_TABLE_NAME, KEY_PREFIX);
+		logger.info("Get Next Key With New Table: " + TESTING_TABLE_NAME);
+
+		String newKey = keySequenceService.getNextKey(TESTING_TABLE_NAME, KEY_PREFIX);
 	  
 	    assertEquals(newKey, EXPECTED_NEW_VALUE);	  
     }
 
-	@Test(dependsOnGroups="first")
+	/**
+	 * Test getting a key for an existing record with a table name.
+	 */
+	@Test(dependsOnMethods = { "getNextKeyWithNewTable" })
     public void getNextKeyWithExistingTable() {		
-	    String newKey = keySequenceService.getNextKey(TESTING_TABLE_NAME, KEY_PREFIX);
+		logger.info("Get Next Key With Existing table: " + TESTING_TABLE_NAME);
+
+		String newKey = keySequenceService.getNextKey(TESTING_TABLE_NAME, KEY_PREFIX);
 	  
 	    assertEquals(newKey, EXPECTED_EXISTING_VALUE);	  
     }
 	
+	/**
+	 * Reset an existing record with a new key value.
+	 */
 	@Test(dependsOnMethods = {"getNextKeyWithExistingTable"}) 
 	public void resetKeyValue() {
+		logger.info("Reset Key Value: " + TESTING_TABLE_NAME);
+
 		keySequenceService.resetKeyValue(TESTING_TABLE_NAME, NEW_KEY_VALUE);
 		
 	    String newKey = keySequenceService.getNextKey(TESTING_TABLE_NAME, KEY_PREFIX);
@@ -66,6 +91,9 @@ public class KeySequenceServiceTest extends AbstractTestNGSpringContextTests {
 	    assertEquals(newKey, EXPECTED_EXISTING_VALUE_AFTER_RESET);	  
 	}
 
+	/**
+	 * Delete the testing record from the key sequence table.
+	 */
 	private void deleteTestRecord() {
 		KeySequence testKeySequence = keySequenceRepository.findOne(TESTING_TABLE_NAME);
 		
