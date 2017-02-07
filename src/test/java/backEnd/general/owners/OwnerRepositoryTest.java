@@ -5,8 +5,6 @@ import static org.testng.Assert.assertEquals;
 import java.util.List;
 
 import backEnd.general.GTSportConfig;
-import backEnd.general.owners.Owner;
-import backEnd.general.owners.OwnerRepository;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

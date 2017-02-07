@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package backEnd.regions;
+package backEnd.general.regions;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Regions")
-public class Region {
+public class Region implements Serializable {
 
     @Id
     @Column(name = "RegKey")
@@ -25,6 +26,15 @@ public class Region {
     @Column(name = "RegDescription")
     private String description = "";
 
+    public Region(String primaryKey, String description) {
+        this.primaryKey = primaryKey;
+        this.description = description;
+    }
+    
+    public Region() {
+        this("", "");
+    }
+    
     public String getPrimaryKey() {
         return primaryKey;
     }

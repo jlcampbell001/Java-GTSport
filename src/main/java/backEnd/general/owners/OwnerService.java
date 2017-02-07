@@ -3,7 +3,6 @@ package backEnd.general.owners;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.inject.New;
 import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;

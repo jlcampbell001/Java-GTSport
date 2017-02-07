@@ -20,20 +20,20 @@ public class OwnerValidate {
 	 */
 	@Transactional
 	public void validateOwnerSave(OwnerJson ownerJson) throws OwnerException {
-		// Make sure the owner name is set.
-		if (ownerJson.getOwnerName().trim().isEmpty()) {
-			throw new OwnerException(OwnerException.OWNER_NAME_NOT_SET);
-		}
+            // Make sure the owner name is set.
+            if (ownerJson.getOwnerName().trim().isEmpty()) {
+                throw new OwnerException(OwnerException.OWNER_NAME_NOT_SET);
+            }
 
-		// Make sure the owner name dose not already exist.
-		Owner existingOwner = ownerRepository.findByName(ownerJson.getOwnerName());
+            // Make sure the owner name dose not already exist.
+            Owner existingOwner = ownerRepository.findByName(ownerJson.getOwnerName());
 
-		if (existingOwner != null) {
-			if (ownerJson.getPrimaryKey().trim().isEmpty()
-					|| !ownerJson.getPrimaryKey().trim().equals(existingOwner.getPrimaryKey().trim())) {
-				throw new OwnerException(OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + ownerJson.getOwnerName());
-			}
-		}
+            if (existingOwner != null) {
+                if (ownerJson.getPrimaryKey().trim().isEmpty()
+                        || !ownerJson.getPrimaryKey().trim().equals(existingOwner.getPrimaryKey().trim())) {
+                    throw new OwnerException(OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + ownerJson.getOwnerName());
+                }
+            }
 	}
 
 	/**
