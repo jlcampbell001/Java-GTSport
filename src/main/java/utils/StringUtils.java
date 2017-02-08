@@ -1,8 +1,13 @@
 package utils;
 
+/**
+ * My methods for dealing with strings.
+ *
+ * @author jonathan
+ */
 public class StringUtils {
 
-	/**
+    /**
      * Creates a new string padded with the pad character on the left to the
      * passed length.
      *

@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.regions;
 
-import backEnd.general.owners.Owner;
-import backEnd.general.owners.OwnerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * The service that will validate a region for saving/deleting.
  *
  * @author jonathan
  */
@@ -21,6 +15,13 @@ public class RegionValidate {
     @Autowired
     RegionRepository regionRepository;
 
+    /**
+     * Validates the region data on a save.
+     *
+     * @param regionJson - the region to validate
+     * @throws RegionException - Errors for a region where the data is not
+     * correct. - Description not set. - Description already exists.
+     */
     @Transactional
     public void validateRegionSave(RegionJson regionJson) throws RegionException {
         // Make sure the region description is set.
@@ -38,8 +39,15 @@ public class RegionValidate {
             }
         }
     }
-    
-    @Transactional 
+
+    /**
+     * Validates that a region with the passed primary key can be deleted.
+     *
+     * @param primaryKey - the primary key to delete
+     * @throws RegionException - Errors if the region can not be deleted. -
+     * Primary key dose not exist.
+     */
+    @Transactional
     public void validateRegionDelete(String primaryKey) throws RegionException {
         //Make sure the region key exists to delete.
         if (!regionRepository.exists(primaryKey)) {

@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.regions;
 
 import backEnd.general.GTSportConfig;
-import backEnd.general.owners.Owner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for the region repository.
  *
  * @author jonathan
  */
@@ -25,7 +20,7 @@ import org.testng.annotations.Test;
 public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
 
     private static final String MAX_REGION_KEY = "XXX900000003";
-    
+
     private static final String REGION_1_KEY = "XXX900000001";
     private static final String REGION_1_DESCRIPTION = "TEST_REGION_1";
 
@@ -36,10 +31,13 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
     private static final String REGION_3_DESCRIPTION = "TEST_REGION_3";
 
     private static final String BAD_DESCRIPTION = "XXX_BAD_DESCRIPTION_XXX";
-    
+
     @Autowired
     private RegionRepository regionRepository;
 
+    /**
+     * Setup records to test against.
+     */
     @BeforeClass
     @Rollback(false)
     public void beforeClass() {
@@ -70,31 +68,41 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
         deleteTestRecord(REGION_3_KEY);
     }
 
+    /**
+     * Tests the find by description method.
+     */
     @Test
     public void findByDescription() {
         logger.info("Find by Description");
         Region region = regionRepository.findbyDescription(REGION_2_DESCRIPTION);
-        
+
         assertEquals(region.getPrimaryKey(), REGION_2_KEY);
     }
-    
+
+    /**
+     * Tests the find by description method with passing a not existing
+     * description.
+     */
     @Test
     public void findByDescriptionBadDescription() {
         logger.info("Find by Description Bad Description: " + BAD_DESCRIPTION);
         Region region = regionRepository.findbyDescription(BAD_DESCRIPTION);
-        
-        assertEquals(region, null);
+
+        assertNull(region);
     }
-    
+
+    /**
+     * Test the get max key method.
+     */
     @Test
     public void getMaxKey() {
         logger.info("Get Max Region Key");
-        
+
         String maxKey = regionRepository.getMaxKey();
-        
+
         assertEquals(maxKey, MAX_REGION_KEY);
     }
-    
+
     private void deleteTestRecord(String deleteKey) {
         Region region = regionRepository.findOne(deleteKey);
 

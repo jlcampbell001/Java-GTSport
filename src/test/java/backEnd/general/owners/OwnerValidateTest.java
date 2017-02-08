@@ -12,168 +12,175 @@ import org.testng.annotations.Test;
 
 import backEnd.general.GTSportConfig;
 
+/**
+ * Tests for the owner validate service.
+ *
+ * @author jonathan
+ */
 @ContextConfiguration(classes = GTSportConfig.class)
 @Rollback
 public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
-	private static final String OWNER_1_KEY = "XXX900000001";
-	private static final String OWNER_1_NAME = "XXX_Test_Owner_1_XXX";
-	private static final boolean OWNER_1_DEFAULT = false;
 
-	private static final String OWNER_2_KEY = "XXX900000002";
-	private static final String OWNER_2_NAME = "XXX_Test_Owner_2_XXX";
-	private static final boolean OWNER_2_DEFAULT = true;
+    private static final String OWNER_1_KEY = "XXX900000001";
+    private static final String OWNER_1_NAME = "XXX_Test_Owner_1_XXX";
+    private static final boolean OWNER_1_DEFAULT = false;
 
-	private static final String OWNER_3_KEY = "XXX900000003";
-	private static final String OWNER_3_NAME = "XXX_Test_Owner_3_XXX";
-	private static final boolean OWNER_3_DEFAULT = false;
+    private static final String OWNER_2_KEY = "XXX900000002";
+    private static final String OWNER_2_NAME = "XXX_Test_Owner_2_XXX";
+    private static final boolean OWNER_2_DEFAULT = true;
 
-	private static final String BAD_KEY = "ZXZ_!_001";
+    private static final String OWNER_3_KEY = "XXX900000003";
+    private static final String OWNER_3_NAME = "XXX_Test_Owner_3_XXX";
+    private static final boolean OWNER_3_DEFAULT = false;
 
-	@Autowired
-	private OwnerValidate ownerValidate;
+    private static final String BAD_KEY = "ZXZ_!_001";
 
-	@Autowired
-	private OwnerRepository ownerRepository;
+    @Autowired
+    private OwnerValidate ownerValidate;
 
-	/**
-	 * Setup owner records for testing.
-	 */
-	@BeforeClass
-	@Rollback(false)
-	public void beforeClass() {
-		logger.info("Before Class");
+    @Autowired
+    private OwnerRepository ownerRepository;
 
-		// add the 3 owners to work with.
-		Owner owner1 = new Owner(OWNER_1_KEY, OWNER_1_NAME, OWNER_1_DEFAULT);
-		ownerRepository.saveAndFlush(owner1);
+    /**
+     * Setup owner records for testing.
+     */
+    @BeforeClass
+    @Rollback(false)
+    public void beforeClass() {
+        logger.info("Before Class");
 
-		Owner owner2 = new Owner(OWNER_2_KEY, OWNER_2_NAME, OWNER_2_DEFAULT);
-		ownerRepository.saveAndFlush(owner2);
+        // add the 3 owners to work with.
+        Owner owner1 = new Owner(OWNER_1_KEY, OWNER_1_NAME, OWNER_1_DEFAULT);
+        ownerRepository.saveAndFlush(owner1);
 
-		Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, OWNER_3_DEFAULT);
-		ownerRepository.saveAndFlush(owner3);
-	}
+        Owner owner2 = new Owner(OWNER_2_KEY, OWNER_2_NAME, OWNER_2_DEFAULT);
+        ownerRepository.saveAndFlush(owner2);
 
-	/**
-	 * Delete the test owner records that where created.
-	 */
-	@AfterClass
-	@Rollback(false)
-	public void afterClass() {
-		logger.info("After Class");
+        Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, OWNER_3_DEFAULT);
+        ownerRepository.saveAndFlush(owner3);
+    }
 
-		// delete the test records.
-		deleteTestRecord(OWNER_1_KEY);
-		deleteTestRecord(OWNER_2_KEY);
-		deleteTestRecord(OWNER_3_KEY);
-	}
+    /**
+     * Delete the test owner records that where created.
+     */
+    @AfterClass
+    @Rollback(false)
+    public void afterClass() {
+        logger.info("After Class");
 
-	/**
-	 * Validate a good owner to save.
-	 * 
-	 * @throws OwnerException
-	 */
-	@Test()
-	public void validateOwnerSave() throws OwnerException {
-		logger.info("Validate Owner Save");
-		
-		OwnerJson owner = new OwnerJson();
-		owner.setPrimaryKey(OWNER_1_KEY);
-		owner.setOwnerName(OWNER_1_NAME);
-		owner.setDefaultOwner(OWNER_1_DEFAULT);
+        // delete the test records.
+        deleteTestRecord(OWNER_1_KEY);
+        deleteTestRecord(OWNER_2_KEY);
+        deleteTestRecord(OWNER_3_KEY);
+    }
 
-		ownerValidate.validateOwnerSave(owner);
-	}
+    /**
+     * Validate a good owner to save.
+     *
+     * @throws OwnerException
+     */
+    @Test()
+    public void validateOwnerSave() throws OwnerException {
+        logger.info("Validate Owner Save");
 
-	/**
-	 * Test the error of an owner object missing the owner name.
-	 * 
-	 * @throws OwnerException
-	 */
-	@Test(expectedExceptions = OwnerException.class)
-	public void validateOwnerSaveNameNotSet() throws OwnerException {
-		logger.info("Validate Owner Save Name Not Set");
-		
-		String expectedError = OwnerException.OWNER_NAME_NOT_SET;
+        OwnerJson owner = new OwnerJson();
+        owner.setPrimaryKey(OWNER_1_KEY);
+        owner.setOwnerName(OWNER_1_NAME);
+        owner.setDefaultOwner(OWNER_1_DEFAULT);
 
-		try {
-			OwnerJson misingOwnerName = new OwnerJson();
-			misingOwnerName.setOwnerName("");
-			misingOwnerName.setDefaultOwner(OWNER_1_DEFAULT);
+        ownerValidate.validateOwnerSave(owner);
+    }
 
-			ownerValidate.validateOwnerSave(misingOwnerName);
+    /**
+     * Test the error of an owner object missing the owner name.
+     *
+     * @throws OwnerException
+     */
+    @Test(expectedExceptions = OwnerException.class)
+    public void validateOwnerSaveNameNotSet() throws OwnerException {
+        logger.info("Validate Owner Save Name Not Set");
 
-		} catch (OwnerException oe) {
-			assertEquals(expectedError, oe.getMessage());
-			throw oe;
-		}
-	}
+        String expectedError = OwnerException.OWNER_NAME_NOT_SET;
 
-	/**
-	 * Test the error of an owner object where the name already exists as another owner record.
-	 * 
-	 * @throws OwnerException
-	 */
-	@Test(expectedExceptions = OwnerException.class)
-	public void validateOwnerSaveNameExits() throws OwnerException {
-		logger.info("Validate Owner Save Name Exists: " + OWNER_1_NAME);
-		
-		String expectedError = OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + OWNER_1_NAME;
+        try {
+            OwnerJson misingOwnerName = new OwnerJson();
+            misingOwnerName.setOwnerName("");
+            misingOwnerName.setDefaultOwner(OWNER_1_DEFAULT);
 
-		try {
-			OwnerJson badOwnerName = new OwnerJson();
-			badOwnerName.setOwnerName(OWNER_1_NAME);
-			badOwnerName.setDefaultOwner(OWNER_1_DEFAULT);
+            ownerValidate.validateOwnerSave(misingOwnerName);
 
-			ownerValidate.validateOwnerSave(badOwnerName);
+        } catch (OwnerException oe) {
+            assertEquals(expectedError, oe.getMessage());
+            throw oe;
+        }
+    }
 
-		} catch (OwnerException oe) {
-			assertEquals(expectedError, oe.getMessage());
-			throw oe;
-		}
-	}
+    /**
+     * Test the error of an owner object where the name already exists as
+     * another owner record.
+     *
+     * @throws OwnerException
+     */
+    @Test(expectedExceptions = OwnerException.class)
+    public void validateOwnerSaveNameExits() throws OwnerException {
+        logger.info("Validate Owner Save Name Exists: " + OWNER_1_NAME);
 
-	/**
-	 * Validate the delete of an owner.
-	 * 
-	 * @throws OwnerException
-	 */
-	@Test
-	public void validateOwnerDelete() throws OwnerException {
-		logger.info("Validate Owner Delete");
-		
-		ownerValidate.validateOwnerDelete(OWNER_2_KEY);
-	}
+        String expectedError = OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + OWNER_1_NAME;
 
-	/**
-	 * Test the error of a non-existing primary key to delete.
-	 * 
-	 * @throws OwnerException
-	 */
-	@Test(expectedExceptions = OwnerException.class)
-	public void validateOwnerDeleteBadKey() throws OwnerException {
-		logger.info("Validate Onwer Delete Bad Key: " + BAD_KEY);
-		
-		String expectedError = OwnerException.OWNER_NOT_FOUND_KEY_DELETE_ERROR + BAD_KEY;
+        try {
+            OwnerJson badOwnerName = new OwnerJson();
+            badOwnerName.setOwnerName(OWNER_1_NAME);
+            badOwnerName.setDefaultOwner(OWNER_1_DEFAULT);
 
-		try {
-			ownerValidate.validateOwnerDelete(BAD_KEY);
-		} catch (OwnerException oe) {
-			assertEquals(expectedError, oe.getMessage());
-			throw oe;
-		}
-	}
+            ownerValidate.validateOwnerSave(badOwnerName);
 
-	/**
-	 * Delete an owner test record for the passed primary key.
-	 * 
-	 * @param deleteKey - the primary key of the owner to delete.
-	 */
-	private void deleteTestRecord(String deleteKey) {
-		Owner owner = ownerRepository.findOne(deleteKey);
+        } catch (OwnerException oe) {
+            assertEquals(expectedError, oe.getMessage());
+            throw oe;
+        }
+    }
 
-		if (owner != null) {
-			ownerRepository.delete(owner);
-		}
-	}
+    /**
+     * Validate the delete of an owner.
+     *
+     * @throws OwnerException
+     */
+    @Test
+    public void validateOwnerDelete() throws OwnerException {
+        logger.info("Validate Owner Delete");
+
+        ownerValidate.validateOwnerDelete(OWNER_2_KEY);
+    }
+
+    /**
+     * Test the error of a non-existing primary key to delete.
+     *
+     * @throws OwnerException
+     */
+    @Test(expectedExceptions = OwnerException.class)
+    public void validateOwnerDeleteBadKey() throws OwnerException {
+        logger.info("Validate Onwer Delete Bad Key: " + BAD_KEY);
+
+        String expectedError = OwnerException.OWNER_NOT_FOUND_KEY_DELETE_ERROR + BAD_KEY;
+
+        try {
+            ownerValidate.validateOwnerDelete(BAD_KEY);
+        } catch (OwnerException oe) {
+            assertEquals(expectedError, oe.getMessage());
+            throw oe;
+        }
+    }
+
+    /**
+     * Delete an owner test record for the passed primary key.
+     *
+     * @param deleteKey - the primary key of the owner to delete.
+     */
+    private void deleteTestRecord(String deleteKey) {
+        Owner owner = ownerRepository.findOne(deleteKey);
+
+        if (owner != null) {
+            ownerRepository.delete(owner);
+        }
+    }
 }

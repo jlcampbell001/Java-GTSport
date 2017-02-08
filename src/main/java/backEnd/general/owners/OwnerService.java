@@ -17,264 +17,261 @@ import backEnd.general.KeySequenceService;
  */
 @Service
 public class OwnerService {
-	/**
-	 * If there is no default owner setup a new one will be created using this as the owner name
-	 * or if the owner already exists it will be set as the default owner.
-	 */
-	public static final String DEFAULT_OWNER_NAME = "DEFAULT";
-	
-	@Autowired
-	private OwnerRepository ownerRepository;
 
-	@Autowired
-	private KeySequenceService keySequenceService;
-	
-	@Autowired
-	private OwnerValidate ownerValidate;
+    /**
+     * If there is no default owner setup a new one will be created using this
+     * as the owner name or if the owner already exists it will be set as the
+     * default owner.
+     */
+    public static final String DEFAULT_OWNER_NAME = "DEFAULT";
 
-	/**
-	 * Looks for an owner record by the primary key and returns an OwnerJson.
-	 * 
-	 * @param primaryKey
-	 *            - the primary key to look for
-	 * @return ownerJson - the owner found as an ownerJson object
-	 * @throws OwnerException
-	 *             - errors thrown if the record can not be found
-	 */
-	@Transactional
-	public OwnerJson getOwnerJsonByKey(String primaryKey) throws OwnerException {
-		Owner owner = null;
+    @Autowired
+    private OwnerRepository ownerRepository;
 
-		try {
-			owner = ownerRepository.findOne(primaryKey);
+    @Autowired
+    private KeySequenceService keySequenceService;
 
-			if (owner == null) {
-				throw new OwnerException(OwnerException.OWNER_NOT_FOUND_KEY_ERROR + primaryKey);
-			}
-		} catch (NoResultException ne) {
-			throw new OwnerException(OwnerException.OWNER_NOT_FOUND_KEY_ERROR + primaryKey);
-		}
+    @Autowired
+    private OwnerValidate ownerValidate;
 
-		OwnerJson ownerJson = toJson(owner);
+    /**
+     * Looks for an owner record by the primary key and returns an OwnerJson.
+     *
+     * @param primaryKey - the primary key to look for
+     * @return ownerJson - the owner found as an ownerJson object
+     * @throws OwnerException - errors thrown if the record can not be found
+     */
+    @Transactional
+    public OwnerJson getOwnerJsonByKey(String primaryKey) throws OwnerException {
+        Owner owner = null;
 
-		return ownerJson;
-	}
+        try {
+            owner = ownerRepository.findOne(primaryKey);
 
-	/**
-	 * Looks for an owner record by the name and returns an OwnerJson.
-	 * 
-	 * @param ownerName
-	 *            - the name to look for
-	 * @return ownerJson - the owner found as an ownerJson object
-	 * @throws OwnerException
-	 *             - errors thrown if the record can not be found
-	 */
-	@Transactional
-	public OwnerJson getOwnerJsonByName(String ownerName) throws OwnerException {
-		Owner owner = null;
+            if (owner == null) {
+                throw new OwnerException(OwnerException.OWNER_NOT_FOUND_KEY_ERROR + primaryKey);
+            }
+        } catch (NoResultException ne) {
+            throw new OwnerException(OwnerException.OWNER_NOT_FOUND_KEY_ERROR + primaryKey);
+        }
 
-		try {
-			owner = ownerRepository.findByName(ownerName);
-			if (owner == null) {
-				throw new OwnerException(OwnerException.OWNER_NOT_FOUND_NAME_ERROR + ownerName);
-			}
-		} catch (NoResultException ne) {
-			throw new OwnerException(OwnerException.OWNER_NOT_FOUND_NAME_ERROR + ownerName);
-		}
+        OwnerJson ownerJson = toJson(owner);
 
-		OwnerJson ownerJson = toJson(owner);
+        return ownerJson;
+    }
 
-		return ownerJson;
-	}
+    /**
+     * Looks for an owner record by the name and returns an OwnerJson.
+     *
+     * @param ownerName - the name to look for
+     * @return ownerJson - the owner found as an ownerJson object
+     * @throws OwnerException - errors thrown if the record can not be found
+     */
+    @Transactional
+    public OwnerJson getOwnerJsonByName(String ownerName) throws OwnerException {
+        Owner owner = null;
 
-	@Transactional
-	public OwnerJson getDefaultOwnerJson() throws OwnerException {
-		// Try and get the default owner if one is set.
-		Owner defaultOwner = null;
-		boolean foundDefaultOwner = false;
+        try {
+            owner = ownerRepository.findByName(ownerName);
+            if (owner == null) {
+                throw new OwnerException(OwnerException.OWNER_NOT_FOUND_NAME_ERROR + ownerName);
+            }
+        } catch (NoResultException ne) {
+            throw new OwnerException(OwnerException.OWNER_NOT_FOUND_NAME_ERROR + ownerName);
+        }
 
-		try {
-			defaultOwner = ownerRepository.findDefaultOwner();
-			if (defaultOwner != null) {
-				foundDefaultOwner = true;
-			}
-		} catch (NoResultException ne) {
-			// Do nothing as an owner will be set as the default or
-			// a default owner will be create. Just swallow this error.
-		}
+        OwnerJson ownerJson = toJson(owner);
 
-		// If there is only one owner set that owner to the default owner.
-		if (!foundDefaultOwner) {
-			if (ownerRepository.count() == 1) {
-				OwnerJson singleOwnerJson = getOwnerJsonByKey(ownerRepository.getMaxKey());
+        return ownerJson;
+    }
 
-				singleOwnerJson.setDefaultOwner(true);
+    /**
+     * Gets the owner record that is set as the default owner. This will create
+     * an owner record if no default owner record is set.
+     *
+     * @return - the OwnerJson for the found owner.
+     * @throws OwnerException - errors when trying to find the default owner.
+     */
+    @Transactional
+    public OwnerJson getDefaultOwnerJson() throws OwnerException {
+        // Try and get the default owner if one is set.
+        Owner defaultOwner = null;
+        boolean foundDefaultOwner = false;
 
-				saveOwner(singleOwnerJson);
+        try {
+            defaultOwner = ownerRepository.findDefaultOwner();
+            if (defaultOwner != null) {
+                foundDefaultOwner = true;
+            }
+        } catch (NoResultException ne) {
+            // Do nothing as an owner will be set as the default or
+            // a default owner will be create. Just swallow this error.
+        }
 
-				defaultOwner = toOwner(singleOwnerJson);
+        // If there is only one owner set that owner to the default owner.
+        if (!foundDefaultOwner) {
+            if (ownerRepository.count() == 1) {
+                OwnerJson singleOwnerJson = getOwnerJsonByKey(ownerRepository.getMaxKey());
 
-				foundDefaultOwner = true;
-			}
-		}
+                singleOwnerJson.setDefaultOwner(true);
 
-		// Find or create a default owner.
-		if (!foundDefaultOwner) {
-			OwnerJson defaultOwnerJson = null;
-			
-			try {
-				defaultOwnerJson = getOwnerJsonByName(DEFAULT_OWNER_NAME);
-			} catch (OwnerException oe) {
-				// Create a new default owner as the default owner was not found.
-				defaultOwnerJson = new OwnerJson();
-				
-				defaultOwnerJson.setOwnerName(DEFAULT_OWNER_NAME);
-				defaultOwnerJson.setDefaultOwner(true);
-				
-				saveOwner(defaultOwnerJson);
-			}
-			
-			defaultOwner = toOwner(defaultOwnerJson);
-			
-			foundDefaultOwner = true;
-		}
+                saveOwner(singleOwnerJson);
 
-		OwnerJson defaultOwnerJson = toJson(defaultOwner);
+                defaultOwner = toOwner(singleOwnerJson);
 
-		return defaultOwnerJson;
-	}
+                foundDefaultOwner = true;
+            }
+        }
 
-	/**
-	 * Save an owner record.
-	 * 
-	 * @param ownerJson
-	 *            - the owner to save
-	 * @throws OwnerException
-	 *             - errors thrown if the owner can not be validated
-	 */
-	@Transactional
-	public void saveOwner(OwnerJson ownerJson) throws OwnerException {
-		ownerValidate.validateOwnerSave(ownerJson);
+        // Find or create a default owner.
+        if (!foundDefaultOwner) {
+            @SuppressWarnings("UnusedAssignment")
+            OwnerJson defaultOwnerJson = null;
 
-		// New records do not have the primary key filled, so if it is not
-		// filled get one.
-		if (ownerJson.getPrimaryKey().trim().isEmpty()) {
-			String primaryKey = keySequenceService.getNextKey("OWNER", "OWN");
-			ownerJson.setPrimaryKey(primaryKey);
-		}
+            try {
+                defaultOwnerJson = getOwnerJsonByName(DEFAULT_OWNER_NAME);
+            } catch (OwnerException oe) {
+                // Create a new default owner as the default owner was not found.
+                defaultOwnerJson = new OwnerJson();
 
-		Owner owner = toOwner(ownerJson);
+                defaultOwnerJson.setOwnerName(DEFAULT_OWNER_NAME);
+                defaultOwnerJson.setDefaultOwner(true);
 
-		ownerRepository.saveAndFlush(owner);
-		
-		//If the owner is the default owner make sure it is the only one.
-		if (ownerJson.isDefaultOwner()) {
-			clearOtherDefaultOwners(ownerJson);
-		}
-	}
+                saveOwner(defaultOwnerJson);
+            }
 
-	/**
-	 * Delete the owner based on the passed primary key.
-	 * 
-	 * @param primaryKey
-	 *            - the primary key of the owner to delete
-	 * @throws OwnerException
-	 *             - errors thrown if the owner can not be validated
-	 */
-	@Transactional
-	public void deleteOwner(String primaryKey) throws OwnerException {
-		ownerValidate.validateOwnerDelete(primaryKey);
+            defaultOwner = toOwner(defaultOwnerJson);
+        }
 
-		ownerRepository.delete(primaryKey);
-	}
+        OwnerJson defaultOwnerJson = toJson(defaultOwner);
 
-	/**
-	 * Gets a list of owner records.
-	 * 
-	 * @return a list of owner jsons.
-	 */
-	@Transactional
-	public List<OwnerJson> getOwnersList() {
-		List<OwnerJson> ownerJsons = new ArrayList<OwnerJson>();
+        return defaultOwnerJson;
+    }
 
-		List<Owner> owners = ownerRepository.findAll();
+    /**
+     * Save an owner record.
+     *
+     * @param ownerJson - the owner to save
+     * @throws OwnerException - errors thrown if the owner can not be validated
+     */
+    @Transactional
+    public void saveOwner(OwnerJson ownerJson) throws OwnerException {
+        ownerValidate.validateOwnerSave(ownerJson);
 
-		for (Owner owner : owners) {
-			OwnerJson ownerJson = toJson(owner);
+        // New records do not have the primary key filled, so if it is not
+        // filled get one.
+        if (ownerJson.getPrimaryKey().trim().isEmpty()) {
+            String primaryKey = keySequenceService.getNextKey("OWNER", "OWN");
+            ownerJson.setPrimaryKey(primaryKey);
+        }
 
-			ownerJsons.add(ownerJson);
-		}
+        Owner owner = toOwner(ownerJson);
 
-		return ownerJsons;
-	}
+        ownerRepository.saveAndFlush(owner);
 
-	/**
-	 * Finds the max value key in the owners table and set the key sequence
-	 * record for the owners table to it.
-	 */
-	@Transactional
-	public void resetKeys() {
-		String maxKey = ownerRepository.getMaxKey();
+        //If the owner is the default owner make sure it is the only one.
+        if (ownerJson.isDefaultOwner()) {
+            clearOtherDefaultOwners(ownerJson);
+        }
+    }
 
-		int maxKeyValue = 0;
+    /**
+     * Delete the owner based on the passed primary key.
+     *
+     * @param primaryKey - the primary key of the owner to delete
+     * @throws OwnerException - errors thrown if the owner can not be validated
+     */
+    @Transactional
+    public void deleteOwner(String primaryKey) throws OwnerException {
+        ownerValidate.validateOwnerDelete(primaryKey);
 
-		if (maxKey != null && !maxKey.trim().isEmpty()) {
-			maxKeyValue = Integer.valueOf(maxKey.substring(3));
-		}
+        ownerRepository.delete(primaryKey);
+    }
 
-		keySequenceService.resetKeyValue("OWNER", maxKeyValue);
-	}
+    /**
+     * Gets a list of owner records.
+     *
+     * @return a list of owner jsons.
+     */
+    @Transactional
+    public List<OwnerJson> getOwnersList() {
+        List<OwnerJson> ownerJsons = new ArrayList<OwnerJson>();
 
+        List<Owner> owners = ownerRepository.findAll();
 
-	/**
-	 * Set all other owners default setting to false.
-	 * 
-	 * @param currentDefaultOwner - the owner that should be the default owner
-	 */
-	private void clearOtherDefaultOwners(OwnerJson currentDefaultOwner) {
-		List<Owner> defaultOwners = ownerRepository.findAllDefaultOwners();
-		
-		for (Owner owner : defaultOwners) {
-			
-			if (!owner.getPrimaryKey().equals(currentDefaultOwner.getPrimaryKey())) {
-				owner.setDefaultOwner(false);
-				
-				ownerRepository.saveAndFlush(owner);
-			}
-		}
-	}
-	
-	/**
-	 * Converts an owner object to an ownerJson object.
-	 * 
-	 * @param owner
-	 *            - the owner object to convert
-	 * @return ownerJson - the new ownerJson object
-	 */
-	private OwnerJson toJson(Owner owner) {
-		OwnerJson ownerJson = new OwnerJson();
+        for (Owner owner : owners) {
+            OwnerJson ownerJson = toJson(owner);
 
-		ownerJson.setPrimaryKey(owner.getPrimaryKey());
-		ownerJson.setOwnerName(owner.getOwnerName());
-		ownerJson.setDefaultOwner(owner.getDefaultOwner());
+            ownerJsons.add(ownerJson);
+        }
 
-		return ownerJson;
-	}
+        return ownerJsons;
+    }
 
-	/**
-	 * Converts an ownerJson to an owner object.
-	 * 
-	 * @param ownerJson
-	 *            - the ownerJson object to convert
-	 * @return owner - the new owner object
-	 */
-	private Owner toOwner(OwnerJson ownerJson) {
-		Owner owner = new Owner();
+    /**
+     * Finds the max value key in the owners table and set the key sequence
+     * record for the owners table to it.
+     */
+    @Transactional
+    public void resetKeys() {
+        String maxKey = ownerRepository.getMaxKey();
 
-		owner.setPrimaryKey(ownerJson.getPrimaryKey());
-		owner.setOwnerName(ownerJson.getOwnerName());
-		owner.setDefaultOwner(ownerJson.isDefaultOwner());
+        int maxKeyValue = 0;
 
-		return owner;
-	}
+        if (maxKey != null && !maxKey.trim().isEmpty()) {
+            maxKeyValue = Integer.parseInt(maxKey.substring(3));
+        }
+
+        keySequenceService.resetKeyValue("OWNER", maxKeyValue);
+    }
+
+    /**
+     * Set all other owners default setting to false.
+     *
+     * @param currentDefaultOwner - the owner that should be the default owner
+     */
+    private void clearOtherDefaultOwners(OwnerJson currentDefaultOwner) {
+        List<Owner> defaultOwners = ownerRepository.findAllDefaultOwners();
+
+        for (Owner owner : defaultOwners) {
+
+            if (!owner.getPrimaryKey().equals(currentDefaultOwner.getPrimaryKey())) {
+                owner.setDefaultOwner(false);
+
+                ownerRepository.saveAndFlush(owner);
+            }
+        }
+    }
+
+    /**
+     * Converts an owner object to an ownerJson object.
+     *
+     * @param owner - the owner object to convert
+     * @return ownerJson - the new ownerJson object
+     */
+    private OwnerJson toJson(Owner owner) {
+        OwnerJson ownerJson = new OwnerJson();
+
+        ownerJson.setPrimaryKey(owner.getPrimaryKey());
+        ownerJson.setOwnerName(owner.getOwnerName());
+        ownerJson.setDefaultOwner(owner.getDefaultOwner());
+
+        return ownerJson;
+    }
+
+    /**
+     * Converts an ownerJson to an owner object.
+     *
+     * @param ownerJson - the ownerJson object to convert
+     * @return owner - the new owner object
+     */
+    private Owner toOwner(OwnerJson ownerJson) {
+        Owner owner = new Owner();
+
+        owner.setPrimaryKey(ownerJson.getPrimaryKey());
+        owner.setOwnerName(ownerJson.getOwnerName());
+        owner.setDefaultOwner(ownerJson.isDefaultOwner());
+
+        return owner;
+    }
 }

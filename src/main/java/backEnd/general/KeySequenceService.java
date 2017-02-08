@@ -7,100 +7,107 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import backEnd.general.KeySequenceRepository;
 
 import static utils.StringUtils.*;
 
+/**
+ * The key sequence service.
+ *
+ * @author jonathan
+ */
 @Service
 @Configurable
 public class KeySequenceService {
 
-	@Autowired
-	private KeySequenceRepository keySequenceRepository;
-		
-	/**
-	 * Creates and returns the next primary key for the passed table.
-	 * 
-	 * @param tableName - the table to create a primary key for
-	 * @param keyPrefix - the primary key prefix to add to the beginning of the key
-	 * @return - the primary key value
-	 */
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public String getNextKey(String tableName, String keyPrefix) {
-		// Get the next key value for the table.
-		Integer keyValue = getNextKeyValue(tableName);
+    @Autowired
+    private KeySequenceRepository keySequenceRepository;
 
-		// Combine the key value to the key prefix.
-		String primaryKey = keyPrefix + padLeft(keyValue.toString(), 9, '0');
+    /**
+     * Creates and returns the next primary key for the passed table.
+     *
+     * @param tableName - the table to create a primary key for
+     * @param keyPrefix - the primary key prefix to add to the beginning of the
+     * key
+     * @return - the primary key value
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public String getNextKey(String tableName, String keyPrefix) {
+        // Get the next key value for the table.
+        Integer keyValue = getNextKeyValue(tableName);
 
-		return primaryKey;
-	}
+        // Combine the key value to the key prefix.
+        String primaryKey = keyPrefix + padLeft(keyValue.toString(), 9, '0');
 
-	/**
-	 * Sets a table's key value to the passed value.
-	 * 
-	 * @param tableName - the table to set
-	 * @param keyValue - the key value to set to
-	 */
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void resetKeyValue(String tableName, Integer keyValue) {
-		boolean createNewKeySequence = false;
+        return primaryKey;
+    }
 
-		KeySequence keySequence = null;
+    /**
+     * Sets a table's key value to the passed value.
+     *
+     * @param tableName - the table to set
+     * @param keyValue - the key value to set to
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @SuppressWarnings("null")
+    public void resetKeyValue(String tableName, Integer keyValue) {
+        boolean createNewKeySequence = false;
 
-		// Try and get the current key sequence record if it exists.
-		try {
-			keySequence = keySequenceRepository.findOne(tableName);
+        KeySequence keySequence = null;
 
-			if (keySequence == null) {
-				createNewKeySequence = true;
-			}
-		} catch (NoResultException e) {
-			createNewKeySequence = true;
-		}
+        // Try and get the current key sequence record if it exists.
+        try {
+            keySequence = keySequenceRepository.findOne(tableName);
 
-		// If it is not found then create a new record.
-		if (createNewKeySequence) {
-			keySequence = new KeySequence(tableName, 0);
-		}
+            if (keySequence == null) {
+                createNewKeySequence = true;
+            }
+        } catch (NoResultException e) {
+            createNewKeySequence = true;
+        }
 
-		keySequence.setLastKeyValue(keyValue);
+        // If it is not found then create a new record.
+        if (createNewKeySequence) {
+            keySequence = new KeySequence(tableName, 0);
+        }
 
-		keySequenceRepository.saveAndFlush(keySequence);
-	}
-	
-	/**
-	 * Gets the next key value for the passed table.
-	 * 
-	 * @param tableName - the table to get the next key value for
-	 * @return - the key value
-	 */
-	private Integer getNextKeyValue(String tableName) {
-		boolean createNewKeySequence = false;
+        keySequence.setLastKeyValue(keyValue);
 
-		KeySequence keySequence = null;
+        keySequenceRepository.saveAndFlush(keySequence);
+    }
 
-		// Try and get the current key sequence record if it exists.
-		try {
-			keySequence = keySequenceRepository.findOne(tableName);
+    /**
+     * Gets the next key value for the passed table.
+     *
+     * @param tableName - the table to get the next key value for
+     * @return - the key value
+     */
+    private Integer getNextKeyValue(String tableName) {
+        boolean createNewKeySequence = false;
 
-			if (keySequence == null) {
-				createNewKeySequence = true;
-			}
-		} catch (NoResultException e) {
-			createNewKeySequence = true;
-		}
+        KeySequence keySequence = null;
 
-		// If it is not found then create a new record.
-		if (createNewKeySequence) {
-			keySequence = new KeySequence(tableName, 0);
-		}
+        // Try and get the current key sequence record if it exists.
+        try {
+            keySequence = keySequenceRepository.findOne(tableName);
 
-		Integer keyValue = keySequence.getLastKeyValue() + 1;
-		keySequence.setLastKeyValue(keyValue);
+            if (keySequence == null) {
+                createNewKeySequence = true;
+            }
+        } catch (NoResultException e) {
+            createNewKeySequence = true;
+        }
 
-		keySequenceRepository.saveAndFlush(keySequence);
+        // If it is not found then create a new record.
+        if (createNewKeySequence) {
+            keySequence = new KeySequence(tableName, 0);
+        }
 
-		return keyValue;
-	}
+        @SuppressWarnings("null")
+        Integer keyValue = keySequence.getLastKeyValue() + 1;
+        keySequence.setLastKeyValue(keyValue);
+
+        keySequenceRepository.saveAndFlush(keySequence);
+
+        return keyValue;
+    }
 }

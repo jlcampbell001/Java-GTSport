@@ -40,6 +40,9 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private RegionRepository regionRepository;
 
+    /**
+     * Sets up the data in the regions for testing.
+     */
     @BeforeClass
     @Rollback(false)
     public void beforeClass() {
@@ -70,6 +73,11 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         deleteTestRecord(REGION_3_KEY);
     }
 
+    /**
+     * Test the validating the region save.
+     *
+     * @throws RegionException
+     */
     @Test
     public void validateRegionSave() throws RegionException {
         logger.info("Validate Region Save");
@@ -81,6 +89,11 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         regionValidate.validateRegionSave(regionJson);
     }
 
+    /**
+     * Test the region save validating with a missing description.
+     *
+     * @throws RegionException
+     */
     @Test(expectedExceptions = RegionException.class)
     public void validateRegionSaveDescriptionNotSet() throws RegionException {
         logger.info("Validate Region Save Description Not Set");
@@ -98,6 +111,11 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Test saving a region validation where the description already exists.
+     *
+     * @throws RegionException
+     */
     @Test(expectedExceptions = RegionException.class)
     public void validateRegionSaveDescriptionAlreadyExists() throws RegionException {
         logger.info("Validate Region Save Description Already Exists: " + REGION_2_DESCRIPTION);
@@ -115,6 +133,11 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Test deleting a region validation.
+     *
+     * @throws RegionException
+     */
     @Test()
     public void validateRegionDelete() throws RegionException {
         logger.info("Validate Region Delete");
@@ -122,6 +145,12 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         regionValidate.validateRegionDelete(REGION_3_KEY);
     }
 
+    /**
+     * Test deleting a region validation where the primary key is not in the
+     * regions table.
+     *
+     * @throws RegionException
+     */
     @Test(expectedExceptions = RegionException.class)
     public void validateRegionDeleteKeyNotFound() throws RegionException {
         logger.info("Validate Region Delete Bad Key: " + BAD_REGION_KEY);

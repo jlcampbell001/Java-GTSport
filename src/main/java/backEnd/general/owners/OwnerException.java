@@ -1,14 +1,37 @@
 package backEnd.general.owners;
 
+/**
+ * This is the exception errors for the owner.
+ * @author jonathan
+ */
 public class OwnerException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 100L;
 
-	public static final String OWNER_NOT_FOUND_KEY_ERROR = "Could not find owner by key: ";
-	public static final String OWNER_NOT_FOUND_NAME_ERROR = "Could not find owner: ";
-	public static final String OWNER_NOT_FOUND_KEY_DELETE_ERROR = "Could not find owner by key to delete: ";
-	public static final String OWNER_NAME_NOT_SET = "The owner name was not set.";
-	public static final String OWNER_NAME_EXISTS_ALREADY_ERROR = "An owner with the name already exists: ";
+    /**
+     * The error message for not finding an owner record based on the primary key.
+     */
+    public static final String OWNER_NOT_FOUND_KEY_ERROR = "Could not find owner by key: ";
+
+    /**
+     * The error message for not finding an owner record based on the name.
+     */
+    public static final String OWNER_NOT_FOUND_NAME_ERROR = "Could not find owner: ";
+
+    /**
+     * The error message for not finding an owner record based on the primary key to delete.
+     */
+    public static final String OWNER_NOT_FOUND_KEY_DELETE_ERROR = "Could not find owner by key to delete: ";
+
+    /**
+     * The error message for trying to save an owner but not giving it a name.
+     */
+    public static final String OWNER_NAME_NOT_SET = "The owner name was not set.";
+
+    /**
+     * The error message for trying to save an owner record but another owner already has that name.
+     */
+    public static final String OWNER_NAME_EXISTS_ALREADY_ERROR = "An owner with the name already exists: ";
 
 	/**
 	 * Exceptions error control and messages for the owner service.
