@@ -3,6 +3,7 @@
   <persistence-unit name="ca.campbell.jonathan_GTSport_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>backEnd.general.regions.Region</class>
+    <class>backEnd.general.countries.Country</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
       <property name="javax.persistence.jdbc.user" value="app"/>

@@ -1,5 +1,8 @@
 package backEnd.general.regions;
 
+import backEnd.general.countries.Country;
+import backEnd.general.countries.CountryRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,9 @@ public class RegionValidate {
 
     @Autowired
     RegionRepository regionRepository;
+    
+    @Autowired
+    CountryRepository countryRepository;
 
     /**
      * Validates the region data on a save.
@@ -52,6 +58,13 @@ public class RegionValidate {
         //Make sure the region key exists to delete.
         if (!regionRepository.exists(primaryKey)) {
             throw new RegionException(RegionException.REGION_KEY_NOT_FOUND_TO_DELETE + primaryKey);
+        }
+        
+        //Make sure the region is not in used with a country.
+        List<Country> countries = countryRepository.findAllByRegionKey(primaryKey);
+        
+        if (!countries.isEmpty()) {
+            throw new RegionException(RegionException.REGION_CANNOT_DELETE_IN_USE_COUNTRY);
         }
     }
 }

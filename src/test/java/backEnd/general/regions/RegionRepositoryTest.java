@@ -1,6 +1,7 @@
 package backEnd.general.regions;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.countries.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,7 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
- * Tests for the region repository.
+ * Tests for the country repository.
  *
  * @author jonathan
  */
@@ -31,9 +32,12 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
     private static final String REGION_3_DESCRIPTION = "TEST_REGION_3";
 
     private static final String BAD_DESCRIPTION = "XXX_BAD_DESCRIPTION_XXX";
-
+    
     @Autowired
     private RegionRepository regionRepository;
+    
+    @Autowired
+    private CountryRepository countryRepository;
 
     /**
      * Setup records to test against.
@@ -51,11 +55,11 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
         regionRepository.saveAndFlush(region2);
 
         Region region3 = new Region(REGION_3_KEY, REGION_3_DESCRIPTION);
-        regionRepository.saveAndFlush(region3);
+        regionRepository.saveAndFlush(region3);        
     }
 
     /**
-     * Delete the region records added for testing.
+     * Delete the country records added for testing.
      */
     @AfterClass
     @Rollback(false)

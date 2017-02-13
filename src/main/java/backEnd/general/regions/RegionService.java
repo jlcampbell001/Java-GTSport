@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegionService {
 
     @Autowired
-    RegionRepository regionRepository;
+    private RegionRepository regionRepository;
 
     @Autowired
-    KeySequenceService keySequenceService;
+    private KeySequenceService keySequenceService;
 
     @Autowired
-    RegionValidate regionValidate;
+    private RegionValidate regionValidate;
 
     /**
      * Gets the region for the passed primary key.

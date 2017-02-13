@@ -43,6 +43,12 @@ public class RegionException extends Exception {
     public static final String REGION_NOT_FOUND_BY_DESCRIPTION = "Could not find the region with the description: ";
 
     /**
+     * The error message when trying to delete a region and it is still in use
+     * in a country.
+     */
+    public static final String REGION_CANNOT_DELETE_IN_USE_COUNTRY = "Can not delete the region as it is in use with coutires.";
+
+    /**
      * Creates a new instance of <code>RegionException</code> without detail
      * message.
      */

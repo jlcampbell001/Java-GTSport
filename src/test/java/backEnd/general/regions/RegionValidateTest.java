@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.regions;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.countries.Country;
+import backEnd.general.countries.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,6 +13,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Test the region validation.
  *
  * @author jonathan
  */
@@ -34,11 +32,17 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
 
     private static final String BAD_REGION_KEY = "X!!990000009";
 
+    private static final String COUNTRY_KEY = "COU900000001";
+    private static final String COUNTRY_DESCRIPTION = "REGION_TEST_COUNTRY";
+
     @Autowired
     private RegionValidate regionValidate;
 
     @Autowired
     private RegionRepository regionRepository;
+
+    @Autowired
+    private CountryRepository countryRepository;
 
     /**
      * Sets up the data in the regions for testing.
@@ -57,6 +61,10 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
 
         Region region3 = new Region(REGION_3_KEY, REGION_3_DESCRIPTION);
         regionRepository.saveAndFlush(region3);
+
+        // add a country to work with.
+        Country country = new Country(COUNTRY_KEY, COUNTRY_DESCRIPTION, REGION_1_KEY);
+        countryRepository.saveAndFlush(country);
     }
 
     /**
@@ -68,9 +76,10 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteTestRecord(REGION_1_KEY);
-        deleteTestRecord(REGION_2_KEY);
-        deleteTestRecord(REGION_3_KEY);
+        deleteRegionTestRecord(REGION_1_KEY);
+        deleteRegionTestRecord(REGION_2_KEY);
+        deleteRegionTestRecord(REGION_3_KEY);
+        deleteCountryTestRecord(COUNTRY_KEY);
     }
 
     /**
@@ -165,11 +174,38 @@ public class RegionValidateTest extends AbstractTestNGSpringContextTests {
         }
     }
 
-    private void deleteTestRecord(String deleteKey) {
+    /**
+     * Test deleting a region validation where the primary key is still in use in a country.
+     *
+     * @throws RegionException
+     */
+    @Test(expectedExceptions = RegionException.class)
+    public void validateRegionDeleteKeyRegionInCountry() throws RegionException {
+        logger.info("Validate Region Delete Region In Country: " + REGION_1_KEY);
+
+        String expectedError = RegionException.REGION_CANNOT_DELETE_IN_USE_COUNTRY;
+
+        try {
+            regionValidate.validateRegionDelete(REGION_1_KEY);
+        } catch (RegionException re) {
+            assertEquals(re.getMessage(), expectedError);
+            throw re;
+        }
+    }
+
+    private void deleteRegionTestRecord(String deleteKey) {
         Region region = regionRepository.findOne(deleteKey);
 
         if (region != null) {
             regionRepository.delete(region);
+        }
+    }
+
+    private void deleteCountryTestRecord(String deleteKey) {
+        Country country = countryRepository.findOne(deleteKey);
+
+        if (country != null) {
+            countryRepository.delete(country);
         }
     }
 }

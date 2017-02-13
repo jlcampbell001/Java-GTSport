@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import backEnd.general.KeySequenceService;
 
 /**
+ * The owner service.
+ *
  * @author Jonathan
  *
  */
