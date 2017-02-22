@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegionValidate {
 
     @Autowired
-    RegionRepository regionRepository;
+    private RegionRepository regionRepository;
     
     @Autowired
-    CountryRepository countryRepository;
+    private CountryRepository countryRepository;
 
     /**
      * Validates the region data on a save.

@@ -1,6 +1,9 @@
 package backEnd.general.countries;
 
+import backEnd.general.dealers.Dealer;
+import backEnd.general.dealers.DealerRepository;
 import backEnd.general.regions.RegionRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class CountryValidate {
 
     @Autowired
     private RegionRepository regionRepository;
+    
+    @Autowired
+    private DealerRepository dealerRepository;
 
     /**
      * Validates the country Json to save.
@@ -66,6 +72,11 @@ public class CountryValidate {
             throw new CountryException(CountryException.COUNTRY_KEY_NOT_FOUND_DO_DELETE + primaryKey);
         }
 
-        // Need a validate to make sure the country is not used in a car.
+        // Make sure the country is not used in a dealer.
+        List<Dealer> dealers = dealerRepository.findAllByCountryKey(primaryKey);
+        
+        if (!dealers.isEmpty()) {
+            throw new CountryException(CountryException.COUNTRY_IS_IN_USE);
+        }
     }
 }

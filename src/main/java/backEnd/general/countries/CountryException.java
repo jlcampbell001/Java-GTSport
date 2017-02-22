@@ -45,6 +45,12 @@ public class CountryException extends Exception {
     public static final String COUNTRY_DESCRIPTION_NOT_FOUND = "The country description could not be found: ";
 
     /**
+     * The error message for not being able to delete the country because it is
+     * used in another table.
+     */
+    public static final String COUNTRY_IS_IN_USE = "The country can not be deleted as it is in use.";
+
+    /**
      * Creates a new instance of <code>CountryException</code> without detail
      * message.
      */

@@ -9,10 +9,13 @@
       <class name="backEnd.general.owners.OwnerServiceTest"/>
       <class name="backEnd.general.regions.RegionRepositoryTest"/>
       <class name="backEnd.general.countries.CountryRepositoryTest"/>
+      <class name="backEnd.general.dealers.DealerRepositoryTest"/>
       <class name="backEnd.general.regions.RegionValidateTest"/>
       <class name="backEnd.general.regions.RegionServiceTest"/>
       <class name="backEnd.general.countries.CountryValidateTest"/>
       <class name="backEnd.general.countries.CountryServiceTest"/>
+      <class name="backEnd.general.dealers.DealerValidateTest"/>
+      <class name="backEnd.general.dealers.DealerServiceTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
