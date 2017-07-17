@@ -1,6 +1,9 @@
 package backEnd.general.dealers;
 
+import backEnd.general.cars.Car;
+import backEnd.general.cars.CarRepository;
 import backEnd.general.countries.CountryRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class DealerValidate {
 
     @Autowired
     private CountryRepository countryRepository;
+    
+    @Autowired
+    private CarRepository carRepository;
 
     /**
      * Validates the dealer for saving.
@@ -64,6 +70,11 @@ public class DealerValidate {
             throw new DealerException(DealerException.DEALER_KEY_DOES_NOT_EXIST_DELETE + primaryKey);
         }
 
-        // Need to code to check and see if the dealer is being used in a car record.
+        // Make sure the dealer is not being used by a car.
+        List<Car> cars = carRepository.findAllByDealerKey(primaryKey);
+        
+        if(!cars.isEmpty()) {
+            throw new DealerException(DealerException.DEALER_IS_IN_USE);
+        }
     }
 }

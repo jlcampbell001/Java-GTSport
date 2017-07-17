@@ -25,12 +25,12 @@ public class CountryException extends Exception {
 
     /**
      * The error message for trying to save a country with a region key that
-     * dose not exist.
+     * does not exist.
      */
-    public static final String REGION_DOSE_NOT_EXIST = "The country region key is dose not exist: ";
+    public static final String REGION_DOES_NOT_EXIST = "The country region key does not exist: ";
 
     /**
-     * The error message for trying to delete a country key that dose not exist.
+     * The error message for trying to delete a country key that does not exist.
      */
     public static final String COUNTRY_KEY_NOT_FOUND_DO_DELETE = "The country key could not be found to delete: ";
 

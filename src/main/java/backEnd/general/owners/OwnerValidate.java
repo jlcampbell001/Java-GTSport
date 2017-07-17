@@ -30,7 +30,7 @@ public class OwnerValidate {
             throw new OwnerException(OwnerException.OWNER_NAME_NOT_SET);
         }
 
-        // Make sure the owner name dose not already exist.
+        // Make sure the owner name does not already exist.
         Owner existingOwner = ownerRepository.findByName(ownerJson.getOwnerName());
 
         if (existingOwner != null) {

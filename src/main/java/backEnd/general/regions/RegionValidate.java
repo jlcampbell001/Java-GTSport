@@ -35,7 +35,7 @@ public class RegionValidate {
             throw new RegionException(RegionException.REGION_DESCRIPTION_NOT_SET);
         }
 
-        // Make sure the region description dose not already exist.
+        // Make sure the region description does not already exist.
         Region existingRegion = regionRepository.findbyDescription(regionJson.getDescription());
 
         if (existingRegion != null) {
@@ -51,7 +51,7 @@ public class RegionValidate {
      *
      * @param primaryKey - the primary key to delete
      * @throws RegionException - Errors if the region can not be deleted. -
-     * Primary key dose not exist.
+     * Primary key does not exist.
      */
     @Transactional
     public void validateRegionDelete(String primaryKey) throws RegionException {

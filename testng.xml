@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite" parallel="false">
-  <test name="Test">
-    <classes>
-      <class name="backEnd.general.KeySequenceServiceTest"/>
-      <class name="backEnd.general.owners.OwnerRepositoryTest"/>
-      <class name="backEnd.general.owners.OwnerValidateTest"/>
-      <class name="backEnd.general.owners.OwnerServiceTest"/>
-      <class name="backEnd.general.regions.RegionRepositoryTest"/>
-      <class name="backEnd.general.countries.CountryRepositoryTest"/>
-      <class name="backEnd.general.dealers.DealerRepositoryTest"/>
-      <class name="backEnd.general.regions.RegionValidateTest"/>
-      <class name="backEnd.general.regions.RegionServiceTest"/>
-      <class name="backEnd.general.countries.CountryValidateTest"/>
-      <class name="backEnd.general.countries.CountryServiceTest"/>
-      <class name="backEnd.general.dealers.DealerValidateTest"/>
-      <class name="backEnd.general.dealers.DealerServiceTest"/>
-    </classes>
-  </test> <!-- Test -->
+<!--suite name="Suite" parallel="none"-->
+<suite name="Suite">
+    <test name="KeySequence">
+        <classes>
+            <class name="backEnd.general.KeySequenceServiceTest"/>
+        </classes>
+    </test>
+    <test name="Owner">
+        <classes>
+            <class name="backEnd.general.owners.OwnerRepositoryTest"/>
+            <class name="backEnd.general.owners.OwnerValidateTest"/>
+            <class name="backEnd.general.owners.OwnerServiceTest"/>
+        </classes>
+    </test>
+    <test name="Repository">
+        <classes>
+            <class name="backEnd.general.regions.RegionRepositoryTest"/>
+            <class name="backEnd.general.countries.CountryRepositoryTest"/>
+            <class name="backEnd.general.dealers.DealerRepositoryTest"/>
+            <class name="backEnd.general.cars.CarRepositoryTest"/>
+        </classes>
+    </test>
+    <test name="Region">
+        <classes>
+            <class name="backEnd.general.regions.RegionValidateTest"/>
+            <class name="backEnd.general.regions.RegionServiceTest"/>
+        </classes>
+    </test>
+    <test name="Country">
+        <classes>
+            <class name="backEnd.general.countries.CountryValidateTest"/>
+            <class name="backEnd.general.countries.CountryServiceTest"/>
+        </classes>
+    </test>
+    <test name="Dealer">
+        <classes>
+            <class name="backEnd.general.dealers.DealerValidateTest"/>
+            <class name="backEnd.general.dealers.DealerServiceTest"/>
+        </classes>
+    </test>
+    <test name="Car">
+        <classes>
+            <class name="backEnd.general.cars.CarValidateTest"/>
+        </classes>
+    </test> <!-- Test -->
 </suite> <!-- Suite -->

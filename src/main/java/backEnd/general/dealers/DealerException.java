@@ -30,7 +30,7 @@ public class DealerException extends Exception {
     public static final String COUNTRY_KEY_DOES_NOT_EXIST = "The country key was not found for the dealer: ";
 
     /**
-     * The error message for trying to delete a dealer that dose not exist.
+     * The error message for trying to delete a dealer that does not exist.
      */
     public static final String DEALER_KEY_DOES_NOT_EXIST_DELETE = "The dealer key can not be found to delete: ";
 
@@ -45,6 +45,8 @@ public class DealerException extends Exception {
      * the dealer.
      */
     public static final String DEALER_NAME_NOT_FOUND = "The dealer can not be found by the name: ";
+    
+    public static final String DEALER_IS_IN_USE = "The dealer can not be deleted as it is in use.";
 
     /**
      * Creates a new instance of <code>DealerException</code> without detail

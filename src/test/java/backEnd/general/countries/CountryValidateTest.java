@@ -200,7 +200,7 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
     }
 
     /**
-     * Test saving country validate where the region key dose not exist.
+     * Test saving country validate where the region key does not exist.
      *
      * @throws CountryException
      */
@@ -208,7 +208,7 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
     public void validateCountrySaveBadRegionKey() throws CountryException {
         logger.info("Validate Country Save Bad Region Key: " + BAD_REGION_KEY);
 
-        String expectedError = CountryException.REGION_DOSE_NOT_EXIST + BAD_REGION_KEY;
+        String expectedError = CountryException.REGION_DOES_NOT_EXIST + BAD_REGION_KEY;
 
         CountryJson countryJson = new CountryJson();
         countryJson.setPrimaryKey(COUNTRY_1_KEY);

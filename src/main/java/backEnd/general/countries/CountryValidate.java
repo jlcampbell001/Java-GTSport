@@ -56,7 +56,7 @@ public class CountryValidate {
 
         // Make sure the region key exists.
         if (!regionRepository.exists(countryJson.getRegionKey())) {
-            throw new CountryException(CountryException.REGION_DOSE_NOT_EXIST + countryJson.getRegionKey());
+            throw new CountryException(CountryException.REGION_DOES_NOT_EXIST + countryJson.getRegionKey());
         }
     }
 

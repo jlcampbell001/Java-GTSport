@@ -292,7 +292,7 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test(dependsOnMethods = {"getDefaultOwner"})
     public void getDefaultOwnerMultipleOwnersNoneAreDefaultDefaultOwnerNotExits() throws OwnerException {
-        logger.info("Get Default Owner Multiple Owners None Are Set As Default And DEFAULT Owner Dose Not Exist");
+        logger.info("Get Default Owner Multiple Owners None Are Set As Default And DEFAULT Owner Does Not Exist");
 
         deleteDefaultOwner();
 

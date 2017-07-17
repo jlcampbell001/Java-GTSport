@@ -82,6 +82,8 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
         deleteTestRecord(REGION_2_KEY);
         deleteTestRecord(REGION_3_KEY);
         deleteTestRecord(region4Key);
+        
+        regionService.resetKeys();
     }
 
     /**

@@ -103,6 +103,8 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
         deleteDealerTestRecord(DEALER_2_KEY);
         deleteDealerTestRecord(DEALER_3_KEY);
         deleteDealerTestRecord(dealer4Key);
+        
+        dealerService.resetKeys();
 
         deleteCountryTestRecord(COUNTRY_1_KEY);
         deleteCountryTestRecord(COUNTRY_2_KEY);
@@ -123,7 +125,7 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     /**
-     * Test the get dealer by primary key and getting the error because it dose
+     * Test the get dealer by primary key and getting the error because it does
      * not exist.
      *
      * @throws DealerException

@@ -1,6 +1,8 @@
 package backEnd.general.dealers;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.cars.Car;
+import backEnd.general.cars.CarRepository;
 import backEnd.general.countries.Country;
 import backEnd.general.countries.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,10 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
     private static final String DEALER_3_KEY = "XXX900000003";
     private static final String DEALER_3_NAME = "DEALER_3";
     private static final String DEALER_3_COUNTRY_KEY = COUNTRY_1_KEY;
+    
+    private static final String CAR_KEY = "CAR900000001";
+    private static final String CAR_NAME = "TEST_CAR";
+    private static final String CAR_DEALER_KEY = DEALER_2_KEY;
 
     private static final String BAD_COUNTRY_KEY = "C!X999999999";
     private static final String BAD_DEALER_KEY = "D!X999999999";
@@ -49,6 +55,9 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private DealerRepository dealerRepository;
+    
+    @Autowired
+    private CarRepository carRepository;
 
     @Autowired
     private DealerValidate dealerValidate;
@@ -77,6 +86,13 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
 
         Country country2 = new Country(COUNTRY_2_KEY, COUNTRY_2_DESCRIPTION, COUNTRY_2_REGION_KEY);
         countryRepository.saveAndFlush(country2);
+        
+        // add car record.
+        Car car = new Car();
+        car.setPrimaryKey(CAR_KEY);
+        car.setName(CAR_NAME);
+        car.setDealerKey(CAR_DEALER_KEY);
+        carRepository.saveAndFlush(car);
     }
 
     /**
@@ -94,6 +110,8 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
 
         deleteCountryTestRecord(COUNTRY_1_KEY);
         deleteCountryTestRecord(COUNTRY_2_KEY);
+        
+        deleteCarTestRecord(CAR_KEY);
     }
 
     /**
@@ -185,7 +203,7 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
     }
 
     /**
-     * Test the validate dealer save where the country key dose not exist.
+     * Test the validate dealer save where the country key does not exist.
      *
      * @throws DealerException
      */
@@ -239,6 +257,21 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
             throw de;
         }
     }
+    
+    @Test(expectedExceptions = DealerException.class)
+    public void validateDealerDeleteInUse() throws DealerException {
+        logger.info("Validate Dealer Delete In Use");
+        
+        String expectedException = DealerException.DEALER_IS_IN_USE;
+        
+        try {
+            dealerValidate.validateDealerDelete(DEALER_2_KEY);
+        } catch (DealerException de) {
+            assertEquals(de.getMessage(), expectedException);
+            throw de;
+        }
+        
+    }
 
     private void deleteDealerTestRecord(String deleteKey) {
         Dealer dealer = dealerRepository.findOne(deleteKey);
@@ -253,6 +286,14 @@ public class DealerValidateTest extends AbstractTestNGSpringContextTests {
 
         if (country != null) {
             countryRepository.delete(country);
+        }
+    }
+
+    private void deleteCarTestRecord(String deleteKey) {
+        Car car = carRepository.findOne(deleteKey);
+
+        if (car != null) {
+            carRepository.delete(car);
         }
     }
 }
