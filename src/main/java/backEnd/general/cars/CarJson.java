@@ -12,7 +12,7 @@ public class CarJson {
     private String powerRPM = "";
     private String torqueRPM = "";
     private String driveTrain = "";
-    private String apiration = "";
+    private String aspiration = "";
     
     private int year = 0;
     private int level = 0;
@@ -82,12 +82,12 @@ public class CarJson {
         this.driveTrain = driveTrain;
     }
 
-    public String getApiration() {
-        return apiration;
+    public String getAspiration() {
+        return aspiration;
     }
 
-    public void setApiration(String apiration) {
-        this.apiration = apiration;
+    public void setAspiration(String aspiration) {
+        this.aspiration = aspiration;
     }
 
     public int getYear() {
@@ -172,6 +172,6 @@ public class CarJson {
 
     @Override
     public String toString() {
-        return "CarJson[" + "primaryKey=" + primaryKey + ", name=" + name + ", dealerKey=" + dealerKey + ", displacementCC=" + displacementCC + ", powerRPM=" + powerRPM + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain + ", apiration=" + apiration + ", year=" + year + ", level=" + level + ", powerPoints=" + powerPoints + ", horsePower=" + horsePower + ", price=" + price + ", torqueFtLb=" + torqueFtLb + ", length=" + length + ", width=" + width + ", height=" + height + ", weight=" + weight + ']';
+        return "CarJson[" + "primaryKey=" + primaryKey + ", name=" + name + ", dealerKey=" + dealerKey + ", displacementCC=" + displacementCC + ", powerRPM=" + powerRPM + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain + ", apiration=" + aspiration + ", year=" + year + ", level=" + level + ", powerPoints=" + powerPoints + ", horsePower=" + horsePower + ", price=" + price + ", torqueFtLb=" + torqueFtLb + ", length=" + length + ", width=" + width + ", height=" + height + ", weight=" + weight + ']';
     }   
 }

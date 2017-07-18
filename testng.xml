@@ -7,42 +7,63 @@
             <class name="backEnd.general.KeySequenceServiceTest"/>
         </classes>
     </test>
-    <test name="Owner">
-        <classes>
-            <class name="backEnd.general.owners.OwnerRepositoryTest"/>
-            <class name="backEnd.general.owners.OwnerValidateTest"/>
-            <class name="backEnd.general.owners.OwnerServiceTest"/>
-        </classes>
-    </test>
     <test name="Repository">
         <classes>
+            <class name="backEnd.general.owners.OwnerRepositoryTest"/>
             <class name="backEnd.general.regions.RegionRepositoryTest"/>
             <class name="backEnd.general.countries.CountryRepositoryTest"/>
             <class name="backEnd.general.dealers.DealerRepositoryTest"/>
             <class name="backEnd.general.cars.CarRepositoryTest"/>
         </classes>
     </test>
-    <test name="Region">
+    <test name="OwnerValidate">
+        <classes>
+            <class name="backEnd.general.owners.OwnerValidateTest"/>
+        </classes>
+    </test>
+    <test name="OwnerService">
+        <classes>
+            <class name="backEnd.general.owners.OwnerServiceTest"/>
+        </classes>
+    </test>
+    <test name="RegionValidate">
         <classes>
             <class name="backEnd.general.regions.RegionValidateTest"/>
+        </classes>
+    </test>
+    <test name="RegionService">
+        <classes>
             <class name="backEnd.general.regions.RegionServiceTest"/>
         </classes>
     </test>
-    <test name="Country">
+    <test name="CountryValidate">
         <classes>
             <class name="backEnd.general.countries.CountryValidateTest"/>
+        </classes>
+    </test>
+    <test name="CountryService">
+        <classes>
             <class name="backEnd.general.countries.CountryServiceTest"/>
         </classes>
     </test>
-    <test name="Dealer">
+    <test name="DealerValidate">
         <classes>
             <class name="backEnd.general.dealers.DealerValidateTest"/>
+        </classes>
+    </test>
+    <test name="DealerService">
+        <classes>
             <class name="backEnd.general.dealers.DealerServiceTest"/>
         </classes>
     </test>
-    <test name="Car">
+    <test name="CarValidate">
         <classes>
             <class name="backEnd.general.cars.CarValidateTest"/>
         </classes>
-    </test> <!-- Test -->
+    </test> 
+    <test name="CarService">
+        <classes>
+            <class name="backEnd.general.cars.CarServiceTest"/>
+        </classes>
+    </test> 
 </suite> <!-- Suite -->

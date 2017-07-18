@@ -47,8 +47,8 @@ public class CarValidate {
         }
         
         // Make sure the aspiration is (NA, T, SC, EV) if not empty.
-        if (!carJson.getApiration().trim().isEmpty()) {
-            if (Aspiration.toAspiration(carJson.getApiration()) == null) {
+        if (!carJson.getAspiration().trim().isEmpty()) {
+            if (Aspiration.toAspiration(carJson.getAspiration()) == null) {
                 throw new CarException(CarException.ASPIRATION_NOT_VALID);
             }
         }

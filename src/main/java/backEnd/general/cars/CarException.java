@@ -13,6 +13,8 @@ public class CarException extends Exception {
     public static final String NAME_ALREADY_EXISTS = "The car name already exists.";
     public static final String DEALER_KEY_DOES_NOT_EXIST = "The dealer key does not exist: ";
     public static final String CAR_KEY_NOT_FOUND_TO_DELETE = "The car key can not be found to delete: ";
+    public static final String CAR_KEY_NOT_FOUND = "The car key can not be found: ";
+    public static final String CAR_NAME_NOT_FOUND = "The car name can not be found: ";
     
     /**
      * Creates a new instance of <code>CarException</code> without detail

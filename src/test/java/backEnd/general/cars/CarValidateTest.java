@@ -159,7 +159,7 @@ public class CarValidateTest extends AbstractTestNGSpringContextTests {
         carJson.setDealerKey(DEALER_1_KEY);
         carJson.setName(CAR_1_NAME);
         carJson.setDriveTrain(CAR_1_DRIVETRAIN);
-        carJson.setApiration(CAR_1_ASPIRATION);
+        carJson.setAspiration(CAR_1_ASPIRATION);
 
         carValidate.validateCarSave(carJson);
     }
@@ -188,7 +188,7 @@ public class CarValidateTest extends AbstractTestNGSpringContextTests {
         carJson.setDealerKey(DEALER_1_KEY);
         carJson.setName(CAR_1_NAME);
         carJson.setDriveTrain(CAR_1_DRIVETRAIN);
-        carJson.setApiration("");
+        carJson.setAspiration("");
 
         carValidate.validateCarSave(carJson);
     }
@@ -267,7 +267,7 @@ public class CarValidateTest extends AbstractTestNGSpringContextTests {
             carJson.setDealerKey(CAR_1_DEALER_KEY);
             carJson.setName(CAR_1_NAME);
             carJson.setDriveTrain(CAR_1_DRIVETRAIN);
-            carJson.setApiration(BAD_ASPIRATION);
+            carJson.setAspiration(BAD_ASPIRATION);
 
             carValidate.validateCarSave(carJson);
         } catch (CarException ce) {
@@ -309,7 +309,7 @@ public class CarValidateTest extends AbstractTestNGSpringContextTests {
             carJson.setDealerKey(BAD_DEALER_KEY);
             carJson.setName(CAR_1_NAME);
             carJson.setDriveTrain(CAR_1_DRIVETRAIN);
-            carJson.setApiration(CAR_1_ASPIRATION);
+            carJson.setAspiration(CAR_1_ASPIRATION);
             
             carValidate.validateCarSave(carJson);
         } catch (CarException ce) {

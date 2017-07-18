@@ -53,6 +53,7 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
     private static final int EXPECTED_NUMBER_OF_ROWS_COUNTRY = 2;
 
     private static final String EXPECTED_MAX_KEY = "DEA900000004";
+    
     @Autowired
     private CountryRepository countryRepository;
 
@@ -182,6 +183,7 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
      *
      * @throws DealerException
      */
+    
     @Test
     public void saveNewDealer() throws DealerException {
         logger.info("Save New Dealer");
