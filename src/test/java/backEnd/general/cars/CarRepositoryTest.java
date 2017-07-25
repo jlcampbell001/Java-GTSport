@@ -1,7 +1,6 @@
 package backEnd.general.cars;
 
 import backEnd.general.GTSportConfig;
-import backEnd.general.countries.Country;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;

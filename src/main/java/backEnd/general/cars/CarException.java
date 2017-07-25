@@ -15,6 +15,8 @@ public class CarException extends Exception {
     public static final String CAR_KEY_NOT_FOUND_TO_DELETE = "The car key can not be found to delete: ";
     public static final String CAR_KEY_NOT_FOUND = "The car key can not be found: ";
     public static final String CAR_NAME_NOT_FOUND = "The car name can not be found: ";
+    public static final String SEARCH_CRITERIA_NOT_PROVIDED = "No car search criteria provided.";
+    public static final String NO_CARS_FOUND_FOR_CRITERIA = "No cars found for criteria.";
     
     /**
      * Creates a new instance of <code>CarException</code> without detail

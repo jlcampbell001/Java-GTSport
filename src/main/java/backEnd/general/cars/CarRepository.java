@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author jonathan
  */
 @Repository
-public interface CarRepository extends JpaRepository<Car, String> {
+public interface CarRepository extends JpaRepository<Car, String>, CarRepositoryCustom {
     @Query("Select car from Car car where car.name = :name")
     Car findByName(@Param("name") String name);
     
