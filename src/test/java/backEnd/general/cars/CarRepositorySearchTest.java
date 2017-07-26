@@ -209,6 +209,21 @@ public class CarRepositorySearchTest extends AbstractTestNGSpringContextTests {
     private static final int YEAR_MIN_SET_RECORDS_EXPECTED = 6;
     private static final int YEAR_MAX_SET_RECORDS_EXPECTED = 6;
 
+    private static final int POWER_POINTS_MIN_RANGE = 500;
+    private static final int POWER_POINTS_MAX_RANGE = 800;
+    private static final int POWER_POINTS_RANGE_RECORDS_EXPECTED = 3;
+    private static final int POWER_POINTS_MIN_SET_RECORDS_EXPECTED = 5;
+    private static final int POWER_POINTS_MAX_SET_RECORDS_EXPECTED = 7;
+
+    private static final int HORSE_POWER_MIN_RANGE = 500;
+    private static final int HORSE_POWER_MAX_RANGE = 900;
+    private static final int HORSE_POWER_RANGE_RECORDS_EXPECTED = 3;
+    private static final int HORSE_POWER_MIN_SET_RECORDS_EXPECTED = 5;
+    private static final int HORSE_POWER_MAX_SET_RECORDS_EXPECTED = 7;
+    
+    private static final String DRIVE_TRAIN_TEST = DriveTrain.FR.getDescription();
+    private static final int DRIVE_TRAIN_RECORDS_EXPECTED = 5;
+
     @Autowired
     private CarRepository carRepository;
 
@@ -424,6 +439,110 @@ public class CarRepositorySearchTest extends AbstractTestNGSpringContextTests {
         assertEquals(cars.get(0).getPrimaryKey(), CAR_1_KEY);
     }
 
+    @Test
+    public void findAllByCriteriaPowerPointsRange() throws CarException {
+        logger.info("Find All By Criteria Power Points Range: "
+                + POWER_POINTS_MIN_RANGE + " - " + POWER_POINTS_MAX_RANGE);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setPowerPointsFrom(POWER_POINTS_MIN_RANGE);
+        carSearchJson.setPowerPointsTo(POWER_POINTS_MAX_RANGE);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), POWER_POINTS_RANGE_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_3_KEY);
+    }
+
+    @Test
+    public void findAllByCriteriaPowerPointsSetMin() throws CarException {
+        logger.info("Find All By Criteria Power Points Range: "
+                + POWER_POINTS_MIN_RANGE + " - MAX");
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setPowerPointsFrom(POWER_POINTS_MIN_RANGE);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), POWER_POINTS_MIN_SET_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_3_KEY);
+    }
+
+    @Test
+    public void findAllByCriteriaPowerPointsSetMax() throws CarException {
+        logger.info("Find All By Criteria Power Points Range: MIN - " + POWER_POINTS_MAX_RANGE);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setPowerPointsTo(POWER_POINTS_MAX_RANGE);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), POWER_POINTS_MAX_SET_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_1_KEY);
+    }
+    
+    @Test
+    public void findAllByCriteriaHorsePowerRange() throws CarException {
+        logger.info("Find All By Criteria Horse Power Range: "
+                + HORSE_POWER_MIN_RANGE + " - " + HORSE_POWER_MAX_RANGE);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setHorsePowerFrom(HORSE_POWER_MIN_RANGE);
+        carSearchJson.setHorsePowerTo(HORSE_POWER_MAX_RANGE);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), HORSE_POWER_RANGE_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_3_KEY);
+    }
+
+    @Test
+    public void findAllByCriteriaHorsePowerSetMin() throws CarException {
+        logger.info("Find All By Criteria Horse Power Range: "
+                + HORSE_POWER_MIN_RANGE + " - MAX");
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setHorsePowerFrom(HORSE_POWER_MIN_RANGE);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), HORSE_POWER_MIN_SET_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_3_KEY);
+    }
+    
+    @Test
+    public void findAllByCriteriaHorsePowerSetMax() throws CarException {
+        logger.info("Find All By Criteria Horse Power Range: MIN - " + HORSE_POWER_MAX_RANGE);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setHorsePowerTo(HORSE_POWER_MAX_RANGE);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), HORSE_POWER_MAX_SET_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_1_KEY);
+    }
+
+    @Test
+    public void findAllByCriteriaDriveTrain() throws CarException {
+        logger.info("Find All By Criteria Drive Train: " + DRIVE_TRAIN_TEST);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setDriveTrain(DRIVE_TRAIN_TEST);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), DRIVE_TRAIN_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR_1_KEY);
+    }
+    
     private void deleteTestRecord(String deleteKey) {
         Car car = carRepository.findOne(deleteKey);
 

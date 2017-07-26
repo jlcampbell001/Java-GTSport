@@ -14,6 +14,12 @@ public class CarSearchJson {
     private Integer levelTo = null;
     private Integer yearFrom = null;
     private Integer yearTo = null;
+    private Integer powerPointsFrom = null;
+    private Integer powerPointsTo = null;
+    private Integer horsePowerFrom = null;
+    private Integer horsePowerTo = null;
+    
+    private String driveTrain = null;
 
     public Integer getLevelFrom() {
         return levelFrom;
@@ -46,7 +52,44 @@ public class CarSearchJson {
     public void setYearTo(Integer yearTo) {
         this.yearTo = yearTo;
     }
-    
-    
-    
+
+    public Integer getPowerPointsFrom() {
+        return powerPointsFrom;
+    }
+
+    public void setPowerPointsFrom(Integer powerPointsFrom) {
+        this.powerPointsFrom = powerPointsFrom;
+    }
+
+    public Integer getPowerPointsTo() {
+        return powerPointsTo;
+    }
+
+    public void setPowerPointsTo(Integer powerPointsTo) {
+        this.powerPointsTo = powerPointsTo;
+    }
+
+    public Integer getHorsePowerFrom() {
+        return horsePowerFrom;
+    }
+
+    public void setHorsePowerFrom(Integer horsePowerFrom) {
+        this.horsePowerFrom = horsePowerFrom;
+    }
+
+    public Integer getHorsePowerTo() {
+        return horsePowerTo;
+    }
+
+    public void setHorsePowerTo(Integer horsePowerTo) {
+        this.horsePowerTo = horsePowerTo;
+    }
+
+    public String getDriveTrain() {
+        return driveTrain;
+    }
+
+    public void setDriveTrain(String driveTrain) {
+        this.driveTrain = driveTrain;
+    }
 }

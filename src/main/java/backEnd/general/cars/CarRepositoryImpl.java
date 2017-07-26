@@ -69,7 +69,52 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
             }
             
             criteria = builder.and(criteria, builder.between(yearExpression, yearFrom, yearTo));
+        }
+
+        // power points criteria
+        if (searchJson.getPowerPointsFrom() != null || searchJson.getPowerPointsTo() != null) {
+            Expression<Integer> powerPointsExpression = criteriaRoot.get("powerPoints");
             
+            Integer powerPointsFrom = searchJson.getPowerPointsFrom();
+            Integer powerPointsTo = searchJson.getPowerPointsTo();
+            
+            if (powerPointsFrom == null) {
+                powerPointsFrom = 0;
+            }
+            
+            if (powerPointsTo == null) {
+                powerPointsTo = Integer.MAX_VALUE;
+            }
+            
+            criteria = builder.and(criteria, builder.between(powerPointsExpression, 
+                    powerPointsFrom, powerPointsTo));
+        }
+
+        // horse power criteria
+        if (searchJson.getHorsePowerFrom() != null || searchJson.getHorsePowerTo() != null) {
+            Expression<Integer> horsePowerExpression = criteriaRoot.get("horsePower");
+            
+            Integer horsePowerFrom = searchJson.getHorsePowerFrom();
+            Integer horsePowerTo = searchJson.getHorsePowerTo();
+            
+            if (horsePowerFrom == null) {
+                horsePowerFrom = 0;
+            }
+            
+            if (horsePowerTo == null) {
+                horsePowerTo = Integer.MAX_VALUE;
+            }
+            
+            criteria = builder.and(criteria, builder.between(horsePowerExpression, 
+                    horsePowerFrom, horsePowerTo));
+        }
+
+        // drive train criteria
+        if (searchJson.getDriveTrain()!= null) {
+            Expression<String> driveTrainExpression = criteriaRoot.get("driveTrain");
+            
+            criteria = builder.and(criteria, builder.equal(driveTrainExpression, 
+                    searchJson.getDriveTrain()));
         }
         
         if (criteria.getExpressions().isEmpty()) {
