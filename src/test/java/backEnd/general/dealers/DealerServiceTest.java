@@ -1,8 +1,12 @@
 package backEnd.general.dealers;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
+import backEnd.general.countries.CountriesForTesting;
 import backEnd.general.countries.Country;
 import backEnd.general.countries.CountryRepository;
+import backEnd.general.regions.RegionRepository;
+import backEnd.general.regions.RegionsForTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -18,32 +22,10 @@ import org.testng.annotations.Test;
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class DealerServiceTest extends AbstractTestNGSpringContextTests {
-
-    private static final String COUNTRY_1_KEY = "COU900000001";
-    private static final String COUNTRY_1_DESCRIPTION = "COUNTRY 1";
-    private static final String COUNTRY_1_REGION_KEY = "REG900000001";
-
-    private static final String COUNTRY_2_KEY = "COU900000002";
-    private static final String COUNTRY_2_DESCRIPTION = "COUNTRY 2";
-    private static final String COUNTRY_2_REGION_KEY = "REG900000002";
-
-    private static final String DEALER_1_KEY = "XXX900000001";
-    private static final String DEALER_1_NAME = "DEALER_1";
-    private static final String DEALER_1_COUNTRY_KEY = COUNTRY_1_KEY;
-
-    private static final String DEALER_2_KEY = "XXX900000002";
-    private static final String DEALER_2_NAME = "DEALER_2";
-    private static final String DEALER_2_COUNTRY_KEY = COUNTRY_2_KEY;
-
-    private static final String DEALER_3_KEY = "XXX900000003";
-    private static final String DEALER_3_NAME = "DEALER_3";
-    private static final String DEALER_3_COUNTRY_KEY = COUNTRY_1_KEY;
+public class DealerServiceTest extends GTSportDataTesting {
 
     private static final String DEALER_4_NAME = "DEALER_4";
-    private static final String DEALER_4_COUNTRY_KEY = COUNTRY_2_KEY;
+    private static final String DEALER_4_COUNTRY_KEY = CountriesForTesting.country2.getPrimaryKey();
     private static final String NEW_DEALER_4_NAME = "NEW_DEALER_IV";
 
     private static final String BAD_DEALER_KEY = "D!X999999999";
@@ -54,12 +36,6 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
 
     private static final String EXPECTED_MAX_KEY = "DEA900000004";
     
-    @Autowired
-    private CountryRepository countryRepository;
-
-    @Autowired
-    private DealerRepository dealerRepository;
-
     @Autowired
     private DealerService dealerService;
 
@@ -73,22 +49,16 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
     public void beforeClass() {
         logger.info("Before Class");
 
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
+        
+        countryRepository.saveAndFlush(COUNTRY1);
+        countryRepository.saveAndFlush(COUNTRY2);
+
         // add the 3 dealers to work with.
-        Dealer dealer1 = new Dealer(DEALER_1_KEY, DEALER_1_NAME, DEALER_1_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer1);
-
-        Dealer dealer2 = new Dealer(DEALER_2_KEY, DEALER_2_NAME, DEALER_2_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer2);
-
-        Dealer dealer3 = new Dealer(DEALER_3_KEY, DEALER_3_NAME, DEALER_3_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer3);
-
-        // add country records.
-        Country country1 = new Country(COUNTRY_1_KEY, COUNTRY_1_DESCRIPTION, COUNTRY_1_REGION_KEY);
-        countryRepository.saveAndFlush(country1);
-
-        Country country2 = new Country(COUNTRY_2_KEY, COUNTRY_2_DESCRIPTION, COUNTRY_2_REGION_KEY);
-        countryRepository.saveAndFlush(country2);
+        dealerRepository.saveAndFlush(DEALER1);
+        dealerRepository.saveAndFlush(DEALER2);
+        dealerRepository.saveAndFlush(DEALER3);
     }
 
     /**
@@ -100,15 +70,18 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteDealerTestRecord(DEALER_1_KEY);
-        deleteDealerTestRecord(DEALER_2_KEY);
-        deleteDealerTestRecord(DEALER_3_KEY);
+        deleteDealerTestRecord(DEALER1.getPrimaryKey());
+        deleteDealerTestRecord(DEALER2.getPrimaryKey());
+        deleteDealerTestRecord(DEALER3.getPrimaryKey());
         deleteDealerTestRecord(dealer4Key);
         
         dealerService.resetKeys();
 
-        deleteCountryTestRecord(COUNTRY_1_KEY);
-        deleteCountryTestRecord(COUNTRY_2_KEY);
+        deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
     /**
@@ -120,9 +93,9 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
     public void getDealerJsonByKey() throws DealerException {
         logger.info("Get Dealer By Key");
 
-        DealerJson dealerJson = dealerService.getDealerJsonByKey(DEALER_2_KEY);
+        DealerJson dealerJson = dealerService.getDealerJsonByKey(DEALER2.getPrimaryKey());
 
-        assertEquals(dealerJson.getPrimaryKey(), DEALER_2_KEY);
+        assertEquals(dealerJson.getPrimaryKey(), DEALER2.getPrimaryKey());
     }
 
     /**
@@ -154,9 +127,9 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
     public void getDealerJsonByName() throws DealerException {
         logger.info("Get Dealer By Name");
 
-        DealerJson dealerJson = dealerService.getDealerJsonByName(DEALER_1_NAME);
+        DealerJson dealerJson = dealerService.getDealerJsonByName(DEALER1.getName());
 
-        assertEquals(dealerJson.getPrimaryKey(), DEALER_1_KEY);
+        assertEquals(dealerJson.getPrimaryKey(), DEALER1.getPrimaryKey());
     }
 
     /**
@@ -237,7 +210,7 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
         List<DealerJson> dealerJsons = dealerService.getDealerList();
 
         assertEquals(dealerJsons.size(), EXPECTED_NUMBER_OF_ROWS);
-        assertEquals(dealerJsons.get(0).getPrimaryKey(), DEALER_1_KEY);
+        assertEquals(dealerJsons.get(0).getPrimaryKey(), DEALER1.getPrimaryKey());
     }
 
     /**
@@ -247,10 +220,10 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
     public void getDealerListByCountryKey() {
         logger.info("Get Dealer List By Dealer Key");
 
-        List<DealerJson> dealerJsons = dealerService.getDealerListByCountryKey(COUNTRY_1_KEY);
+        List<DealerJson> dealerJsons = dealerService.getDealerListByCountryKey(CountriesForTesting.country1.getPrimaryKey());
 
         assertEquals(dealerJsons.size(), EXPECTED_NUMBER_OF_ROWS_COUNTRY);
-        assertEquals(dealerJsons.get(0).getPrimaryKey(), DEALER_1_KEY);
+        assertEquals(dealerJsons.get(0).getPrimaryKey(), DEALER1.getPrimaryKey());
     }
 
     /**
@@ -274,21 +247,5 @@ public class DealerServiceTest extends AbstractTestNGSpringContextTests {
         dealer4Key = dealerJson.getPrimaryKey();
 
         assertEquals(EXPECTED_MAX_KEY, dealer4Key);
-    }
-
-    private void deleteDealerTestRecord(String deleteKey) {
-        Dealer dealer = dealerRepository.findOne(deleteKey);
-
-        if (dealer != null) {
-            dealerRepository.delete(dealer);
-        }
-    }
-
-    private void deleteCountryTestRecord(String deleteKey) {
-        Country country = countryRepository.findOne(deleteKey);
-
-        if (country != null) {
-            countryRepository.delete(country);
-        }
     }
 }

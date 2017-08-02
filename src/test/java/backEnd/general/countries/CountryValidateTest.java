@@ -3,10 +3,13 @@ package backEnd.general.countries;
 import static org.testng.AssertJUnit.assertEquals;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
 import backEnd.general.dealers.Dealer;
 import backEnd.general.dealers.DealerRepository;
+import backEnd.general.dealers.DealersForTesting;
 import backEnd.general.regions.RegionRepository;
 import backEnd.general.regions.Region;
+import backEnd.general.regions.RegionsForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,46 +23,13 @@ import org.testng.annotations.Test;
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class CountryValidateTest extends AbstractTestNGSpringContextTests {
-
-    private static final String REGION_1_KEY = "REG900000001";
-    private static final String REGION_1_DESCRIPTION = "REGION_1";
-
-    private static final String REGION_2_KEY = "REG900000002";
-    private static final String REGION_2_DESCRIPTION = "REGION_2";
-
-    private static final String COUNTRY_1_KEY = "XXX900000001";
-    private static final String COUNTRY_1_DESCRIPTION = "COUNTRY_1";
-    private static final String COUNTRY_1_REGION_KEY = REGION_1_KEY;
-
-    private static final String COUNTRY_2_KEY = "XXX900000002";
-    private static final String COUNTRY_2_DESCRIPTION = "COUNTRY_2";
-    private static final String COUNTRY_2_REGION_KEY = REGION_2_KEY;
-
-    private static final String COUNTRY_3_KEY = "XXX900000003";
-    private static final String COUNTRY_3_DESCRIPTION = "COUNTRY_3";
-    private static final String COUNTRY_3_REGION_KEY = REGION_1_KEY;
-
-    private static final String DEALER_KEY = "DEA9000000001";
-    private static final String DEALER_NAME = "COUNTRY_DEALER";
-    private static final String DEALER_COUNTRY_KEY = COUNTRY_2_KEY;
-
+public class CountryValidateTest extends GTSportDataTesting {
+ 
     private static final String BAD_REGION_KEY = "X!X900000001";
     private static final String BAD_COUNTRY_KEY = "C!C999999999";
 
     @Autowired
     private CountryValidate countryValidate;
-
-    @Autowired
-    private CountryRepository countryRepository;
-
-    @Autowired
-    private RegionRepository regionRepository;
-
-    @Autowired
-    private DealerRepository dealerRepository;
 
     /**
      * Setup records to test against.
@@ -70,25 +40,16 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("Before Class");
 
         // Add the regions to work with.
-        Region region1 = new Region(REGION_1_KEY, REGION_1_DESCRIPTION);
-        regionRepository.saveAndFlush(region1);
-
-        Region region2 = new Region(REGION_2_KEY, REGION_2_DESCRIPTION);
-        regionRepository.saveAndFlush(region2);
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
 
         // Add the 3 countries to work with.
-        Country country1 = new Country(COUNTRY_1_KEY, COUNTRY_1_DESCRIPTION, COUNTRY_1_REGION_KEY);
-        countryRepository.saveAndFlush(country1);
-
-        Country country2 = new Country(COUNTRY_2_KEY, COUNTRY_2_DESCRIPTION, COUNTRY_2_REGION_KEY);
-        countryRepository.saveAndFlush(country2);
-
-        Country country3 = new Country(COUNTRY_3_KEY, COUNTRY_3_DESCRIPTION, COUNTRY_3_REGION_KEY);
-        countryRepository.saveAndFlush(country3);
+        countryRepository.saveAndFlush(COUNTRY1);
+        countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
 
         // Add dealer record to work with.
-        Dealer dealer = new Dealer(DEALER_KEY, DEALER_NAME, DEALER_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer);
+        dealerRepository.saveAndFlush(DEALER1);
     }
 
     /**
@@ -100,14 +61,14 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // Delete the test records.
-        deleteCountryTestRecord(COUNTRY_1_KEY);
-        deleteCountryTestRecord(COUNTRY_2_KEY);
-        deleteCountryTestRecord(COUNTRY_3_KEY);
+        deleteDealerTestRecord(DEALER1.getPrimaryKey());
 
-        deleteRegionTestRecord(REGION_1_KEY);
-        deleteRegionTestRecord(REGION_2_KEY);
+        deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
 
-        deleteDealerTestRecord(DEALER_KEY);
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
     /**
@@ -120,9 +81,9 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("Validate Country Save");
 
         CountryJson countryJson = new CountryJson();
-        countryJson.setPrimaryKey(COUNTRY_1_KEY);
-        countryJson.setDescription(COUNTRY_1_DESCRIPTION);
-        countryJson.setRegionKey(COUNTRY_1_REGION_KEY);
+        countryJson.setPrimaryKey(COUNTRY1.getPrimaryKey());
+        countryJson.setDescription(COUNTRY1.getDescription());
+        countryJson.setRegionKey(COUNTRY1.getRegionKey());
 
         countryValidate.validateCountrySave(countryJson);
     }
@@ -139,9 +100,9 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         String expectedError = CountryException.DESCRIPTION_NOT_SET;
 
         CountryJson countryJson = new CountryJson();
-        countryJson.setPrimaryKey(COUNTRY_1_KEY);
+        countryJson.setPrimaryKey(COUNTRY1.getPrimaryKey());
         countryJson.setDescription("");
-        countryJson.setRegionKey(COUNTRY_1_REGION_KEY);
+        countryJson.setRegionKey(COUNTRY1.getRegionKey());
 
         try {
             countryValidate.validateCountrySave(countryJson);
@@ -163,8 +124,8 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         String expectedError = CountryException.REGION_KEY_NOT_SET;
 
         CountryJson countryJson = new CountryJson();
-        countryJson.setPrimaryKey(COUNTRY_1_KEY);
-        countryJson.setDescription(COUNTRY_1_DESCRIPTION);
+        countryJson.setPrimaryKey(COUNTRY1.getPrimaryKey());
+        countryJson.setDescription(COUNTRY1.getDescription());
         countryJson.setRegionKey("");
 
         try {
@@ -187,9 +148,9 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         String expectedError = CountryException.DESCRIPTION_ALREADY_EXISTS;
 
         CountryJson countryJson = new CountryJson();
-        countryJson.setPrimaryKey(COUNTRY_1_KEY);
-        countryJson.setDescription(COUNTRY_2_DESCRIPTION);
-        countryJson.setRegionKey(COUNTRY_1_REGION_KEY);
+        countryJson.setPrimaryKey(COUNTRY1.getPrimaryKey());
+        countryJson.setDescription(COUNTRY2.getDescription());
+        countryJson.setRegionKey(COUNTRY1.getRegionKey());
 
         try {
             countryValidate.validateCountrySave(countryJson);
@@ -211,8 +172,8 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
         String expectedError = CountryException.REGION_DOES_NOT_EXIST + BAD_REGION_KEY;
 
         CountryJson countryJson = new CountryJson();
-        countryJson.setPrimaryKey(COUNTRY_1_KEY);
-        countryJson.setDescription(COUNTRY_1_DESCRIPTION);
+        countryJson.setPrimaryKey(COUNTRY1.getPrimaryKey());
+        countryJson.setDescription(COUNTRY1.getDescription());
         countryJson.setRegionKey(BAD_REGION_KEY);
 
         try {
@@ -232,7 +193,7 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
     public void validateCountryDelete() throws CountryException {
         logger.info("Validate Country Delete");
 
-        countryValidate.validateCountryDelete(COUNTRY_3_KEY);
+        countryValidate.validateCountryDelete(COUNTRY3.getPrimaryKey());
     }
 
     /**
@@ -261,38 +222,14 @@ public class CountryValidateTest extends AbstractTestNGSpringContextTests {
      */
     @Test(expectedExceptions = CountryException.class)
     public void validateCountryDeleteCountryInUse() throws CountryException {
-        logger.info("Validate Country Delete Country In Use: " + DEALER_COUNTRY_KEY);
+        logger.info("Validate Country Delete Country In Use: " + DEALER1.getCountryKey());
 
         String expectedError = CountryException.COUNTRY_IS_IN_USE;
         try {
-            countryValidate.validateCountryDelete(DEALER_COUNTRY_KEY);
+            countryValidate.validateCountryDelete(DEALER1.getCountryKey());
         } catch (CountryException ce) {
             assertEquals(ce.getMessage(), expectedError);
             throw ce;
-        }
-    }
-
-    private void deleteCountryTestRecord(String deleteKey) {
-        Country country = countryRepository.findOne(deleteKey);
-
-        if (country != null) {
-            countryRepository.delete(country);
-        }
-    }
-
-    private void deleteRegionTestRecord(String deleteKey) {
-        Region region = regionRepository.findOne(deleteKey);
-
-        if (region != null) {
-            regionRepository.delete(region);
-        }
-    }
-
-    private void deleteDealerTestRecord(String deleteKey) {
-        Dealer dealer = dealerRepository.findOne(deleteKey);
-
-        if (dealer != null) {
-            dealerRepository.delete(dealer);
         }
     }
 }

@@ -7,12 +7,28 @@
             <class name="backEnd.general.KeySequenceServiceTest"/>
         </classes>
     </test>
-    <test name="Repository">
+    <test name="OwnerRepository">
         <classes>
             <class name="backEnd.general.owners.OwnerRepositoryTest"/>
+        </classes>
+    </test>
+    <test name="RegionRepository">
+        <classes>
             <class name="backEnd.general.regions.RegionRepositoryTest"/>
+        </classes>
+    </test>
+    <test name="CountryRepository">
+        <classes>
             <class name="backEnd.general.countries.CountryRepositoryTest"/>
+        </classes>
+    </test>
+    <test name="DealerRepository">
+        <classes>
             <class name="backEnd.general.dealers.DealerRepositoryTest"/>
+        </classes>
+    </test>
+    <test name="CarRepository">
+        <classes>
             <class name="backEnd.general.cars.CarRepositoryTest"/>
         </classes>
     </test>

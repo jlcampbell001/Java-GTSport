@@ -6,6 +6,7 @@
 package backEnd.general.regions;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -20,18 +21,7 @@ import static org.testng.Assert.assertEquals;
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class RegionServiceTest extends AbstractTestNGSpringContextTests {
-
-    private static final String REGION_1_KEY = "XXX900000001";
-    private static final String REGION_1_DESCRIPTION = "TEST_REGION_1";
-
-    private static final String REGION_2_KEY = "XXX900000002";
-    private static final String REGION_2_DESCRIPTION = "TEST_REGION_2";
-
-    private static final String REGION_3_KEY = "XXX900000003";
-    private static final String REGION_3_DESCRIPTION = "TEST_REGION_3";
+public class RegionServiceTest extends GTSportDataTesting {
 
     private static final String REGION_4_DESCRIPTION = "TEST_REGION_4";
     private static final String REGION_4_NEW_DESCRIPTION = "NEW_REGION_4";
@@ -45,9 +35,6 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private RegionService regionService;
 
-    @Autowired
-    private RegionRepository regionRepository;
-
     private String region4Key = "";
 
     /**
@@ -59,14 +46,9 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("Before Class");
 
         // add the 3 regions to work with.
-        Region region1 = new Region(REGION_1_KEY, REGION_1_DESCRIPTION);
-        regionRepository.saveAndFlush(region1);
-
-        Region region2 = new Region(REGION_2_KEY, REGION_2_DESCRIPTION);
-        regionRepository.saveAndFlush(region2);
-
-        Region region3 = new Region(REGION_3_KEY, REGION_3_DESCRIPTION);
-        regionRepository.saveAndFlush(region3);
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
     }
 
     /**
@@ -78,10 +60,10 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteTestRecord(REGION_1_KEY);
-        deleteTestRecord(REGION_2_KEY);
-        deleteTestRecord(REGION_3_KEY);
-        deleteTestRecord(region4Key);
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
+        deleteRegionTestRecord(region4Key);
         
         regionService.resetKeys();
     }
@@ -93,11 +75,11 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void getRegionJsonByKey() throws RegionException {
-        logger.info("Get Region Json by Key: " + REGION_3_KEY);
+        logger.info("Get Region Json by Key: " + REGION3.getPrimaryKey());
 
-        RegionJson regionJson = regionService.getRegionJsonByKey(REGION_3_KEY);
+        RegionJson regionJson = regionService.getRegionJsonByKey(REGION3.getPrimaryKey());
 
-        assertEquals(regionJson.getPrimaryKey(), REGION_3_KEY);
+        assertEquals(regionJson.getPrimaryKey(), REGION3.getPrimaryKey());
     }
 
     /**
@@ -127,11 +109,11 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void getRegionJsonByDescription() throws RegionException {
-        logger.info("Get Region Json by Description: " + REGION_1_DESCRIPTION);
+        logger.info("Get Region Json by Description: " + REGION1.getDescription());
 
-        RegionJson regionJson = regionService.getRegionJsonByDescription(REGION_1_DESCRIPTION);
+        RegionJson regionJson = regionService.getRegionJsonByDescription(REGION1.getDescription());
 
-        assertEquals(regionJson.getPrimaryKey(), REGION_1_KEY);
+        assertEquals(regionJson.getPrimaryKey(), REGION1.getPrimaryKey());
     }
 
     /**
@@ -228,14 +210,6 @@ public class RegionServiceTest extends AbstractTestNGSpringContextTests {
         List<RegionJson> regionJsons = regionService.getRegionList();
 
         assertEquals(regionJsons.size(), EXPECTED_NUMBER_OF_RECORDS);
-        assertEquals(regionJsons.get(0).getPrimaryKey(), REGION_1_KEY);
-    }
-
-    private void deleteTestRecord(String deleteKey) {
-        Region region = regionRepository.findOne(deleteKey);
-
-        if (region != null) {
-            regionRepository.delete(region);
-        }
+        assertEquals(regionJsons.get(0).getPrimaryKey(), REGION1.getPrimaryKey());
     }
 }

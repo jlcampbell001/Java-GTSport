@@ -1,6 +1,7 @@
 package backEnd.general.regions;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
 import backEnd.general.countries.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -16,29 +17,12 @@ import org.testng.annotations.Test;
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
+public class RegionRepositoryTest extends GTSportDataTesting {
 
-    private static final String MAX_REGION_KEY = "XXX900000003";
-
-    private static final String REGION_1_KEY = "XXX900000001";
-    private static final String REGION_1_DESCRIPTION = "TEST_REGION_1";
-
-    private static final String REGION_2_KEY = "XXX900000002";
-    private static final String REGION_2_DESCRIPTION = "TEST_REGION_2";
-
-    private static final String REGION_3_KEY = MAX_REGION_KEY;
-    private static final String REGION_3_DESCRIPTION = "TEST_REGION_3";
+    private static final String MAX_REGION_KEY = REGION3.getPrimaryKey();   
 
     private static final String BAD_DESCRIPTION = "XXX_BAD_DESCRIPTION_XXX";
     
-    @Autowired
-    private RegionRepository regionRepository;
-    
-    @Autowired
-    private CountryRepository countryRepository;
-
     /**
      * Setup records to test against.
      */
@@ -48,18 +32,13 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
         logger.info("Before Class");
 
         // add the 3 regions to work with.
-        Region region1 = new Region(REGION_1_KEY, REGION_1_DESCRIPTION);
-        regionRepository.saveAndFlush(region1);
-
-        Region region2 = new Region(REGION_2_KEY, REGION_2_DESCRIPTION);
-        regionRepository.saveAndFlush(region2);
-
-        Region region3 = new Region(REGION_3_KEY, REGION_3_DESCRIPTION);
-        regionRepository.saveAndFlush(region3);        
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);        
     }
 
     /**
-     * Delete the country records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -67,9 +46,9 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteTestRecord(REGION_1_KEY);
-        deleteTestRecord(REGION_2_KEY);
-        deleteTestRecord(REGION_3_KEY);
+        deleteOwnerTestRecord(REGION1.getPrimaryKey());
+        deleteOwnerTestRecord(REGION2.getPrimaryKey());
+        deleteOwnerTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -78,9 +57,9 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByDescription() {
         logger.info("Find by Description");
-        Region region = regionRepository.findbyDescription(REGION_2_DESCRIPTION);
+        Region region = regionRepository.findbyDescription(REGION2.getDescription());
 
-        assertEquals(region.getPrimaryKey(), REGION_2_KEY);
+        assertEquals(region.getPrimaryKey(), REGION2.getPrimaryKey());
     }
 
     /**
@@ -105,13 +84,5 @@ public class RegionRepositoryTest extends AbstractTestNGSpringContextTests {
         String maxKey = regionRepository.getMaxKey();
 
         assertEquals(maxKey, MAX_REGION_KEY);
-    }
-
-    private void deleteTestRecord(String deleteKey) {
-        Region region = regionRepository.findOne(deleteKey);
-
-        if (region != null) {
-            regionRepository.delete(region);
-        }
     }
 }

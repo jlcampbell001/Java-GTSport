@@ -11,35 +11,19 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
 
 /**
  * Tests for the owner validate service.
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
-
-    private static final String OWNER_1_KEY = "XXX900000001";
-    private static final String OWNER_1_NAME = "XXX_Test_Owner_1_XXX";
-    private static final boolean OWNER_1_DEFAULT = false;
-
-    private static final String OWNER_2_KEY = "XXX900000002";
-    private static final String OWNER_2_NAME = "XXX_Test_Owner_2_XXX";
-    private static final boolean OWNER_2_DEFAULT = true;
-
-    private static final String OWNER_3_KEY = "XXX900000003";
-    private static final String OWNER_3_NAME = "XXX_Test_Owner_3_XXX";
-    private static final boolean OWNER_3_DEFAULT = false;
+public class OwnerValidateTest extends GTSportDataTesting {
 
     private static final String BAD_KEY = "ZXZ_!_001";
 
     @Autowired
     private OwnerValidate ownerValidate;
-
-    @Autowired
-    private OwnerRepository ownerRepository;
 
     /**
      * Setup owner records for testing.
@@ -50,14 +34,9 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("Before Class");
 
         // add the 3 owners to work with.
-        Owner owner1 = new Owner(OWNER_1_KEY, OWNER_1_NAME, OWNER_1_DEFAULT);
-        ownerRepository.saveAndFlush(owner1);
-
-        Owner owner2 = new Owner(OWNER_2_KEY, OWNER_2_NAME, OWNER_2_DEFAULT);
-        ownerRepository.saveAndFlush(owner2);
-
-        Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, OWNER_3_DEFAULT);
-        ownerRepository.saveAndFlush(owner3);
+        ownerRepository.saveAndFlush(OWNER1);
+        ownerRepository.saveAndFlush(OWNER2);
+        ownerRepository.saveAndFlush(OWNER3);
     }
 
     /**
@@ -69,9 +48,9 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteTestRecord(OWNER_1_KEY);
-        deleteTestRecord(OWNER_2_KEY);
-        deleteTestRecord(OWNER_3_KEY);
+        deleteOwnerTestRecord(OWNER1.getPrimaryKey());
+        deleteOwnerTestRecord(OWNER2.getPrimaryKey());
+        deleteOwnerTestRecord(OWNER3.getPrimaryKey());
     }
 
     /**
@@ -84,9 +63,9 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
         logger.info("Validate Owner Save");
 
         OwnerJson owner = new OwnerJson();
-        owner.setPrimaryKey(OWNER_1_KEY);
-        owner.setOwnerName(OWNER_1_NAME);
-        owner.setDefaultOwner(OWNER_1_DEFAULT);
+        owner.setPrimaryKey(OWNER1.getPrimaryKey());
+        owner.setOwnerName(OWNER1.getOwnerName());
+        owner.setDefaultOwner(OWNER1.getDefaultOwner());
 
         ownerValidate.validateOwnerSave(owner);
     }
@@ -105,7 +84,7 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
         try {
             OwnerJson misingOwnerName = new OwnerJson();
             misingOwnerName.setOwnerName("");
-            misingOwnerName.setDefaultOwner(OWNER_1_DEFAULT);
+            misingOwnerName.setDefaultOwner(OWNER1.getDefaultOwner());
 
             ownerValidate.validateOwnerSave(misingOwnerName);
 
@@ -123,14 +102,14 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
      */
     @Test(expectedExceptions = OwnerException.class)
     public void validateOwnerSaveNameExits() throws OwnerException {
-        logger.info("Validate Owner Save Name Exists: " + OWNER_1_NAME);
+        logger.info("Validate Owner Save Name Exists: " + OWNER1.getOwnerName());
 
-        String expectedError = OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + OWNER_1_NAME;
+        String expectedError = OwnerException.OWNER_NAME_EXISTS_ALREADY_ERROR + OWNER1.getOwnerName();
 
         try {
             OwnerJson badOwnerName = new OwnerJson();
-            badOwnerName.setOwnerName(OWNER_1_NAME);
-            badOwnerName.setDefaultOwner(OWNER_1_DEFAULT);
+            badOwnerName.setOwnerName(OWNER1.getOwnerName());
+            badOwnerName.setDefaultOwner(OWNER1.getDefaultOwner());
 
             ownerValidate.validateOwnerSave(badOwnerName);
 
@@ -149,7 +128,7 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
     public void validateOwnerDelete() throws OwnerException {
         logger.info("Validate Owner Delete");
 
-        ownerValidate.validateOwnerDelete(OWNER_2_KEY);
+        ownerValidate.validateOwnerDelete(OWNER2.getPrimaryKey());
     }
 
     /**
@@ -168,19 +147,6 @@ public class OwnerValidateTest extends AbstractTestNGSpringContextTests {
         } catch (OwnerException oe) {
             assertEquals(expectedError, oe.getMessage());
             throw oe;
-        }
-    }
-
-    /**
-     * Delete an owner test record for the passed primary key.
-     *
-     * @param deleteKey - the primary key of the owner to delete.
-     */
-    private void deleteTestRecord(String deleteKey) {
-        Owner owner = ownerRepository.findOne(deleteKey);
-
-        if (owner != null) {
-            ownerRepository.delete(owner);
         }
     }
 }

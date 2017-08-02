@@ -13,27 +13,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
 
 /**
  * Tests for testing the owner service.
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
-
-    private static final String OWNER_1_KEY = "XXX900000001";
-    private static final String OWNER_1_NAME = "XXX_Test_Owner_1_XXX";
-    private static final boolean OWNER_1_DEFAULT = false;
-
-    private static final String OWNER_2_KEY = "XXX900000002";
-    private static final String OWNER_2_NAME = "XXX_Test_Owner_2_XXX";
-    private static final boolean OWNER_2_DEFAULT = true;
-
-    private static final String OWNER_3_KEY = "XXX900000003";
-    private static final String OWNER_3_NAME = "XXX_Test_Owner_3_XXX";
-    private static final boolean OWNER_3_DEFAULT = false;
+public class OwnerServiceTest extends GTSportDataTesting {
 
     private static final String OWNER_4_NAME = "XXX_Test_Owner_4_XXX";
     private static final boolean OWNER_4_DEFAULT = false;
@@ -51,9 +38,6 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private OwnerService ownerService;
 
-    @Autowired
-    private OwnerRepository ownerRepository;
-
     /**
      * Setup records in the owner table for testing.
      */
@@ -63,14 +47,9 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("Before Class");
 
         // add the 3 owners to work with.
-        Owner owner1 = new Owner(OWNER_1_KEY, OWNER_1_NAME, OWNER_1_DEFAULT);
-        ownerRepository.saveAndFlush(owner1);
-
-        Owner owner2 = new Owner(OWNER_2_KEY, OWNER_2_NAME, OWNER_2_DEFAULT);
-        ownerRepository.saveAndFlush(owner2);
-
-        Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, OWNER_3_DEFAULT);
-        ownerRepository.saveAndFlush(owner3);
+        ownerRepository.saveAndFlush(OWNER1);
+        ownerRepository.saveAndFlush(OWNER2);
+        ownerRepository.saveAndFlush(OWNER3);
     }
 
     /**
@@ -82,10 +61,10 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteTestRecord(OWNER_1_KEY);
-        deleteTestRecord(OWNER_2_KEY);
-        deleteTestRecord(OWNER_3_KEY);
-        deleteTestRecord(owner4Key);
+        deleteOwnerTestRecord(OWNER1.getPrimaryKey());
+        deleteOwnerTestRecord(OWNER2.getPrimaryKey());
+        deleteOwnerTestRecord(OWNER3.getPrimaryKey());
+        deleteOwnerTestRecord(owner4Key);
         ownerService.resetKeys();
     }
 
@@ -165,10 +144,10 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void getOwnerJsonByKey() throws OwnerException {
-        logger.info("Get Owner By Key: " + OWNER_3_KEY);
+        logger.info("Get Owner By Key: " + OWNER3.getPrimaryKey());
 
-        OwnerJson ownerJson = ownerService.getOwnerJsonByKey(OWNER_3_KEY);
-        assertEquals(ownerJson.getOwnerName(), OWNER_3_NAME);
+        OwnerJson ownerJson = ownerService.getOwnerJsonByKey(OWNER3.getPrimaryKey());
+        assertEquals(ownerJson.getOwnerName(), OWNER3.getOwnerName());
     }
 
     /**
@@ -199,11 +178,11 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void getOwnerJsonByName() throws OwnerException {
-        logger.info("Get Owner By Name: " + OWNER_2_NAME);
+        logger.info("Get Owner By Name: " + OWNER2.getOwnerName());
 
-        OwnerJson ownerJson = ownerService.getOwnerJsonByName(OWNER_2_NAME);
+        OwnerJson ownerJson = ownerService.getOwnerJsonByName(OWNER2.getOwnerName());
 
-        assertEquals(ownerJson.getPrimaryKey(), OWNER_2_KEY);
+        assertEquals(ownerJson.getPrimaryKey(), OWNER2.getPrimaryKey());
     }
 
     /**
@@ -236,7 +215,7 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
         List<OwnerJson> owners = ownerService.getOwnersList();
 
         assertEquals(NUMBER_OF_LIST_RECORDS_EXPECTED, owners.size());
-        assertEquals(OWNER_1_KEY, owners.get(0).getPrimaryKey());
+        assertEquals(owners.get(0).getPrimaryKey(), OWNER1.getPrimaryKey());
     }
 
     /**
@@ -250,7 +229,7 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
 
         OwnerJson ownerJson = ownerService.getDefaultOwnerJson();
 
-        assertEquals(OWNER_2_KEY, ownerJson.getPrimaryKey());
+        assertEquals(ownerJson.getPrimaryKey(), OWNER2.getPrimaryKey());
 
     }
 
@@ -319,13 +298,13 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
         clearDefaultOwners();
 
         // Set owner 3 as the default owner.
-        Owner owner3 = new Owner(OWNER_3_KEY, OWNER_3_NAME, true);
+        Owner owner3 = new Owner(OWNER3.getPrimaryKey(), OWNER3.getOwnerName(), true);
         ownerRepository.saveAndFlush(owner3);
 
         // Change the default owner to owner 2.
         OwnerJson owner2 = new OwnerJson();
-        owner2.setPrimaryKey(OWNER_2_KEY);
-        owner2.setOwnerName(OWNER_2_NAME);
+        owner2.setPrimaryKey(OWNER2.getPrimaryKey());
+        owner2.setOwnerName(OWNER2.getOwnerName());
         owner2.setDefaultOwner(true);
 
         ownerService.saveOwner(owner2);
@@ -337,19 +316,6 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     /**
-     * Delete the owner test record if it exists.
-     *
-     * @param deleteKey - the owner primary key for the record to delete.
-     */
-    private void deleteTestRecord(String deleteKey) {
-        Owner owner = ownerRepository.findOne(deleteKey);
-
-        if (owner != null) {
-            ownerRepository.delete(owner);
-        }
-    }
-
-    /**
      * Delete the system default owner record.
      */
     private void deleteDefaultOwner() {
@@ -357,7 +323,7 @@ public class OwnerServiceTest extends AbstractTestNGSpringContextTests {
         try {
             OwnerJson defaultOwner = ownerService.getOwnerJsonByName(OwnerService.DEFAULT_OWNER_NAME);
 
-            deleteTestRecord(defaultOwner.getPrimaryKey());
+            deleteOwnerTestRecord(defaultOwner.getPrimaryKey());
 
         } catch (OwnerException oe) {
             // Swallow the exception. The DEFAULT owner was not found which is

@@ -20,6 +20,7 @@ public class CarSearchJson {
     private Integer horsePowerTo = null;
     
     private String driveTrain = null;
+    private String dealerName = null;
 
     public Integer getLevelFrom() {
         return levelFrom;
@@ -92,4 +93,13 @@ public class CarSearchJson {
     public void setDriveTrain(String driveTrain) {
         this.driveTrain = driveTrain;
     }
+
+    public String getDealerName() {
+        return dealerName;
+    }
+
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
+    }
+    
 }

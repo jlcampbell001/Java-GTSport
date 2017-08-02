@@ -1,8 +1,12 @@
 package backEnd.general.countries;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
+import backEnd.general.dealers.Dealer;
+import backEnd.general.dealers.DealersForTesting;
 import backEnd.general.regions.Region;
 import backEnd.general.regions.RegionRepository;
+import backEnd.general.regions.RegionsForTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -18,30 +22,10 @@ import org.testng.annotations.Test;
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class CountryServiceTest extends AbstractTestNGSpringContextTests {
-
-    private static final String REGION_1_KEY = "REG900000001";
-    private static final String REGION_1_DESCRIPTION = "REGION_1";
-
-    private static final String REGION_2_KEY = "REG900000002";
-    private static final String REGION_2_DESCRIPTION = "REGION_2";
-
-    private static final String COUNTRY_1_KEY = "XXX900000001";
-    private static final String COUNTRY_1_DESCRIPTION = "COUNTRY_1";
-    private static final String COUNTRY_1_REGION_KEY = REGION_1_KEY;
-
-    private static final String COUNTRY_2_KEY = "XXX900000002";
-    private static final String COUNTRY_2_DESCRIPTION = "COUNTRY_2";
-    private static final String COUNTRY_2_REGION_KEY = REGION_2_KEY;
-
-    private static final String COUNTRY_3_KEY = "XXX900000003";
-    private static final String COUNTRY_3_DESCRIPTION = "COUNTRY_3";
-    private static final String COUNTRY_3_REGION_KEY = REGION_1_KEY;
+public class CountryServiceTest extends GTSportDataTesting {
 
     private static final String COUNTRY_4_DESCRIPTION = "COUNTRY_4";
-    private static final String COUNTRY_4_REGION_KEY = REGION_2_KEY;
+    private static final String COUNTRY_4_REGION_KEY = REGION2.getPrimaryKey();
     private static final String NEW_COUNTRY_4_DESCRIPTION = "NEW_4TH_COUNTRY";
 
     private static final String BAD_COUNTRY_KEY = "C!C999999999";
@@ -57,12 +41,6 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private CountryService countryService;
 
-    @Autowired
-    private CountryRepository countryRepository;
-
-    @Autowired
-    private RegionRepository regionRepository;
-
     /**
      * Setup records to test against.
      */
@@ -72,21 +50,13 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("Before Class");
 
         // Add the regions to work with.
-        Region region1 = new Region(REGION_1_KEY, REGION_1_DESCRIPTION);
-        regionRepository.saveAndFlush(region1);
-
-        Region region2 = new Region(REGION_2_KEY, REGION_2_DESCRIPTION);
-        regionRepository.saveAndFlush(region2);
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
 
         // Add the 3 countries to work with.
-        Country country1 = new Country(COUNTRY_1_KEY, COUNTRY_1_DESCRIPTION, COUNTRY_1_REGION_KEY);
-        countryRepository.saveAndFlush(country1);
-
-        Country country2 = new Country(COUNTRY_2_KEY, COUNTRY_2_DESCRIPTION, COUNTRY_2_REGION_KEY);
-        countryRepository.saveAndFlush(country2);
-
-        Country country3 = new Country(COUNTRY_3_KEY, COUNTRY_3_DESCRIPTION, COUNTRY_3_REGION_KEY);
-        countryRepository.saveAndFlush(country3);
+        countryRepository.saveAndFlush(COUNTRY1);
+        countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
     }
 
     /**
@@ -98,15 +68,15 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // Delete the test records.
-        deleteCountryTestRecord(COUNTRY_1_KEY);
-        deleteCountryTestRecord(COUNTRY_2_KEY);
-        deleteCountryTestRecord(COUNTRY_3_KEY);
+        deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
         deleteCountryTestRecord(country4Key);
         
         countryService.resetKeys();
 
-        deleteRegionTestRecord(REGION_1_KEY);
-        deleteRegionTestRecord(REGION_2_KEY);
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
     /**
@@ -116,11 +86,11 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void getCountryJsonByKey() throws CountryException {
-        logger.info("Get Country Json by Key: " + COUNTRY_2_KEY);
+        logger.info("Get Country Json by Key: " + COUNTRY2.getPrimaryKey());
 
-        CountryJson countryJson = countryService.getCountryJsonByKey(COUNTRY_2_KEY);
+        CountryJson countryJson = countryService.getCountryJsonByKey(COUNTRY2.getPrimaryKey());
 
-        assertEquals(countryJson.getPrimaryKey(), COUNTRY_2_KEY);
+        assertEquals(countryJson.getPrimaryKey(), COUNTRY2.getPrimaryKey());
     }
 
     /**
@@ -150,11 +120,11 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void getCountryJsonByDescription() throws CountryException {
-        logger.info("Get Country Json by Description: " + COUNTRY_3_DESCRIPTION);
+        logger.info("Get Country Json by Description: " + COUNTRY3.getDescription());
 
-        CountryJson countryJson = countryService.getCountryJsonByDescription(COUNTRY_3_DESCRIPTION);
+        CountryJson countryJson = countryService.getCountryJsonByDescription(COUNTRY3.getDescription());
 
-        assertEquals(countryJson.getPrimaryKey(), COUNTRY_3_KEY);
+        assertEquals(countryJson.getPrimaryKey(), COUNTRY3.getPrimaryKey());
     }
 
     /**
@@ -237,7 +207,7 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
         List<CountryJson> countryJsons = countryService.getCountryList();
 
         assertEquals(countryJsons.size(), EXPECTED_NUMBER_OF_COUNTRIES);
-        assertEquals(countryJsons.get(0).getPrimaryKey(), COUNTRY_1_KEY);
+        assertEquals(countryJsons.get(0).getPrimaryKey(), COUNTRY1.getPrimaryKey());
     }
 
     /**
@@ -245,12 +215,12 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
      */
     @Test(dependsOnMethods = {"deleteCountry"})
     public void getCountryListByRegionKey() {
-        logger.info("Get Country List by Region Key: " + REGION_1_KEY);
+        logger.info("Get Country List by Region Key: " + REGION1.getPrimaryKey());
 
-        List<CountryJson> countryJsons = countryService.getCountryListByRegionKey(REGION_1_KEY);
+        List<CountryJson> countryJsons = countryService.getCountryListByRegionKey(REGION1.getPrimaryKey());
 
         assertEquals(countryJsons.size(), EXPECTED_NUMBER_OF_COUNTRIES_BY_REGION);
-        assertEquals(countryJsons.get(0).getPrimaryKey(), COUNTRY_1_KEY);
+        assertEquals(countryJsons.get(0).getPrimaryKey(), COUNTRY1.getPrimaryKey());
     }
 
     /**
@@ -275,21 +245,5 @@ public class CountryServiceTest extends AbstractTestNGSpringContextTests {
         country4Key = countryJson.getPrimaryKey();
 
         assertEquals(country4Key, EXPECTED_COUNTRY_4_KEY);
-    }
-
-    private void deleteCountryTestRecord(String deleteKey) {
-        Country country = countryRepository.findOne(deleteKey);
-
-        if (country != null) {
-            countryRepository.delete(country);
-        }
-    }
-
-    private void deleteRegionTestRecord(String deleteKey) {
-        Region region = regionRepository.findOne(deleteKey);
-
-        if (region != null) {
-            regionRepository.delete(region);
-        }
     }
 }

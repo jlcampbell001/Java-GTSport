@@ -1,6 +1,7 @@
 package backEnd.general.dealers;
 
 import backEnd.general.GTSportConfig;
+import backEnd.general.GTSportDataTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -16,29 +17,11 @@ import org.testng.annotations.Test;
  *
  * @author jonathan
  */
-@ContextConfiguration(classes = GTSportConfig.class)
-@Rollback
-public class DealerRepositoryTest extends AbstractTestNGSpringContextTests {
+public class DealerRepositoryTest extends GTSportDataTesting {
 
-    private static final String COUNTRY_KEY_1 = "COU9000000001";
-    private static final String EXPECTED_MAX_KEY = "XXX900000003";
-
-    private static final String DEALER_1_KEY = "XXX900000001";
-    private static final String DEALER_1_NAME = "DEALER_1";
-    private static final String DEALER_1_COUNTRY_KEY = COUNTRY_KEY_1;
-
-    private static final String DEALER_2_KEY = "XXX900000002";
-    private static final String DEALER_2_NAME = "DEALER_2";
-    private static final String DEALER_2_COUNTRY_KEY = "COU900000002";
-
-    private static final String DEALER_3_KEY = EXPECTED_MAX_KEY;
-    private static final String DEALER_3_NAME = "DEALER_3";
-    private static final String DEALER_3_COUNTRY_KEY = COUNTRY_KEY_1;
+    private static final String EXPECTED_MAX_KEY = DEALER3.getPrimaryKey();
 
     private static final int EXPECT_NUMBER_OF_DEALERS = 2;
-
-    @Autowired
-    private DealerRepository dealerRepository;
 
     /**
      * Setup records to test against.
@@ -48,15 +31,16 @@ public class DealerRepositoryTest extends AbstractTestNGSpringContextTests {
     public void beforeClass() {
         logger.info("Before Class");
 
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
+        
+        countryRepository.saveAndFlush(COUNTRY1);
+        countryRepository.saveAndFlush(COUNTRY2);
+        
         // add the 3 dealers to work with.
-        Dealer dealer1 = new Dealer(DEALER_1_KEY, DEALER_1_NAME, DEALER_1_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer1);
-
-        Dealer dealer2 = new Dealer(DEALER_2_KEY, DEALER_2_NAME, DEALER_2_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer2);
-
-        Dealer dealer3 = new Dealer(DEALER_3_KEY, DEALER_3_NAME, DEALER_3_COUNTRY_KEY);
-        dealerRepository.saveAndFlush(dealer3);
+        dealerRepository.saveAndFlush(DEALER1);
+        dealerRepository.saveAndFlush(DEALER2);
+        dealerRepository.saveAndFlush(DEALER3);
     }
 
     /**
@@ -68,9 +52,15 @@ public class DealerRepositoryTest extends AbstractTestNGSpringContextTests {
         logger.info("After Class");
 
         // delete the test records.
-        deleteTestRecord(DEALER_1_KEY);
-        deleteTestRecord(DEALER_2_KEY);
-        deleteTestRecord(DEALER_3_KEY);
+        deleteDealerTestRecord(DEALER1.getPrimaryKey());
+        deleteDealerTestRecord(DEALER2.getPrimaryKey());
+        deleteDealerTestRecord(DEALER3.getPrimaryKey());
+        
+        deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
     /**
@@ -80,9 +70,9 @@ public class DealerRepositoryTest extends AbstractTestNGSpringContextTests {
     public void findByName() {
         logger.info("Find By Name");
 
-        Dealer dealer = dealerRepository.findByName(DEALER_2_NAME);
+        Dealer dealer = dealerRepository.findByName(DEALER2.getName());
 
-        assertEquals(dealer.getPrimaryKey(), DEALER_2_KEY);
+        assertEquals(dealer.getPrimaryKey(), DEALER2.getPrimaryKey());
     }
 
     /**
@@ -104,17 +94,9 @@ public class DealerRepositoryTest extends AbstractTestNGSpringContextTests {
     public void findAllByCountryKey() {
         logger.info("Find All By Country Key");
 
-        List<Dealer> dealers = dealerRepository.findAllByCountryKey(COUNTRY_KEY_1);
+        List<Dealer> dealers = dealerRepository.findAllByCountryKey(DEALER1.getCountryKey());
 
         assertEquals(dealers.size(), EXPECT_NUMBER_OF_DEALERS);
-        assertEquals(dealers.get(0).getPrimaryKey(), DEALER_1_KEY);
-    }
-
-    private void deleteTestRecord(String deleteKey) {
-        Dealer dealer = dealerRepository.findOne(deleteKey);
-
-        if (dealer != null) {
-            dealerRepository.delete(dealer);
-        }
+        assertEquals(dealers.get(0).getPrimaryKey(), DEALER1.getPrimaryKey());
     }
 }

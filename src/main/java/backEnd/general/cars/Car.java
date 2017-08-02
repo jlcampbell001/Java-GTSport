@@ -1,12 +1,17 @@
 package backEnd.general.cars;
 
+import backEnd.general.dealers.Dealer;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * The entity that represents a car record.
@@ -28,6 +33,11 @@ public class Car implements Serializable {
     
     @Column(name = "CarDeaKey")
     private String dealerKey = "";
+    
+   // @Transient
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CarDeaKey", insertable = false, updatable = false)
+    private Dealer dealer;
     
     @Column(name = "CarYear")
     private int year = 0;

@@ -5,6 +5,9 @@
  */
 package backEnd.general.cars;
 
+import backEnd.general.countries.Country;
+import backEnd.general.dealers.Dealer;
+import backEnd.general.regions.Region;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,6 +16,8 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -27,6 +32,14 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
 
     @Override
     public List<Car> findAllByCriteria(CarSearchJson searchJson) throws CarException {
+        boolean addDealerJoin = false;
+        boolean addCountryJoin = false;
+        boolean addRegionJoin = false;
+        
+        Join<Car, Dealer> dealerJoin = null;
+        Join<Dealer, Country> coutryJoin = null;
+        Join<Country, Region> regionJoin = null;
+
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Car> criteriaQuery = builder.createQuery(Car.class);
         Root<Car> criteriaRoot = criteriaQuery.from(Car.class);
@@ -34,7 +47,7 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
 
         //Figure out the criteria using the passed search json.
         Predicate criteria = builder.conjunction();
-        
+                
         // level criteria
         if (searchJson.getLevelFrom() != null || searchJson.getLevelTo() != null) {
             Expression<Integer> levelExpression = criteriaRoot.get("level");
@@ -117,10 +130,28 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
                     searchJson.getDriveTrain()));
         }
         
+        // add joins
+        if (searchJson.getDealerName() != null) {
+            addDealerJoin = true;
+        }
+        
+        if (addDealerJoin) {
+            dealerJoin = criteriaRoot.join(Car_.dealer, JoinType.INNER);
+        }
+        
+        // dealer criteria
+        if (searchJson.getDealerName() != null) {
+            Expression<String> dealerNameExpression = dealerJoin.get("name");
+            
+            criteria = builder.and(criteria, builder.equal(dealerNameExpression, 
+                    searchJson.getDealerName()));
+            
+        }
+
         if (criteria.getExpressions().isEmpty()) {
             throw new CarException(CarException.SEARCH_CRITERIA_NOT_PROVIDED);
         }
-
+        
         criteriaQuery.where(criteria);
 
         Query query = entityManager.createQuery(criteriaQuery);
