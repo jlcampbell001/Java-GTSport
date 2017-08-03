@@ -102,6 +102,7 @@ public class CarServiceTest extends GTSportDataTesting {
 
         deleteDealerTestRecord(DEALER1.getPrimaryKey());
         deleteDealerTestRecord(DEALER2.getPrimaryKey());
+        deleteDealerTestRecord(DEALER3.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());

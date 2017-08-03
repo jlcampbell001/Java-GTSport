@@ -6,7 +6,9 @@
 package backEnd.general.cars;
 
 import backEnd.general.countries.Country;
+import backEnd.general.countries.Country_;
 import backEnd.general.dealers.Dealer;
+import backEnd.general.dealers.Dealer_;
 import backEnd.general.regions.Region;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
         boolean addRegionJoin = false;
         
         Join<Car, Dealer> dealerJoin = null;
-        Join<Dealer, Country> coutryJoin = null;
+        Join<Dealer, Country> countryJoin = null;
         Join<Country, Region> regionJoin = null;
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -135,17 +137,53 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
             addDealerJoin = true;
         }
         
+        if (searchJson.getCountryDescription() != null) {
+            addDealerJoin = true;
+            addCountryJoin = true;
+        }
+        
+        if (searchJson.getRegionDescription() != null) {
+            addDealerJoin = true;
+            addCountryJoin = true;
+            addRegionJoin = true;
+        }
+        
+        
         if (addDealerJoin) {
             dealerJoin = criteriaRoot.join(Car_.dealer, JoinType.INNER);
         }
         
+        if (addCountryJoin && dealerJoin != null) {
+            countryJoin = dealerJoin.join(Dealer_.country, JoinType.INNER);
+        }
+        
+        if (addRegionJoin && countryJoin != null) {
+            regionJoin = countryJoin.join(Country_.region, JoinType.INNER);
+        }
+        
         // dealer criteria
-        if (searchJson.getDealerName() != null) {
+        if (searchJson.getDealerName() != null && dealerJoin != null) {
             Expression<String> dealerNameExpression = dealerJoin.get("name");
             
             criteria = builder.and(criteria, builder.equal(dealerNameExpression, 
                     searchJson.getDealerName()));
             
+        }
+        
+        // country critera
+        if (searchJson.getCountryDescription() != null && countryJoin != null) {
+            Expression<String> countryDescriptionExpression = countryJoin.get("description");
+            
+            criteria = builder.and(criteria, builder.equal(countryDescriptionExpression, 
+                    searchJson.getCountryDescription()));
+        }
+        
+        // region critera
+        if (searchJson.getRegionDescription() != null && regionJoin != null) {
+            Expression<String> regionDescriptionExpression = regionJoin.get("description");
+            
+            criteria = builder.and(criteria, builder.equal(regionDescriptionExpression, 
+                    searchJson.getRegionDescription()));
         }
 
         if (criteria.getExpressions().isEmpty()) {

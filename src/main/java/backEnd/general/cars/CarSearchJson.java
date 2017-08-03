@@ -21,6 +21,8 @@ public class CarSearchJson {
     
     private String driveTrain = null;
     private String dealerName = null;
+    private String countryDescription = null;
+    private String regionDescription = null;
 
     public Integer getLevelFrom() {
         return levelFrom;
@@ -101,5 +103,20 @@ public class CarSearchJson {
     public void setDealerName(String dealerName) {
         this.dealerName = dealerName;
     }
-    
+
+    public String getCountryDescription() {
+        return countryDescription;
+    }
+
+    public void setCountryDescription(String countryDescription) {
+        this.countryDescription = countryDescription;
+    }
+
+    public String getRegionDescription() {
+        return regionDescription;
+    }
+
+    public void setRegionDescription(String regionDescription) {
+        this.regionDescription = regionDescription;
+    }
 }

@@ -34,8 +34,7 @@ public class Car implements Serializable {
     @Column(name = "CarDeaKey")
     private String dealerKey = "";
     
-   // @Transient
-    @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CarDeaKey", insertable = false, updatable = false)
     private Dealer dealer;
     

@@ -5,22 +5,9 @@
  */
 package backEnd.general.cars;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.countries.CountriesForTesting;
-import backEnd.general.countries.Country;
-import backEnd.general.countries.CountryRepository;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.DealerRepository;
-import backEnd.general.dealers.DealersForTesting;
-import backEnd.general.regions.Region;
-import backEnd.general.regions.RegionRepository;
-import backEnd.general.regions.RegionsForTesting;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -61,6 +48,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
 
     private static final String DEALER_NAME_TEST = DEALER2.getName();
     private static final int DEALER_NAME_RECORDS_EXPECTED = 1;
+    
+    private static final String COUNTRY_DESCRIPTION_TEST = COUNTRY2.getDescription();
+    private static final int COUNTRY_DESCRIPTION_RECORDS_EXPECTED = 1;
+    
+    private static final String REGION_DESCRIPTION_TEST = REGION2.getDescription();
+    private static final int REGION_DESCRIPTION_RECORDS_EXPECTED = 1;
 
     /**
      * Setup records to test against.
@@ -354,6 +347,34 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
 
         assertEquals(cars.size(), DEALER_NAME_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
+    }
+
+    @Test
+    public void findAllByCriteriaCountryDescription() throws CarException {
+        logger.info("Find All By Criteria Country Description: " + COUNTRY_DESCRIPTION_TEST);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setCountryDescription(COUNTRY_DESCRIPTION_TEST);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), COUNTRY_DESCRIPTION_RECORDS_EXPECTED);
+        assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
+    }
+
+    @Test
+    public void findAllByCriteriaRegionDescription() throws CarException {
+        logger.info("Find All By Criteria Region Description: " + REGION_DESCRIPTION_TEST);
+
+        CarSearchJson carSearchJson = new CarSearchJson();
+
+        carSearchJson.setRegionDescription(REGION_DESCRIPTION_TEST);
+
+        List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+
+        assertEquals(cars.size(), REGION_DESCRIPTION_RECORDS_EXPECTED);
         assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
     }
 }

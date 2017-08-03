@@ -108,10 +108,10 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
     }
 
     protected void deleteRegionTestRecord(String deleteKey) {
-        Country country = countryRepository.findOne(deleteKey);
+        Region region = regionRepository.findOne(deleteKey);
 
-        if (country != null) {
-            countryRepository.delete(country);
+        if (region != null) {
+            regionRepository.delete(region);
         }
     }
 }
