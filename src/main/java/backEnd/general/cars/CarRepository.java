@@ -21,4 +21,8 @@ public interface CarRepository extends JpaRepository<Car, String>, CarRepository
     
     @Query("Select car from Car car where car.dealerKey = :dealerKey")
     List<Car> findAllByDealerKey(@Param("dealerKey") String dealerKey);
+    
+    @Query("Select car.level, count(car), avg(car.powerPoints), avg(car.horsePower), "
+            + "avg(car.price) from Car car group by car.level order by car.level")
+    List<Object[]> getCarsStatistics();
 }

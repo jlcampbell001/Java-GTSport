@@ -17,6 +17,11 @@ public class CarException extends Exception {
     public static final String CAR_NAME_NOT_FOUND = "The car name can not be found: ";
     public static final String SEARCH_CRITERIA_NOT_PROVIDED = "No car search criteria provided.";
     public static final String NO_CARS_FOUND_FOR_CRITERIA = "No cars found for criteria.";
+    public static final String CAR_STAT_OBJECT_0_NOT_INTEGER = "Object Element 0 (Level) must be an Integer to convert to a CarLevelStatistic object: ";
+    public static final String CAR_STAT_OBJECT_1_NOT_LONG = "Object Element 1 (No of Cars) must be a Long to convert to a CarLevelStatistic object: ";
+    public static final String CAR_STAT_OBJECT_2_NOT_DOUBLE = "Object Element 2 (Avg PP) must be a Double to convert to a CarLevelStatistic object: ";
+    public static final String CAR_STAT_OBJECT_3_NOT_DOUBLE = "Object Element 3 (Avg HP) must be a Double to convert to a CarLevelStatistic object: ";
+    public static final String CAR_STAT_OBJECT_4_NOT_DOUBLE = "Object Element 4 (Avg Price) must be a Double to convert to a CarLevelStatistic object: ";
     
     /**
      * Creates a new instance of <code>CarException</code> without detail
