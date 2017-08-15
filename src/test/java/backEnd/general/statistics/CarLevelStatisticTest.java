@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package backEnd.general.cars;
+package backEnd.general.statistics;
 
 
+import backEnd.general.cars.CarException;
 import org.apache.log4j.Logger;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;

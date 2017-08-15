@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package backEnd.general.cars;
+package backEnd.general.statistics;
+
+import backEnd.general.cars.CarException;
 
 /**
  *
