@@ -1,20 +1,15 @@
 package backEnd.general.cars;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.DealerRepository;
-import backEnd.general.dealers.DealersForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Testing the car validate service.
  *
  * @author jonathan
  */
@@ -23,9 +18,9 @@ public class CarValidateTest extends GTSportDataTesting {
     private static final String CAR_4_KEY = "XXX900000004";
     private static final String CAR_4_NAME = "Esperante GTR-1 Race Car '98";
     private static final String CAR_4_DEALER_KEY = DEALER1.getPrimaryKey();
-    
-    private static final String BAD_DRIVETRAIN = "XX";
-    private static final String BAD_ASPIRATION = "XX";
+
+    private static final DriveTrain BAD_DRIVETRAIN = null;
+    private static final Aspiration BAD_ASPIRATION = null;
     private static final String BAD_DEALER_KEY = "!!!XXX!!!";
     private static final String BAD_CAR_KEY = "!!!XXX!!!";
 
@@ -80,6 +75,11 @@ public class CarValidateTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test to validate a car save.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(groups = "goodSave")
     public void validateCarSave() throws CarException {
         logger.info("Validate Car Save");
@@ -95,6 +95,11 @@ public class CarValidateTest extends GTSportDataTesting {
         carValidate.validateCarSave(carJson);
     }
 
+    /**
+     * Test car save validate with a empty drivetrain.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(groups = "goodSave")
     public void validateCarSaveEmptyDriveTrain() throws CarException {
         logger.info("Validate Car Save - Empty Drivetrain");
@@ -104,11 +109,16 @@ public class CarValidateTest extends GTSportDataTesting {
         carJson.setPrimaryKey(CAR1.getPrimaryKey());
         carJson.setDealerKey(DEALER1.getPrimaryKey());
         carJson.setName(CAR1.getName());
-        carJson.setDriveTrain("");
+        carJson.setDriveTrain(DriveTrain.EMPTY);
 
         carValidate.validateCarSave(carJson);
     }
 
+    /**
+     * Test car save validate with an empty aspiration.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(groups = "goodSave")
     public void validateCarSaveEmptyAspiration() throws CarException {
         logger.info("Validate Car Save - Empty Aspiration");
@@ -119,11 +129,16 @@ public class CarValidateTest extends GTSportDataTesting {
         carJson.setDealerKey(DEALER1.getPrimaryKey());
         carJson.setName(CAR1.getName());
         carJson.setDriveTrain(CAR1.getDriveTrain());
-        carJson.setAspiration("");
+        carJson.setAspiration(Aspiration.EMPTY);
 
         carValidate.validateCarSave(carJson);
     }
 
+    /**
+     * test car save validate with the name not filled in.
+     *
+     * @throws CarException should find an error with the name not set
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = CarException.class)
     public void validateCarSaveNameNotSet() throws CarException {
         logger.info("Validate Car Save Name Not Set");
@@ -144,6 +159,11 @@ public class CarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test car save validate with the dealer key not filled.
+     *
+     * @throws CarException should find an error with the dealer key not filled
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = CarException.class)
     public void validateCarSaveDealerKeyNotSet() throws CarException {
         logger.info("Validate Car Save Dealer Key Not Set");
@@ -164,6 +184,11 @@ public class CarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test car save validate with the a bad drivetrain.
+     *
+     * @throws CarException should find an error with the bad drivetrain
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = CarException.class)
     public void validateCarSaveDrivetrainNotValid() throws CarException {
         logger.info("Validate Car Save Drivetrain Not Valid");
@@ -184,7 +209,12 @@ public class CarValidateTest extends GTSportDataTesting {
             throw ce;
         }
     }
-    
+
+    /**
+     * Test car save validate with a bad aspiration.
+     *
+     * @throws CarException should find an error with the bad aspiration
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = CarException.class)
     public void validateCarSaveAspirationNotValid() throws CarException {
         logger.info("Validate Car Save Aspiration Not Valid");
@@ -206,7 +236,12 @@ public class CarValidateTest extends GTSportDataTesting {
             throw ce;
         }
     }
-    
+
+    /**
+     * Test car save validate with the car name already existing.
+     *
+     * @throws CarException should find an error with the name already existing
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = CarException.class)
     public void validateCarSaveNameAlreadyExists() throws CarException {
         logger.info("Validate Car Save Name Already Exists");
@@ -219,14 +254,19 @@ public class CarValidateTest extends GTSportDataTesting {
             carJson.setPrimaryKey(CAR_4_KEY);
             carJson.setDealerKey(CAR_4_DEALER_KEY);
             carJson.setName(CAR_4_NAME);
-            
+
             carValidate.validateCarSave(carJson);
         } catch (CarException ce) {
             assertEquals(ce.getMessage(), expectedError);
             throw ce;
         }
     }
-    
+
+    /**
+     * Test car save validate with a bad dealer key.
+     *
+     * @throws CarException should find an error with the dealer key not found
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = CarException.class)
     public void validateCarSaveDealerKeyNotFound() throws CarException {
         logger.info("Validate Car Save Dealer Key Not Found: " + BAD_DEALER_KEY);
@@ -241,32 +281,42 @@ public class CarValidateTest extends GTSportDataTesting {
             carJson.setName(CAR1.getName());
             carJson.setDriveTrain(CAR1.getDriveTrain());
             carJson.setAspiration(CAR1.getAspiration());
-            
+
             carValidate.validateCarSave(carJson);
         } catch (CarException ce) {
             assertEquals(ce.getMessage(), expectedError);
             throw ce;
         }
     }
-    
+
+    /**
+     * Test car delete validate.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(groups = "goodDelete")
     public void validateCarDelete() throws CarException {
         logger.info("Validate Car Delete");
-        
+
         carValidate.validateCarDelete(CAR1.getPrimaryKey());
     }
-    
+
+    /**
+     * Test car delete validate with a bad car primary key.
+     *
+     * @throws CarException should find an error with not finding a car key
+     */
     @Test(dependsOnGroups = "goodDelete", expectedExceptions = CarException.class)
     public void validateCarDeleteBadCarKey() throws CarException {
         logger.info("Validate Car Delete Bad Car Key: " + BAD_CAR_KEY);
-        
+
         String expectedError = CarException.CAR_KEY_NOT_FOUND_TO_DELETE + BAD_CAR_KEY;
-        
+
         try {
             carValidate.validateCarDelete(BAD_CAR_KEY);
         } catch (CarException ce) {
             assertEquals(ce.getMessage(), expectedError);
             throw ce;
         }
-    }    
+    }
 }

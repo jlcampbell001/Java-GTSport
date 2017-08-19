@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.cars;
 
 import backEnd.general.GTSportDataTesting;
@@ -14,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Testing class for car searching.
  *
  * @author jonathan
  */
@@ -42,16 +38,16 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
     private static final int HORSE_POWER_RANGE_RECORDS_EXPECTED = 3;
     private static final int HORSE_POWER_MIN_SET_RECORDS_EXPECTED = 5;
     private static final int HORSE_POWER_MAX_SET_RECORDS_EXPECTED = 7;
-    
-    private static final String DRIVE_TRAIN_TEST = DriveTrain.FR.getDescription();
+
+    private static final DriveTrain DRIVE_TRAIN_TEST = DriveTrain.FR;
     private static final int DRIVE_TRAIN_RECORDS_EXPECTED = 5;
 
     private static final String DEALER_NAME_TEST = DEALER2.getName();
     private static final int DEALER_NAME_RECORDS_EXPECTED = 1;
-    
+
     private static final String COUNTRY_DESCRIPTION_TEST = COUNTRY2.getDescription();
     private static final int COUNTRY_DESCRIPTION_RECORDS_EXPECTED = 1;
-    
+
     private static final String REGION_DESCRIPTION_TEST = REGION2.getDescription();
     private static final int REGION_DESCRIPTION_RECORDS_EXPECTED = 1;
 
@@ -62,13 +58,13 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
     @Rollback(false)
     public void beforeClass() {
         logger.info("Before Class");
-        
+
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
-        
+
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
-        
+
         dealerRepository.saveAndFlush(DEALER1);
         dealerRepository.saveAndFlush(DEALER2);
 
@@ -85,7 +81,7 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the country records added for testing.
+     * Delete the setup records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -102,17 +98,22 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR7.getPrimaryKey());
         deleteCarTestRecord(CAR8.getPrimaryKey());
         deleteCarTestRecord(CAR9.getPrimaryKey());
-        
+
         deleteDealerTestRecord(DEALER1.getPrimaryKey());
         deleteDealerTestRecord(DEALER2.getPrimaryKey());
-        
+
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
-        
+
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by criteria with no criteria being passed.
+     *
+     * @throws CarException should throw an error that there is no criteria
+     */
     @Test(expectedExceptions = {CarException.class})
     public void findAllByCriteriaNoCriteria() throws CarException {
         logger.info("Find All By Criteria No Criteria");
@@ -122,13 +123,18 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         CarSearchJson carSearchJson = new CarSearchJson();
 
         try {
-            List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+            carRepository.findAllByCriteria(carSearchJson);
         } catch (CarException ce) {
             assertEquals(ce.getMessage(), ExpectedError);
             throw ce;
         }
     }
 
+    /**
+     * Test to find all cars by criteria with no records found.
+     *
+     * @throws CarException should throw an error that no records were found
+     */
     @Test(expectedExceptions = {CarException.class})
     public void findAllByCriteriaNoRecordsFound() throws CarException {
         logger.info("Find All By Criteria No Records Found");
@@ -139,13 +145,18 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         carSearchJson.setLevelFrom(99999);
 
         try {
-            List<Car> cars = carRepository.findAllByCriteria(carSearchJson);
+            carRepository.findAllByCriteria(carSearchJson);
         } catch (CarException ce) {
             assertEquals(ce.getMessage(), ExpectedError);
             throw ce;
         }
     }
 
+    /**
+     * Test to find all cars by a level criteria range.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaLevelRange() throws CarException {
         logger.info("Find All By Criteria Level Range: " + LEVEL_MIN_RANGE + " - " + LEVEL_MAX_RANGE);
@@ -161,6 +172,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by a level range with the min value set and the max
+     * set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaLevelRangeMinSet() throws CarException {
         logger.info("Find All By Criteria Level Range: " + LEVEL_MIN_RANGE + " - MAX");
@@ -175,6 +192,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by a level range with the max value set and the min
+     * set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaLevelRangeMaxSet() throws CarException {
         logger.info("Find All By Criteria Level Range: " + "MIN - " + LEVEL_MAX_RANGE);
@@ -189,6 +212,11 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by a year range.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaYearRange() throws CarException {
         logger.info("Find All By Criteria Year Range: " + YEAR_MIN_RANGE + " - " + YEAR_MAX_RANGE);
@@ -204,6 +232,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by a year range with the min value set and the max
+     * set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaYearRangeMinSet() throws CarException {
         logger.info("Find All By Criteria Year Range: " + YEAR_MIN_RANGE + " - MAX");
@@ -218,6 +252,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by a year range with the max value set and the min
+     * set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaYearRangeMaxSet() throws CarException {
         logger.info("Find All By Criteria Year Range: MIN - " + YEAR_MAX_RANGE);
@@ -232,6 +272,11 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by a power point range.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaPowerPointsRange() throws CarException {
         logger.info("Find All By Criteria Power Points Range: "
@@ -248,6 +293,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by power points with the min value set and the max
+     * set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaPowerPointsSetMin() throws CarException {
         logger.info("Find All By Criteria Power Points Range: "
@@ -263,6 +314,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by power points with the max value set and the min
+     * set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaPowerPointsSetMax() throws CarException {
         logger.info("Find All By Criteria Power Points Range: MIN - " + POWER_POINTS_MAX_RANGE);
@@ -276,7 +333,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.size(), POWER_POINTS_MAX_SET_RECORDS_EXPECTED);
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
-    
+
+    /**
+     * Test to find cars by horse power range.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaHorsePowerRange() throws CarException {
         logger.info("Find All By Criteria Horse Power Range: "
@@ -293,6 +355,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to find all cars by horse power range with the min value set and the
+     * max set to null.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaHorsePowerSetMin() throws CarException {
         logger.info("Find All By Criteria Horse Power Range: "
@@ -307,7 +375,13 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.size(), HORSE_POWER_MIN_SET_RECORDS_EXPECTED);
         assertEquals(cars.get(0).getPrimaryKey(), CAR3.getPrimaryKey());
     }
-    
+
+    /**
+     * Test to find cars by horse power range with the max value set and the min
+     * set to null.
+     *
+     * @throws CarException
+     */
     @Test
     public void findAllByCriteriaHorsePowerSetMax() throws CarException {
         logger.info("Find All By Criteria Horse Power Range: MIN - " + HORSE_POWER_MAX_RANGE);
@@ -322,6 +396,11 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
 
+    /**
+     * Test to find cars by a drivetrain.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaDriveTrain() throws CarException {
         logger.info("Find All By Criteria Drive Train: " + DRIVE_TRAIN_TEST);
@@ -335,7 +414,12 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.size(), DRIVE_TRAIN_RECORDS_EXPECTED);
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
-    
+
+    /**
+     * Test to find cars by a dealer name.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaDealerName() throws CarException {
         logger.info("Find All By Criteria Dealer Name: " + DEALER_NAME_TEST);
@@ -350,6 +434,11 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
     }
 
+    /**
+     * Test to find cars by a country.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaCountryDescription() throws CarException {
         logger.info("Find All By Criteria Country Description: " + COUNTRY_DESCRIPTION_TEST);
@@ -364,6 +453,11 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         assertEquals(cars.get(0).getPrimaryKey(), CAR2.getPrimaryKey());
     }
 
+    /**
+     * Test to find cars by a region.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void findAllByCriteriaRegionDescription() throws CarException {
         logger.info("Find All By Criteria Region Description: " + REGION_DESCRIPTION_TEST);

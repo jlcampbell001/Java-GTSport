@@ -2,18 +2,9 @@ package backEnd.general.countries;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.DealerRepository;
-import backEnd.general.dealers.DealersForTesting;
-import backEnd.general.regions.RegionRepository;
-import backEnd.general.regions.Region;
-import backEnd.general.regions.RegionsForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,7 +15,7 @@ import org.testng.annotations.Test;
  * @author jonathan
  */
 public class CountryValidateTest extends GTSportDataTesting {
- 
+
     private static final String BAD_REGION_KEY = "X!X900000001";
     private static final String BAD_COUNTRY_KEY = "C!C999999999";
 
@@ -53,7 +44,7 @@ public class CountryValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the country records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)

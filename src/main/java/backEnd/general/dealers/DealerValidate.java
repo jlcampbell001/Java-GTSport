@@ -20,7 +20,7 @@ public class DealerValidate {
 
     @Autowired
     private CountryRepository countryRepository;
-    
+
     @Autowired
     private CarRepository carRepository;
 
@@ -63,7 +63,8 @@ public class DealerValidate {
      * Validates the dealer to delete.
      *
      * @param primaryKey - the primary key of the dealer to delete
-     * @throws DealerException - Errors if the primary key is not found.
+     * @throws DealerException Errors if the primary key is not found or is used
+     * in a car.
      */
     public void validateDealerDelete(String primaryKey) throws DealerException {
         if (!dealerRepository.exists(primaryKey)) {
@@ -72,8 +73,8 @@ public class DealerValidate {
 
         // Make sure the dealer is not being used by a car.
         List<Car> cars = carRepository.findAllByDealerKey(primaryKey);
-        
-        if(!cars.isEmpty()) {
+
+        if (!cars.isEmpty()) {
             throw new DealerException(DealerException.DEALER_IS_IN_USE);
         }
     }

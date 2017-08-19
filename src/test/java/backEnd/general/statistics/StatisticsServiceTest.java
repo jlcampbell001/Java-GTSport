@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.statistics;
 
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.cars.CarException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -18,13 +10,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for the statistics service.
  *
  * @author jonathan
  */
 public class StatisticsServiceTest extends GTSportDataTesting {
 
-        private static final int EXPECTED_NUMBER_OF_CARS = 8;
-    
+    private static final int EXPECTED_NUMBER_OF_CARS = 8;
+
     private static final int EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS = 8;
     private static final Integer LEVEL_4_ID = 4;
     private static final Long LEVEL_4_NUMBER_OF_CARS = 2L;
@@ -32,7 +25,6 @@ public class StatisticsServiceTest extends GTSportDataTesting {
     private static final Double LEVEL_4_AVG_HP = 234.0;
     private static final Double LEVEL_4_AVG_PRICE = 57445.00;
 
-    
     @Autowired
     private StatisticsService statisticsService;
 
@@ -67,7 +59,7 @@ public class StatisticsServiceTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the country records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -95,17 +87,22 @@ public class StatisticsServiceTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
-    
+
+    /**
+     * Test to get a car level statistics list.
+     *
+     * @throws CarLevelStatisticException should find no errors
+     */
     @Test
-    public void getCarLevelStatistics() throws CarException {
+    public void getCarLevelStatistics() throws CarLevelStatisticException {
         logger.info("Get Car Level Statistics");
-        
+
         Map<Integer, CarLevelStatistic> carLevelStatistics = statisticsService.getCarLevelStatistics();
-        
+
         assertEquals(carLevelStatistics.size(), EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS);
-        
+
         CarLevelStatistic carLevelStatistic4 = carLevelStatistics.get(LEVEL_4_ID);
-        
+
         assertNotNull(carLevelStatistic4, "Can not find level 4 record.");
         assertEquals(carLevelStatistic4.getLevel(), LEVEL_4_ID);
         assertEquals(carLevelStatistic4.getNoOfCars(), LEVEL_4_NUMBER_OF_CARS);

@@ -1,20 +1,8 @@
 package backEnd.general.dealers;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.cars.Car;
-import backEnd.general.cars.CarRepository;
-import backEnd.general.cars.CarsForTesting;
-import backEnd.general.countries.CountriesForTesting;
-import backEnd.general.countries.Country;
-import backEnd.general.countries.CountryRepository;
-import backEnd.general.regions.Region;
-import backEnd.general.regions.RegionRepository;
-import backEnd.general.regions.RegionsForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -43,7 +31,7 @@ public class DealerValidateTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
-        
+
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
 
@@ -51,13 +39,13 @@ public class DealerValidateTest extends GTSportDataTesting {
         dealerRepository.saveAndFlush(DEALER1);
         dealerRepository.saveAndFlush(DEALER2);
         dealerRepository.saveAndFlush(DEALER3);
-        
+
         // add car record.
         carRepository.saveAndFlush(CAR2);
     }
 
     /**
-     * Delete the dealer records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -73,7 +61,7 @@ public class DealerValidateTest extends GTSportDataTesting {
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
-        
+
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
@@ -221,19 +209,25 @@ public class DealerValidateTest extends GTSportDataTesting {
             throw de;
         }
     }
-    
+
+    /**
+     * Test dealer delete validate where the dealer key is still in use.
+     *
+     * @throws DealerException should find an error that the dealer key is in
+     * use
+     */
     @Test(expectedExceptions = DealerException.class)
     public void validateDealerDeleteInUse() throws DealerException {
         logger.info("Validate Dealer Delete In Use");
-        
+
         String expectedException = DealerException.DEALER_IS_IN_USE;
-        
+
         try {
             dealerValidate.validateDealerDelete(DEALER2.getPrimaryKey());
         } catch (DealerException de) {
             assertEquals(de.getMessage(), expectedException);
             throw de;
         }
-        
+
     }
 }

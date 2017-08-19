@@ -1,12 +1,8 @@
 package backEnd.general.dealers;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,10 +29,10 @@ public class DealerRepositoryTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
-        
+
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
-        
+
         // add the 3 dealers to work with.
         dealerRepository.saveAndFlush(DEALER1);
         dealerRepository.saveAndFlush(DEALER2);
@@ -44,7 +40,7 @@ public class DealerRepositoryTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the dealer records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -55,10 +51,10 @@ public class DealerRepositoryTest extends GTSportDataTesting {
         deleteDealerTestRecord(DEALER1.getPrimaryKey());
         deleteDealerTestRecord(DEALER2.getPrimaryKey());
         deleteDealerTestRecord(DEALER3.getPrimaryKey());
-        
+
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
-        
+
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }

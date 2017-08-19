@@ -1,12 +1,7 @@
 package backEnd.general.regions;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.countries.CountryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,10 +14,10 @@ import org.testng.annotations.Test;
  */
 public class RegionRepositoryTest extends GTSportDataTesting {
 
-    private static final String MAX_REGION_KEY = REGION3.getPrimaryKey();   
+    private static final String MAX_REGION_KEY = REGION3.getPrimaryKey();
 
     private static final String BAD_DESCRIPTION = "XXX_BAD_DESCRIPTION_XXX";
-    
+
     /**
      * Setup records to test against.
      */
@@ -34,7 +29,7 @@ public class RegionRepositoryTest extends GTSportDataTesting {
         // add the 3 regions to work with.
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
-        regionRepository.saveAndFlush(REGION3);        
+        regionRepository.saveAndFlush(REGION3);
     }
 
     /**

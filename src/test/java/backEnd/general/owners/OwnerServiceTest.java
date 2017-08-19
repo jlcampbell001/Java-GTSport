@@ -6,13 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
 
 /**
@@ -53,7 +50,7 @@ public class OwnerServiceTest extends GTSportDataTesting {
     }
 
     /**
-     * Clean up the owner table when done testing.
+     * Clean up the testing data.
      */
     @AfterClass
     @Rollback(false)

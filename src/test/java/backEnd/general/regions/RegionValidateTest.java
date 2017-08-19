@@ -1,13 +1,8 @@
 package backEnd.general.regions;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.countries.Country;
-import backEnd.general.countries.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -43,7 +38,7 @@ public class RegionValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the region records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -55,7 +50,7 @@ public class RegionValidateTest extends GTSportDataTesting {
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
-        deleteRegionTestRecord(REGION3.getPrimaryKey());        
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -105,7 +100,7 @@ public class RegionValidateTest extends GTSportDataTesting {
     public void validateRegionSaveDescriptionAlreadyExists() throws RegionException {
         logger.info("Validate Region Save Description Already Exists: " + REGION2.getDescription());
 
-        String expectedError = RegionException.REGION_DESCRIPTION_ALREADY_EXISTS 
+        String expectedError = RegionException.REGION_DESCRIPTION_ALREADY_EXISTS
                 + REGION2.getDescription();
 
         try {
@@ -152,7 +147,8 @@ public class RegionValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Test deleting a region validation where the primary key is still in use in a country.
+     * Test deleting a region validation where the primary key is still in use
+     * in a country.
      *
      * @throws RegionException
      */

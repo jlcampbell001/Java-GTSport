@@ -1,23 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.regions;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
+ * Tests for the region service.
  *
  * @author jonathan
  */
@@ -52,7 +45,7 @@ public class RegionServiceTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the region records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -64,7 +57,7 @@ public class RegionServiceTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
         deleteRegionTestRecord(REGION3.getPrimaryKey());
         deleteRegionTestRecord(region4Key);
-        
+
         regionService.resetKeys();
     }
 

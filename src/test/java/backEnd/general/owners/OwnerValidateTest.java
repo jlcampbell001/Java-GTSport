@@ -4,13 +4,10 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
 
 /**
@@ -40,7 +37,7 @@ public class OwnerValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the test owner records that where created.
+     * Delete the test records that where created.
      */
     @AfterClass
     @Rollback(false)

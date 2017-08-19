@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.regions;
 
 /**
- *
+ * Test data for regions.
  * @author jonathan
  */
 public class RegionsForTesting {
@@ -19,7 +14,18 @@ public class RegionsForTesting {
     private static final String REGION_3_KEY = "REG900000003";
     private static final String REGION_3_DESCRIPTION = "TEST_REGION_3";
     
-    public static Region region1 = new Region(REGION_1_KEY, REGION_1_DESCRIPTION);
-    public static Region region2 = new Region(REGION_2_KEY, REGION_2_DESCRIPTION);
-    public static Region region3 = new Region(REGION_3_KEY, REGION_3_DESCRIPTION);
+    /**
+     * Test data for a region.
+     */
+    public static final Region REGION1 = new Region(REGION_1_KEY, REGION_1_DESCRIPTION);
+
+    /**
+     * Test data for a region.
+     */
+    public static final Region REGION2 = new Region(REGION_2_KEY, REGION_2_DESCRIPTION);
+
+    /**
+     * Test data for a region.
+     */
+    public static final Region REGION3 = new Region(REGION_3_KEY, REGION_3_DESCRIPTION);
 }

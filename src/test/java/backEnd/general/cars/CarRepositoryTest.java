@@ -18,7 +18,7 @@ public class CarRepositoryTest extends GTSportDataTesting {
     private static final String EXPECTED_MAX_KEY = CAR9.getPrimaryKey();
 
     private static final int EXPECTED_NUMBER_OF_CARS = 8;
-    
+
     private static final int EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS = 8;
     private static final int EXPECTED_LEVEL_4_ROW = 2;
     private static final long LEVEL_4_NUMBER_OF_CARS = 2L;
@@ -57,7 +57,7 @@ public class CarRepositoryTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the country records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -86,6 +86,9 @@ public class CarRepositoryTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test to find a car by a name.
+     */
     @Test
     public void findByName() {
         logger.info("Find By Name");
@@ -95,6 +98,9 @@ public class CarRepositoryTest extends GTSportDataTesting {
         assertEquals(car.getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to find the highest car primary key.
+     */
     @Test
     public void getMaxKey() {
         logger.info("Get Max Key");
@@ -104,6 +110,9 @@ public class CarRepositoryTest extends GTSportDataTesting {
         assertEquals(maxKey, EXPECTED_MAX_KEY);
     }
 
+    /**
+     * Test find all cars by a dealer key.
+     */
     @Test
     public void findAllByDealerKey() {
         logger.info("Find All By Dealer Key");
@@ -113,32 +122,21 @@ public class CarRepositoryTest extends GTSportDataTesting {
         assertEquals(cars.size(), EXPECTED_NUMBER_OF_CARS);
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
-    
+
+    /**
+     * Test to get a list of car statistics.
+     */
     @Test
     public void getCarStatistics() {
         logger.info("Get Car Statistics");
-        
+
         List<Object[]> carsStats = carRepository.getCarsStatistics();
-        
+
         assertEquals(carsStats.size(), EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS);
         assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[0], 4);
         assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[1], LEVEL_4_NUMBER_OF_CARS);
         assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[2], LEVEL_4_AVG_PP);
         assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[3], LEVEL_4_AVG_HP);
         assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[4], LEVEL_4_AVG_PRICE);
- /*       
-        for (int i = 0; i < carsStats.size(); i++) {
-            Object[] carStat = carsStats.get(i);
-
-            CarLevelStatistic carLevelStatistic = new CarLevelStatistic(carStat);
-
-            
-            logger.info(carLevelStatistic);
-
-        }
-        Object[] carObjects = new Object[]{0, 4, 1, 1, 1};
-        CarLevelStatistic carLevelStatistic = new CarLevelStatistic(carObjects);
-            logger.info(carLevelStatistic);
-   */     
     }
 }

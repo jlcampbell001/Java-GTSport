@@ -1,17 +1,10 @@
 package backEnd.general.dealers;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
 import backEnd.general.countries.CountriesForTesting;
-import backEnd.general.countries.Country;
-import backEnd.general.countries.CountryRepository;
-import backEnd.general.regions.RegionRepository;
-import backEnd.general.regions.RegionsForTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -25,7 +18,7 @@ import org.testng.annotations.Test;
 public class DealerServiceTest extends GTSportDataTesting {
 
     private static final String DEALER_4_NAME = "DEALER_4";
-    private static final String DEALER_4_COUNTRY_KEY = CountriesForTesting.country2.getPrimaryKey();
+    private static final String DEALER_4_COUNTRY_KEY = CountriesForTesting.COUNTRY2.getPrimaryKey();
     private static final String NEW_DEALER_4_NAME = "NEW_DEALER_IV";
 
     private static final String BAD_DEALER_KEY = "D!X999999999";
@@ -35,7 +28,7 @@ public class DealerServiceTest extends GTSportDataTesting {
     private static final int EXPECTED_NUMBER_OF_ROWS_COUNTRY = 2;
 
     private static final String EXPECTED_MAX_KEY = "DEA900000004";
-    
+
     @Autowired
     private DealerService dealerService;
 
@@ -51,7 +44,7 @@ public class DealerServiceTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
-        
+
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
 
@@ -62,7 +55,7 @@ public class DealerServiceTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the dealer records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -74,12 +67,12 @@ public class DealerServiceTest extends GTSportDataTesting {
         deleteDealerTestRecord(DEALER2.getPrimaryKey());
         deleteDealerTestRecord(DEALER3.getPrimaryKey());
         deleteDealerTestRecord(dealer4Key);
-        
+
         dealerService.resetKeys();
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
-        
+
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
@@ -156,7 +149,6 @@ public class DealerServiceTest extends GTSportDataTesting {
      *
      * @throws DealerException
      */
-    
     @Test
     public void saveNewDealer() throws DealerException {
         logger.info("Save New Dealer");
@@ -220,7 +212,7 @@ public class DealerServiceTest extends GTSportDataTesting {
     public void getDealerListByCountryKey() {
         logger.info("Get Dealer List By Dealer Key");
 
-        List<DealerJson> dealerJsons = dealerService.getDealerListByCountryKey(CountriesForTesting.country1.getPrimaryKey());
+        List<DealerJson> dealerJsons = dealerService.getDealerListByCountryKey(CountriesForTesting.COUNTRY1.getPrimaryKey());
 
         assertEquals(dealerJsons.size(), EXPECTED_NUMBER_OF_ROWS_COUNTRY);
         assertEquals(dealerJsons.get(0).getPrimaryKey(), DEALER1.getPrimaryKey());

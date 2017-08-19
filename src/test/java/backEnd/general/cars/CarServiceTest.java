@@ -1,33 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general.cars;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.DealerRepository;
-import backEnd.general.dealers.DealersForTesting;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for the car service.
  *
  * @author jonathan
  */
 public class CarServiceTest extends GTSportDataTesting {
 
-        private static final String CAR_4_NAME = "Mustang Mach 1 '71";
+    private static final String CAR_4_NAME = "Mustang Mach 1 '71";
     private static final String CAR_4_DEALER_KEY = DEALER1.getPrimaryKey();
     private static final int CAR_4_YEAR = 1971;
     private static final int CAR_4_LEVEL = 4;
@@ -38,8 +27,8 @@ public class CarServiceTest extends GTSportDataTesting {
     private static final String CAR_4_POWER_RPM = "";
     private static final double CAR_4_TORQUE_FTLB = 0.00;
     private static final String CAR_4_TORQUE_RPM = "";
-    private static final String CAR_4_DRIVETRAIN = DriveTrain.FR.getDescription();
-    private static final String CAR_4_ASPIRATION = Aspiration.NA.getDescription();
+    private static final DriveTrain CAR_4_DRIVETRAIN = DriveTrain.FR;
+    private static final Aspiration CAR_4_ASPIRATION = Aspiration.NA;
     private static final double CAR_4_LENGTH = 189.50;
     private static final double CAR_4_WIDTH = 74.10;
     private static final double CAR_4_HEIGHT = 50.10;
@@ -111,6 +100,11 @@ public class CarServiceTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test to get the car Json by the car primary key.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void getCarJsonByKey() throws CarException {
         logger.info("Get Car Json By Key");
@@ -120,6 +114,11 @@ public class CarServiceTest extends GTSportDataTesting {
         assertEquals(carJson.getPrimaryKey(), CAR2.getPrimaryKey());
     }
 
+    /**
+     * Test to get the car Json by the car primary key but using a bad key.
+     *
+     * @throws CarException should have an error of no car record found
+     */
     @Test(expectedExceptions = CarException.class)
     public void getCarJsonByKeyBadKey() throws CarException {
         logger.info("Get Car Json By Key Bad Key: " + BAD_CAR_KEY);
@@ -134,6 +133,11 @@ public class CarServiceTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test to get a car Json by the car name.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void getCarJsonByName() throws CarException {
         logger.info("Get Car Json By Name");
@@ -143,9 +147,14 @@ public class CarServiceTest extends GTSportDataTesting {
         assertEquals(carJson.getPrimaryKey(), CAR3.getPrimaryKey());
     }
 
+    /**
+     * Test to get a car Json name with a bad name.
+     *
+     * @throws CarException should find an error that no car was found
+     */
     @Test(expectedExceptions = CarException.class)
-    public void getCarJsonByKeyBadName() throws CarException {
-        logger.info("Get Car Json By Key Bad Name: " + BAD_CAR_NAME);
+    public void getCarJsonByNameBadName() throws CarException {
+        logger.info("Get Car Json By Name Bad Name: " + BAD_CAR_NAME);
 
         String expectedError = CarException.CAR_NAME_NOT_FOUND + BAD_CAR_NAME;
 
@@ -157,6 +166,11 @@ public class CarServiceTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test saving a new car.
+     *
+     * @throws CarException should find no errors
+     */
     @Test
     public void saveNewCar() throws CarException {
         logger.info("Save New Car");
@@ -186,6 +200,11 @@ public class CarServiceTest extends GTSportDataTesting {
         car4Key = carJson.getPrimaryKey();
     }
 
+    /**
+     * Test the save of a car with updated data.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(dependsOnMethods = {"saveNewCar"})
     public void updateCar() throws CarException {
         logger.info("Update Car");
@@ -213,6 +232,11 @@ public class CarServiceTest extends GTSportDataTesting {
         carService.saveCar(carJson);
     }
 
+    /**
+     * Test deleting a car.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(dependsOnMethods = {"updateCar"})
     public void deleteCar() throws CarException {
         logger.info("Delete Car: " + car4Key);
@@ -220,6 +244,9 @@ public class CarServiceTest extends GTSportDataTesting {
         carService.deleteCar(car4Key);
     }
 
+    /**
+     * Test get a list of all cars.
+     */
     @Test(dependsOnMethods = {"deleteCar"})
     public void getCarList() {
         logger.info("Get Car List");
@@ -230,6 +257,9 @@ public class CarServiceTest extends GTSportDataTesting {
         assertEquals(carJsons.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
 
+    /**
+     * Test of getting a list of cars by a dealer key.
+     */
     @Test(dependsOnMethods = {"deleteCar"})
     public void getCarListByDealerKey() {
         logger.info("Get Car List By Dealer Key: " + DEALER1.getPrimaryKey());
@@ -240,6 +270,11 @@ public class CarServiceTest extends GTSportDataTesting {
         assertEquals(carJsons.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
 
+    /**
+     * Test to reset the keys to the max car key.
+     *
+     * @throws CarException should find no errors
+     */
     @Test(dependsOnMethods = {"deleteCar"})
     public void resetKeys() throws CarException {
         logger.info("Reset Keys");

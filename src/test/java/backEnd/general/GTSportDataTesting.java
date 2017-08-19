@@ -26,6 +26,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 /**
+ * Basic testing class for database testing.
  *
  * @author jonathan
  */
@@ -33,47 +34,146 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 @Rollback
 public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
 
-    protected static final Owner OWNER1 = OwnersForTesting.owner1;
-    protected static final Owner OWNER2 = OwnersForTesting.owner2;
-    protected static final Owner OWNER3 = OwnersForTesting.owner3;
+    /**
+     * Testing data for an owner.
+     */
+    protected static final Owner OWNER1 = OwnersForTesting.OWNER1;
 
-    protected static final Region REGION1 = RegionsForTesting.region1;
-    protected static final Region REGION2 = RegionsForTesting.region2;
-    protected static final Region REGION3 = RegionsForTesting.region3;
+    /**
+     * Testing data for an owner.
+     */
+    protected static final Owner OWNER2 = OwnersForTesting.OWNER2;
 
-    protected static final Country COUNTRY1 = CountriesForTesting.country1;
-    protected static final Country COUNTRY2 = CountriesForTesting.country2;
-    protected static final Country COUNTRY3 = CountriesForTesting.country3;
-    
-    protected static final Dealer DEALER1 = DealersForTesting.dealer1;
-    protected static final Dealer DEALER2 = DealersForTesting.dealer2;
-    protected static final Dealer DEALER3 = DealersForTesting.dealer3;
+    /**
+     * Testing data for an owner.
+     */
+    protected static final Owner OWNER3 = OwnersForTesting.OWNER3;
 
-    protected static final Car CAR1 = CarsForTesting.car1;
-    protected static final Car CAR2 = CarsForTesting.car2;
-    protected static final Car CAR3 = CarsForTesting.car3;
-    protected static final Car CAR4 = CarsForTesting.car4;
-    protected static final Car CAR5 = CarsForTesting.car5;
-    protected static final Car CAR6 = CarsForTesting.car6;
-    protected static final Car CAR7 = CarsForTesting.car7;
-    protected static final Car CAR8 = CarsForTesting.car8;
-    protected static final Car CAR9 = CarsForTesting.car9;
+    /**
+     * Testing data for a region.
+     */
+    protected static final Region REGION1 = RegionsForTesting.REGION1;
 
+    /**
+     * Testing data for a region.
+     */
+    protected static final Region REGION2 = RegionsForTesting.REGION2;
+
+    /**
+     * Testing data for a region.
+     */
+    protected static final Region REGION3 = RegionsForTesting.REGION3;
+
+    /**
+     * Testing data for a country.
+     */
+    protected static final Country COUNTRY1 = CountriesForTesting.COUNTRY1;
+
+    /**
+     * Testing data for a country.
+     */
+    protected static final Country COUNTRY2 = CountriesForTesting.COUNTRY2;
+
+    /**
+     * Testing data for a country.
+     */
+    protected static final Country COUNTRY3 = CountriesForTesting.COUNTRY3;
+
+    /**
+     * Testing data for a dealer.
+     */
+    protected static final Dealer DEALER1 = DealersForTesting.DEALER1;
+
+    /**
+     * Testing data for a dealer.
+     */
+    protected static final Dealer DEALER2 = DealersForTesting.DEALER2;
+
+    /**
+     * testing data for a dealer.
+     */
+    protected static final Dealer DEALER3 = DealersForTesting.DEALER3;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR1 = CarsForTesting.CAR1;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR2 = CarsForTesting.CAR2;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR3 = CarsForTesting.CAR3;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR4 = CarsForTesting.CAR4;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR5 = CarsForTesting.CAR5;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR6 = CarsForTesting.CAR6;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR7 = CarsForTesting.CAR7;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR8 = CarsForTesting.CAR8;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR9 = CarsForTesting.CAR9;
+
+    /**
+     * The owner repository so data can be setup/deleted for an owner.
+     */
     @Autowired
     protected OwnerRepository ownerRepository;
-    
+
+    /**
+     * The region repository so data can be setup/deleted for a region.
+     */
     @Autowired
     protected RegionRepository regionRepository;
 
+    /**
+     * The country repository so data can be setup/deleted for a country.
+     */
     @Autowired
     protected CountryRepository countryRepository;
 
+    /**
+     * The dealer repository so data can be setup/deleted for a dealer.
+     */
     @Autowired
     protected DealerRepository dealerRepository;
 
+    /**
+     * The car repository so data can be setup/deleted for a car.
+     */
     @Autowired
     protected CarRepository carRepository;
 
+    /**
+     * Deletes a car test record.
+     *
+     * @param deleteKey the car primary key to delete
+     */
     protected void deleteCarTestRecord(String deleteKey) {
         Car car = carRepository.findOne(deleteKey);
 
@@ -82,6 +182,11 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Deletes a country test record.
+     *
+     * @param deleteKey the country primary key to delete
+     */
     protected void deleteCountryTestRecord(String deleteKey) {
         Country country = countryRepository.findOne(deleteKey);
 
@@ -90,6 +195,11 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Deletes a dealer test record.
+     *
+     * @param deleteKey the dealer primary key to delete
+     */
     protected void deleteDealerTestRecord(String deleteKey) {
         Dealer dealer = dealerRepository.findOne(deleteKey);
 
@@ -98,6 +208,11 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Deletes an owner test record.
+     *
+     * @param deleteKey the owner primary key to delete
+     */
     protected void deleteOwnerTestRecord(String deleteKey) {
         Owner owner = ownerRepository.findOne(deleteKey);
 
@@ -106,6 +221,11 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Deletes a region test record.
+     *
+     * @param deleteKey the region primary key to delete
+     */
     protected void deleteRegionTestRecord(String deleteKey) {
         Region region = regionRepository.findOne(deleteKey);
 

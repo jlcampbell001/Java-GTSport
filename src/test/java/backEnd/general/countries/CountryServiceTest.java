@@ -1,17 +1,9 @@
 package backEnd.general.countries;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.DealersForTesting;
-import backEnd.general.regions.Region;
-import backEnd.general.regions.RegionRepository;
-import backEnd.general.regions.RegionsForTesting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -60,7 +52,7 @@ public class CountryServiceTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the country records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)
@@ -72,7 +64,7 @@ public class CountryServiceTest extends GTSportDataTesting {
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
         deleteCountryTestRecord(country4Key);
-        
+
         countryService.resetKeys();
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());

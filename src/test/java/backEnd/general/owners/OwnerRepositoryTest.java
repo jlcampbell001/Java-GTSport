@@ -4,16 +4,12 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.List;
 
-import backEnd.general.GTSportConfig;
 import backEnd.general.GTSportDataTesting;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.assertNull;
 import org.testng.annotations.AfterClass;
 
@@ -23,8 +19,8 @@ import org.testng.annotations.AfterClass;
  * @author jonathan
  */
 public class OwnerRepositoryTest extends GTSportDataTesting {
-    
-    private static final String MAX_OWN_KEY = OWNER3.getPrimaryKey();  
+
+    private static final String MAX_OWN_KEY = OWNER3.getPrimaryKey();
 
     private static final String BAD_OWNER_NAME = "XXX_";
 
@@ -45,7 +41,7 @@ public class OwnerRepositoryTest extends GTSportDataTesting {
     }
 
     /**
-     * Delete the owner records added for testing.
+     * Delete the records added for testing.
      */
     @AfterClass
     @Rollback(false)

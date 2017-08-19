@@ -45,7 +45,11 @@ public class DealerException extends Exception {
      * the dealer.
      */
     public static final String DEALER_NAME_NOT_FOUND = "The dealer can not be found by the name: ";
-    
+
+    /**
+     * The error message for trying to delete the dealer but it is used in
+     * another table.
+     */
     public static final String DEALER_IS_IN_USE = "The dealer can not be deleted as it is in use.";
 
     /**
