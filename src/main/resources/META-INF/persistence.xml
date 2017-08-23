@@ -6,6 +6,7 @@
     <class>backEnd.general.countries.Country</class>
     <class>backEnd.general.dealers.Dealer</class>
     <class>backEnd.general.cars.Car</class>
+    <class>backEnd.general.ownerCars.OwnerCar</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
       <property name="javax.persistence.jdbc.user" value="app"/>

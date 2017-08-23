@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backEnd.general;
 
 import backEnd.general.cars.Car;
@@ -14,6 +9,9 @@ import backEnd.general.countries.CountryRepository;
 import backEnd.general.dealers.Dealer;
 import backEnd.general.dealers.DealerRepository;
 import backEnd.general.dealers.DealersForTesting;
+import backEnd.general.ownerCars.OwnerCar;
+import backEnd.general.ownerCars.OwnerCarRepository;
+import backEnd.general.ownerCars.OwnerCarsForTesting;
 import backEnd.general.owners.Owner;
 import backEnd.general.owners.OwnerRepository;
 import backEnd.general.owners.OwnersForTesting;
@@ -138,6 +136,10 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
      * Testing data for a car.
      */
     protected static final Car CAR9 = CarsForTesting.CAR9;
+    
+    protected static final OwnerCar OWNERCAR1 = OwnerCarsForTesting.OWNERCAR1;
+    protected static final OwnerCar OWNERCAR2 = OwnerCarsForTesting.OWNERCAR2;
+    protected static final OwnerCar OWNERCAR3 = OwnerCarsForTesting.OWNERCAR3;
 
     /**
      * The owner repository so data can be setup/deleted for an owner.
@@ -168,6 +170,9 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
      */
     @Autowired
     protected CarRepository carRepository;
+    
+    @Autowired
+    protected  OwnerCarRepository ownerCarRepository;
 
     /**
      * Deletes a car test record.
@@ -221,6 +226,14 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         }
     }
 
+    protected void deleteOwnerCarTestRecord(String deleteKey) {
+        OwnerCar ownerCar = ownerCarRepository.findOne(deleteKey);
+        
+        if (ownerCar != null) {
+            ownerCarRepository.delete(ownerCar);
+        }
+    }
+    
     /**
      * Deletes a region test record.
      *
@@ -232,5 +245,5 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         if (region != null) {
             regionRepository.delete(region);
         }
-    }
+    }    
 }

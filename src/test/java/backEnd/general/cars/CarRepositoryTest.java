@@ -44,7 +44,7 @@ public class CarRepositoryTest extends GTSportDataTesting {
         dealerRepository.saveAndFlush(DEALER2);
         dealerRepository.saveAndFlush(DEALER3);
 
-        // add the 3 cars to work with.
+        // add the cars to work with.
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
         carRepository.saveAndFlush(CAR3);

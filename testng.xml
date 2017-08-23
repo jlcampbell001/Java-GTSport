@@ -42,6 +42,11 @@
             <class name="backEnd.general.cars.CarRepositorySearchTest"/>
         </classes>
     </test>
+    <test name="OwnerCarRepository">
+        <classes>
+            <class name="backEnd.general.ownerCars.OwnerCarRepositoryTest"/>
+        </classes>
+    </test>
     <test name="OwnerValidate">
         <classes>
             <class name="backEnd.general.owners.OwnerValidateTest"/>
