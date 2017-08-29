@@ -17,7 +17,8 @@ public class OwnerCarRepositoryTest extends GTSportDataTesting {
 
     private static final String EXPECTED_MAX_KEY = OWNERCAR3.getPrimaryKey();
 
-    private static final int EXPECTED_NUMBER_OF_OWNERCARS = 2;
+    private static final int EXPECTED_NUMBER_OF_OWNERCARS_BY_OWNER = 2;
+    private static final int EXPRECTED_NUMBER_OF_OWNERCARS_BY_CAR = 1;
 
     /**
      * Setup records to test against.
@@ -118,7 +119,17 @@ public class OwnerCarRepositoryTest extends GTSportDataTesting {
 
         List<OwnerCar> ownerCars = ownerCarRepository.findAllByOwnerKey(OWNER1.getPrimaryKey());
 
-        assertEquals(ownerCars.size(), EXPECTED_NUMBER_OF_OWNERCARS);
+        assertEquals(ownerCars.size(), EXPECTED_NUMBER_OF_OWNERCARS_BY_OWNER);
         assertEquals(ownerCars.get(0).getPrimaryKey(), OWNERCAR1.getPrimaryKey());
+    }
+    
+    @Test
+    public void findAllByCarKey() {
+        logger.info("Find All By Car Key");
+        
+        List<OwnerCar> ownersCars = ownerCarRepository.findAllByCarKey(CAR1.getPrimaryKey());
+        
+        assertEquals(ownersCars.size(), EXPRECTED_NUMBER_OF_OWNERCARS_BY_CAR);
+        assertEquals(ownersCars.get(0).getPrimaryKey(), OWNERCAR1.getPrimaryKey());
     }
 }

@@ -33,6 +33,7 @@ public class OwnerException extends Exception {
      */
     public static final String OWNER_NAME_EXISTS_ALREADY_ERROR = "An owner with the name already exists: ";
 
+    public static final String OWNER_IS_IN_USE = "The owner can be be deleted as it is in use.";
 	/**
 	 * Exceptions error control and messages for the owner service.
 	 */

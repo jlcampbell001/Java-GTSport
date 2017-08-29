@@ -23,17 +23,26 @@ public class OwnerValidateTest extends GTSportDataTesting {
     private OwnerValidate ownerValidate;
 
     /**
-     * Setup owner records for testing.
+     * Setup records for testing.
      */
     @BeforeClass
     @Rollback(false)
     public void beforeClass() {
         logger.info("Before Class");
 
-        // add the 3 owners to work with.
         ownerRepository.saveAndFlush(OWNER1);
         ownerRepository.saveAndFlush(OWNER2);
         ownerRepository.saveAndFlush(OWNER3);
+        
+        regionRepository.saveAndFlush(REGION1);
+
+        countryRepository.saveAndFlush(COUNTRY1);
+
+        dealerRepository.saveAndFlush(DEALER1);
+
+        carRepository.saveAndFlush(CAR3);
+
+        ownerCarRepository.saveAndFlush(OWNERCAR3);
     }
 
     /**
@@ -45,10 +54,20 @@ public class OwnerValidateTest extends GTSportDataTesting {
         logger.info("After Class");
 
         // delete the test records.
-        deleteOwnerTestRecord(OWNER1.getPrimaryKey());
+       deleteOwnerCarTestRecord(OWNERCAR3.getPrimaryKey());
+ 
+       deleteOwnerTestRecord(OWNER1.getPrimaryKey());
         deleteOwnerTestRecord(OWNER2.getPrimaryKey());
         deleteOwnerTestRecord(OWNER3.getPrimaryKey());
-    }
+
+        deleteCarTestRecord(CAR3.getPrimaryKey());
+
+        deleteDealerTestRecord(DEALER1.getPrimaryKey());
+
+        deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+     }
 
     /**
      * Validate a good owner to save.

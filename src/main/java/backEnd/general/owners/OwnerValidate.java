@@ -1,5 +1,8 @@
 package backEnd.general.owners;
 
+import backEnd.general.ownerCars.OwnerCar;
+import backEnd.general.ownerCars.OwnerCarRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,9 @@ public class OwnerValidate {
 
     @Autowired
     private OwnerRepository ownerRepository;
+    
+    @Autowired
+    private OwnerCarRepository ownerCarRepository;
 
     /**
      * Checks to see if the owner data to save is valid.
@@ -42,8 +48,7 @@ public class OwnerValidate {
     }
 
     /**
-     * TODO: need to check the owned cars table for records before allowing
-     * delete.
+     * Checks to make sure the owner can be deleted.
      *
      * @param primaryKey - the primary key of the owner to delete
      * @throws OwnerException - errors thrown if the owner will not be allowed
@@ -54,6 +59,13 @@ public class OwnerValidate {
         // Make sure the owner record exists to delete.
         if (!ownerRepository.exists(primaryKey)) {
             throw new OwnerException(OwnerException.OWNER_NOT_FOUND_KEY_DELETE_ERROR + primaryKey);
+        }
+        
+        // Make sure the owner record is not used by an ownercar record.
+        List<OwnerCar> ownerCars = ownerCarRepository.findAllByOwnerKey(primaryKey);
+        
+        if(!ownerCars.isEmpty()) {
+            throw new OwnerException(OwnerException.OWNER_IS_IN_USE);
         }
     }
 }

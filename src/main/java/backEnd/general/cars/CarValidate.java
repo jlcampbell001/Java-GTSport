@@ -1,6 +1,9 @@
 package backEnd.general.cars;
 
 import backEnd.general.dealers.DealerRepository;
+import backEnd.general.ownerCars.OwnerCar;
+import backEnd.general.ownerCars.OwnerCarRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class CarValidate {
 
     @Autowired
     private CarRepository carRepository;
+    
+    @Autowired
+    private OwnerCarRepository ownerCarRepository;
 
     /**
      * Validates the data to save a car.<br>
@@ -82,10 +88,10 @@ public class CarValidate {
         }
 
         // Make sure the car is not used in a owned car.
-        /*    List<Dealer> dealers = dealerRepository.findAllByCountryKey(primaryKey);
+        List<OwnerCar> ownerCars = ownerCarRepository.findAllByCarKey(primaryKey);
         
-        if (!dealers.isEmpty()) {
-            throw new CountryException(CountryException.COUNTRY_IS_IN_USE);
-        }*/
+        if (!ownerCars.isEmpty()) {
+            throw new CarException(CarException.CAR_IS_IN_USE);
+        }
     }
 }

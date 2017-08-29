@@ -45,10 +45,12 @@ public class CarValidateTest extends GTSportDataTesting {
         dealerRepository.saveAndFlush(DEALER2);
         dealerRepository.saveAndFlush(DEALER3);
 
-        // add the 3 cars to work with.
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
         carRepository.saveAndFlush(CAR3);
+        
+        ownerRepository.saveAndFlush(OWNER1);
+        ownerCarRepository.saveAndFlush(OWNERCAR3);
     }
 
     /**
@@ -60,6 +62,10 @@ public class CarValidateTest extends GTSportDataTesting {
         logger.info("After Class");
 
         // delete the test records.
+        deleteOwnerCarTestRecord(OWNERCAR3.getPrimaryKey());
+        
+        deleteOwnerTestRecord(OWNER1.getPrimaryKey());
+        
         deleteCarTestRecord(CAR1.getPrimaryKey());
         deleteCarTestRecord(CAR2.getPrimaryKey());
         deleteCarTestRecord(CAR3.getPrimaryKey());
@@ -314,6 +320,20 @@ public class CarValidateTest extends GTSportDataTesting {
 
         try {
             carValidate.validateCarDelete(BAD_CAR_KEY);
+        } catch (CarException ce) {
+            assertEquals(ce.getMessage(), expectedError);
+            throw ce;
+        }
+    }
+
+    @Test(dependsOnGroups = "goodDelete", expectedExceptions = CarException.class)
+    public void validateCarDeleteCarKeyInUse() throws CarException {
+        logger.info("Validate Car Delete Car Key In Use");
+
+        String expectedError = CarException.CAR_IS_IN_USE;
+
+        try {
+            carValidate.validateCarDelete(CAR3.getPrimaryKey());
         } catch (CarException ce) {
             assertEquals(ce.getMessage(), expectedError);
             throw ce;

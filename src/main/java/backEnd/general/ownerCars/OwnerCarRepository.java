@@ -21,4 +21,7 @@ public interface OwnerCarRepository extends JpaRepository<OwnerCar, String>{
     
     @Query("Select ownerCar from OwnerCar ownerCar where ownerCar.ownerKey = :ownerKey")
     List<OwnerCar> findAllByOwnerKey(@Param("ownerKey") String ownerKey);
+    
+    @Query("Select ownerCar from OwnerCar ownerCar where ownerCar.carKey = :carKey")
+    List<OwnerCar> findAllByCarKey(@Param("carKey") String carKey);
 }

@@ -97,6 +97,11 @@
             <class name="backEnd.general.cars.CarServiceTest"/>
         </classes>
     </test> 
+    <test name="OwnerCarValidate">
+        <classes>
+            <class name="backEnd.general.ownerCars.OwnerCarValidateTest"/>
+        </classes>
+    </test>
     <test name="StatisticsService">
         <classes>
             <class name="backEnd.general.statistics.StatisticsServiceTest"/>
