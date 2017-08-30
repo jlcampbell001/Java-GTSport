@@ -12,6 +12,7 @@ public class OwnerCarException extends Exception {
     public static final String OWNER_KEY_DOSE_NOT_EXIST = "The owner car owner key could not be found: ";
     public static final String CAR_KEY_DOSE_NOT_EXIST = "The owner car car key could not be found: ";
     public static final String OWNERCAR_KEY_CAN_NOT_BE_FOUND_TO_DELETE = "The owner car key cound not be found to delete: ";
+    public static final String OWNERCAR_KEY_NOT_FOUND = "The owner car key could not be found: ";
 
     /**
      * Creates a new instance of <code>OwnerCarException</code> without detail

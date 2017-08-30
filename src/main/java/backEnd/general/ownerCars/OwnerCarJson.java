@@ -75,7 +75,9 @@ private LocalDate acquiredDate = LocalDate.now();
 
     @Override
     public String toString() {
-        return "OwnerCarJson[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey + ", carKey=" + carKey + ", carId=" + carId + ", Colour=" + Colour + ", powerPoints=" + powerPoints + ", acquiredDate=" + acquiredDate + ']';
+        return "OwnerCarJson[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey 
+                + ", carKey=" + carKey + ", carId=" + carId + ", Colour=" + Colour 
+                + ", powerPoints=" + powerPoints + ", acquiredDate=" + acquiredDate + ']';
     }
 
 
