@@ -136,9 +136,20 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
      * Testing data for a car.
      */
     protected static final Car CAR9 = CarsForTesting.CAR9;
-    
+
+    /**
+     * Testing data for an owner car.
+     */
     protected static final OwnerCar OWNERCAR1 = OwnerCarsForTesting.OWNERCAR1;
+
+    /**
+     * Testing data for an owner car.
+     */
     protected static final OwnerCar OWNERCAR2 = OwnerCarsForTesting.OWNERCAR2;
+
+    /**
+     * Testing data for an owner car.
+     */
     protected static final OwnerCar OWNERCAR3 = OwnerCarsForTesting.OWNERCAR3;
 
     /**
@@ -170,9 +181,12 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
      */
     @Autowired
     protected CarRepository carRepository;
-    
+
+    /**
+     * The owner car repository so data can be setup/deleted for an owner car.
+     */
     @Autowired
-    protected  OwnerCarRepository ownerCarRepository;
+    protected OwnerCarRepository ownerCarRepository;
 
     /**
      * Deletes a car test record.
@@ -226,14 +240,19 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         }
     }
 
+    /**
+     * Deletes an owner car test record.
+     *
+     * @param deleteKey the owner car primary key to delete
+     */
     protected void deleteOwnerCarTestRecord(String deleteKey) {
         OwnerCar ownerCar = ownerCarRepository.findOne(deleteKey);
-        
+
         if (ownerCar != null) {
             ownerCarRepository.delete(ownerCar);
         }
     }
-    
+
     /**
      * Deletes a region test record.
      *
@@ -245,5 +264,5 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
         if (region != null) {
             regionRepository.delete(region);
         }
-    }    
+    }
 }

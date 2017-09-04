@@ -63,7 +63,11 @@ public class CarException extends Exception {
      * criteria.
      */
     public static final String NO_CARS_FOUND_FOR_CRITERIA = "No cars found for criteria.";
-    
+
+    /**
+     * The error for not being able to delete the car because it is used in
+     * another table.
+     */
     public static final String CAR_IS_IN_USE = "The car can not be deleted as it is in use.";
 
     /**

@@ -1,7 +1,6 @@
 package backEnd.general.ownerCars;
 
 import backEnd.general.GTSportDataTesting;
-import backEnd.general.cars.Car;
 import java.util.List;
 import org.springframework.test.annotation.Rollback;
 import static org.testng.Assert.*;
@@ -10,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for the owner car repository.
  *
  * @author jonathan
  */
@@ -95,6 +95,9 @@ public class OwnerCarRepositoryTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test for finding an owner car by a car Id.
+     */
     @Test
     public void findByCarId() {
         logger.info("Find By Car Id");
@@ -104,6 +107,9 @@ public class OwnerCarRepositoryTest extends GTSportDataTesting {
         assertEquals(ownerCar.getPrimaryKey(), OWNERCAR2.getPrimaryKey());
     }
 
+    /**
+     * Test to get the highest valued primary key.
+     */
     @Test
     public void getMaxKey() {
         logger.info("Get Max Key");
@@ -113,6 +119,9 @@ public class OwnerCarRepositoryTest extends GTSportDataTesting {
         assertEquals(maxKey, EXPECTED_MAX_KEY);
     }
 
+    /**
+     * Test for finding all the owner cars by an owner key.
+     */
     @Test
     public void findAllByOwnerKey() {
         logger.info("Find All By Owner Key");
@@ -122,13 +131,16 @@ public class OwnerCarRepositoryTest extends GTSportDataTesting {
         assertEquals(ownerCars.size(), EXPECTED_NUMBER_OF_OWNERCARS_BY_OWNER);
         assertEquals(ownerCars.get(0).getPrimaryKey(), OWNERCAR1.getPrimaryKey());
     }
-    
+
+    /**
+     * Test for finding all the owner cars for a car key.
+     */
     @Test
     public void findAllByCarKey() {
         logger.info("Find All By Car Key");
-        
+
         List<OwnerCar> ownersCars = ownerCarRepository.findAllByCarKey(CAR1.getPrimaryKey());
-        
+
         assertEquals(ownersCars.size(), EXPRECTED_NUMBER_OF_OWNERCARS_BY_CAR);
         assertEquals(ownersCars.get(0).getPrimaryKey(), OWNERCAR1.getPrimaryKey());
     }

@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for the owner car service.
  *
  * @author jonathan
  */
@@ -30,7 +31,7 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
 
     private static final int EXPECTED_OWNERCAR_COUNT = 3;
     private static final int EXPECTED_OWNERCAR_BY_OWNER_COUNT = 2;
-    
+
     private static final String EXPECTED_OWNERCAR_KEY = "OWC900000004";
 
     private String ownerCar4Key = "";
@@ -114,6 +115,11 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test for getting an owner car by the primary key.
+     *
+     * @throws OwnerCarException should not find any errors
+     */
     @Test
     public void getOwnerCarByKey() throws OwnerCarException {
         logger.info("Get Owner Car By Key");
@@ -123,6 +129,12 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         assertEquals(ownerCarJson.getPrimaryKey(), OWNERCAR2.getPrimaryKey());
     }
 
+    /**
+     * Test for finding an owner car by the primary key with a bad key.
+     *
+     * @throws OwnerCarException Should find an error that the owner car can not
+     * be found.
+     */
     @Test(expectedExceptions = OwnerCarException.class)
     public void getOwnerCarByKeyBadKey() throws OwnerCarException {
         logger.info("Get Owner Car By Key Bad Key: " + BAD_OWNERCAR_KEY);
@@ -137,6 +149,11 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test saving a new owner car.
+     *
+     * @throws OwnerCarException should not find any errors
+     */
     @Test
     public void saveNewOwnerCar() throws OwnerCarException {
         logger.info("Save New Owner Car");
@@ -155,6 +172,11 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         ownerCar4Key = ownerCarJson.getPrimaryKey();
     }
 
+    /**
+     * Test updating an existing owner car.
+     *
+     * @throws OwnerCarException should find no errors
+     */
     @Test(dependsOnMethods = {"saveNewOwnerCar"})
     public void updateOwnerCar() throws OwnerCarException {
         logger.info("Update Owner Car");
@@ -172,6 +194,11 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         ownerCarService.saveOwnerCar(ownerCarJson);
     }
 
+    /**
+     * Test for deleting an owner car.
+     *
+     * @throws OwnerCarException should find no errors
+     */
     @Test(dependsOnMethods = {"updateOwnerCar"})
     public void deleteOwnerCar() throws OwnerCarException {
         logger.info("Delete Owner Car");
@@ -179,6 +206,9 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         ownerCarService.deleteOwnerCar(ownerCar4Key);
     }
 
+    /**
+     * Test for getting a list of all the owner cars.
+     */
     @Test(dependsOnMethods = {"deleteOwnerCar"})
     public void getOwnerCarList() {
         logger.info("Get Owner Car List");
@@ -189,6 +219,9 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         assertEquals(ownerCarJsons.get(0).getPrimaryKey(), OWNERCAR1.getPrimaryKey());
     }
 
+    /**
+     * Test for getting a list of owner cars for an owner key.
+     */
     @Test(dependsOnMethods = {"deleteOwnerCar"})
     public void getOwnerCarListByOwnerKey() {
         logger.info("Get Owner Car List By Owner Key: " + OWNER1.getPrimaryKey());
@@ -199,6 +232,11 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         assertEquals(ownerCarJsons.get(0).getPrimaryKey(), OWNERCAR1.getPrimaryKey());
     }
 
+    /**
+     * Test for resetting the last owner car key.
+     *
+     * @throws OwnerCarException should find no errors
+     */
     @Test(dependsOnMethods = {"deleteOwnerCar"})
     public void resetKeys() throws OwnerCarException {
         logger.info("Reset Keys");

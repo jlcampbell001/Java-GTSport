@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for the owner car validate.
  *
  * @author jonathan
  */
@@ -96,6 +97,11 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         deleteRegionTestRecord(REGION2.getPrimaryKey());
     }
 
+    /**
+     * Test for validating an owner car save.
+     *
+     * @throws OwnerCarException should find no errors
+     */
     @Test(groups = "goodSave")
     public void validateOwnerCarSave() throws OwnerCarException {
         logger.info("Validate Owner Car Save");
@@ -113,6 +119,11 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarValidate.validateOwnerCarSave(ownerCarJson);
     }
 
+    /**
+     * Test for validating the owner car save where the Id was not filled.
+     *
+     * @throws OwnerCarException should find an error that the Id was not filled
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = OwnerCarException.class)
     public void validateOwnerCarSaveMissingId() throws OwnerCarException {
         logger.info("Validate Owner Car Save Missing Id");
@@ -137,6 +148,13 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test for validating the save of an owner car where the owner key is not
+     * filled.
+     *
+     * @throws OwnerCarException should find an error that the owner key is not
+     * filled
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = OwnerCarException.class)
     public void validateOwnerCarSaveMissingOwnerKey() throws OwnerCarException {
         logger.info("Validate Owner Car Save Missing Owner Key");
@@ -161,6 +179,12 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test validating an owner car where the car key is not filled.
+     *
+     * @throws OwnerCarException should find an error where the car key is not
+     * filled
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = OwnerCarException.class)
     public void validateOwnerCarSaveMissingCarKey() throws OwnerCarException {
         logger.info("Validate Owner Car Save Missing Car Key");
@@ -185,6 +209,12 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test validating an owner car save where the owner key is not found.
+     *
+     * @throws OwnerCarException should find an error where the owner key can
+     * not be found
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = OwnerCarException.class)
     public void validateOwnerCarSaveBadOwnerKey() throws OwnerCarException {
         logger.info("Validate Owner Car Save Bad Owner Key: " + BAD_OWNER_KEY);
@@ -209,6 +239,12 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test validating an owner car save where the car key if not found.
+     *
+     * @throws OwnerCarException should find an error where the car key is not
+     * found
+     */
     @Test(dependsOnGroups = "goodSave", expectedExceptions = OwnerCarException.class)
     public void validateOwnerCarSaveBadCarKey() throws OwnerCarException {
         logger.info("Validate Owner Car Save Bad Car Key: " + BAD_CAR_KEY);
@@ -233,6 +269,11 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Test validating an owner car delete.
+     *
+     * @throws OwnerCarException should find no errors
+     */
     @Test(groups = "goodDelete")
     public void validateOwnerCarDelete() throws OwnerCarException {
         logger.info("Valdiate Owner Car Delete");
@@ -240,6 +281,13 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarValidate.validateOwnerCarDelete(OWNERCAR1.getPrimaryKey());
     }
 
+    /**
+     * Test validating an owner car delete where the owner car key can not be
+     * found.
+     *
+     * @throws OwnerCarException should find an error where the owner car key
+     * can not be found.
+     */
     @Test(dependsOnGroups = "goodDelete", expectedExceptions = OwnerCarException.class)
     public void validateOwnerCarDeleteBadKey() throws OwnerCarException {
         logger.info("Validate Owner Car Delete Bad Key: " + BAD_OWNERCAR_KEY);

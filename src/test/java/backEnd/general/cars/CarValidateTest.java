@@ -48,7 +48,7 @@ public class CarValidateTest extends GTSportDataTesting {
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
         carRepository.saveAndFlush(CAR3);
-        
+
         ownerRepository.saveAndFlush(OWNER1);
         ownerCarRepository.saveAndFlush(OWNERCAR3);
     }
@@ -63,9 +63,9 @@ public class CarValidateTest extends GTSportDataTesting {
 
         // delete the test records.
         deleteOwnerCarTestRecord(OWNERCAR3.getPrimaryKey());
-        
+
         deleteOwnerTestRecord(OWNER1.getPrimaryKey());
-        
+
         deleteCarTestRecord(CAR1.getPrimaryKey());
         deleteCarTestRecord(CAR2.getPrimaryKey());
         deleteCarTestRecord(CAR3.getPrimaryKey());
@@ -326,6 +326,11 @@ public class CarValidateTest extends GTSportDataTesting {
         }
     }
 
+    /**
+     * Testing the car delete where the car is still in use.
+     *
+     * @throws CarException should find an error that the car is in use
+     */
     @Test(dependsOnGroups = "goodDelete", expectedExceptions = CarException.class)
     public void validateCarDeleteCarKeyInUse() throws CarException {
         logger.info("Validate Car Delete Car Key In Use");
