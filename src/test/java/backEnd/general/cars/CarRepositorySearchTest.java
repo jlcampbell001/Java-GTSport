@@ -42,7 +42,7 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
     private static final DriveTrain DRIVE_TRAIN_TEST = DriveTrain.FR;
     private static final int DRIVE_TRAIN_RECORDS_EXPECTED = 5;
 
-    private static final String DEALER_NAME_TEST = DEALER2.getName();
+    private static final String DEALER_NAME_TEST = MANUFACTURER2.getName();
     private static final int DEALER_NAME_RECORDS_EXPECTED = 1;
 
     private static final String COUNTRY_DESCRIPTION_TEST = COUNTRY2.getDescription();
@@ -61,12 +61,14 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
 
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
 
-        dealerRepository.saveAndFlush(DEALER1);
-        dealerRepository.saveAndFlush(DEALER2);
+        manufacturerRepository.saveAndFlush(MANUFACTURER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER2);
 
         // add the cars to work with.
         carRepository.saveAndFlush(CAR1);
@@ -99,14 +101,16 @@ public class CarRepositorySearchTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR8.getPrimaryKey());
         deleteCarTestRecord(CAR9.getPrimaryKey());
 
-        deleteDealerTestRecord(DEALER1.getPrimaryKey());
-        deleteDealerTestRecord(DEALER2.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**

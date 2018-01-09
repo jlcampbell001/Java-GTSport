@@ -33,6 +33,7 @@ public class CountryValidateTest extends GTSportDataTesting {
         // Add the regions to work with.
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
 
         // Add the 3 countries to work with.
         countryRepository.saveAndFlush(COUNTRY1);
@@ -40,7 +41,7 @@ public class CountryValidateTest extends GTSportDataTesting {
         countryRepository.saveAndFlush(COUNTRY3);
 
         // Add dealer record to work with.
-        dealerRepository.saveAndFlush(DEALER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER1);
     }
 
     /**
@@ -52,7 +53,7 @@ public class CountryValidateTest extends GTSportDataTesting {
         logger.info("After Class");
 
         // Delete the test records.
-        deleteDealerTestRecord(DEALER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
@@ -60,6 +61,7 @@ public class CountryValidateTest extends GTSportDataTesting {
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -213,11 +215,11 @@ public class CountryValidateTest extends GTSportDataTesting {
      */
     @Test(expectedExceptions = CountryException.class)
     public void validateCountryDeleteCountryInUse() throws CountryException {
-        logger.info("Validate Country Delete Country In Use: " + DEALER1.getCountryKey());
+        logger.info("Validate Country Delete Country In Use: " + MANUFACTURER1.getCountryKey());
 
         String expectedError = CountryException.COUNTRY_IS_IN_USE;
         try {
-            countryValidate.validateCountryDelete(DEALER1.getCountryKey());
+            countryValidate.validateCountryDelete(MANUFACTURER1.getCountryKey());
         } catch (CountryException ce) {
             assertEquals(ce.getMessage(), expectedError);
             throw ce;

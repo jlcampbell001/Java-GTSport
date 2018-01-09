@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class CarServiceTest extends GTSportDataTesting {
 
     private static final String CAR_4_NAME = "Mustang Mach 1 '71";
-    private static final String CAR_4_DEALER_KEY = DEALER1.getPrimaryKey();
+    private static final String CAR_4_DEALER_KEY = MANUFACTURER1.getPrimaryKey();
     private static final int CAR_4_YEAR = 1971;
     private static final int CAR_4_LEVEL = 4;
     private static final int CAR_4_POWER_POINTS = 453;
@@ -59,13 +59,15 @@ public class CarServiceTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
 
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
 
-        dealerRepository.saveAndFlush(DEALER1);
-        dealerRepository.saveAndFlush(DEALER2);
-        dealerRepository.saveAndFlush(DEALER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER2);
+        manufacturerRepository.saveAndFlush(MANUFACTURER3);
 
         // add the 3 cars to work with.
         carRepository.saveAndFlush(CAR1);
@@ -89,15 +91,17 @@ public class CarServiceTest extends GTSportDataTesting {
 
         carService.resetKeys();
 
-        deleteDealerTestRecord(DEALER1.getPrimaryKey());
-        deleteDealerTestRecord(DEALER2.getPrimaryKey());
-        deleteDealerTestRecord(DEALER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -262,9 +266,9 @@ public class CarServiceTest extends GTSportDataTesting {
      */
     @Test(dependsOnMethods = {"deleteCar"})
     public void getCarListByDealerKey() {
-        logger.info("Get Car List By Dealer Key: " + DEALER1.getPrimaryKey());
+        logger.info("Get Car List By Dealer Key: " + MANUFACTURER1.getPrimaryKey());
 
-        List<CarJson> carJsons = carService.getCarListByDealerKey(DEALER1.getPrimaryKey());
+        List<CarJson> carJsons = carService.getCarListByDealerKey(MANUFACTURER1.getPrimaryKey());
 
         assertEquals(carJsons.size(), EXPECTED_NUMBER_OF_ROWS_BY_DEALER);
         assertEquals(carJsons.get(0).getPrimaryKey(), CAR1.getPrimaryKey());

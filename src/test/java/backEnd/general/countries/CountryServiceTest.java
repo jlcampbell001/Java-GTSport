@@ -16,19 +16,19 @@ import org.testng.annotations.Test;
  */
 public class CountryServiceTest extends GTSportDataTesting {
 
-    private static final String COUNTRY_4_DESCRIPTION = "COUNTRY_4";
-    private static final String COUNTRY_4_REGION_KEY = REGION2.getPrimaryKey();
-    private static final String NEW_COUNTRY_4_DESCRIPTION = "NEW_4TH_COUNTRY";
+    private static final String COUNTRY_6_DESCRIPTION = "COUNTRY_6";
+    private static final String COUNTRY_6_REGION_KEY = REGION2.getPrimaryKey();
+    private static final String NEW_COUNTRY_6_DESCRIPTION = "NEW_6TH_COUNTRY";
 
     private static final String BAD_COUNTRY_KEY = "C!C999999999";
     private static final String BAD_COUNTRY_DESCRIPTION = "BAD DESCRIPTION";
 
-    private static final int EXPECTED_NUMBER_OF_COUNTRIES = 3;
-    private static final int EXPECTED_NUMBER_OF_COUNTRIES_BY_REGION = 2;
+    private static final int EXPECTED_NUMBER_OF_COUNTRIES = 5;
+    private static final int EXPECTED_NUMBER_OF_COUNTRIES_BY_REGION = 3;
 
-    private static final String EXPECTED_COUNTRY_4_KEY = "COU900000004";
+    private static final String EXPECTED_COUNTRY_6_KEY = "COU900000006";
 
-    private String country4Key = "";
+    private String country6Key = "";
 
     @Autowired
     private CountryService countryService;
@@ -44,11 +44,14 @@ public class CountryServiceTest extends GTSportDataTesting {
         // Add the regions to work with.
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
 
-        // Add the 3 countries to work with.
+        // Add the countries to work with.
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
         countryRepository.saveAndFlush(COUNTRY3);
+        countryRepository.saveAndFlush(COUNTRY4);
+        countryRepository.saveAndFlush(COUNTRY5);
     }
 
     /**
@@ -63,12 +66,15 @@ public class CountryServiceTest extends GTSportDataTesting {
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
-        deleteCountryTestRecord(country4Key);
+        deleteCountryTestRecord(COUNTRY4.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY5.getPrimaryKey());
+        deleteCountryTestRecord(country6Key);
 
         countryService.resetKeys();
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -151,12 +157,12 @@ public class CountryServiceTest extends GTSportDataTesting {
         CountryJson countryJson = new CountryJson();
 
         countryJson.setPrimaryKey("");
-        countryJson.setDescription(COUNTRY_4_DESCRIPTION);
-        countryJson.setRegionKey(COUNTRY_4_REGION_KEY);
+        countryJson.setDescription(COUNTRY_6_DESCRIPTION);
+        countryJson.setRegionKey(COUNTRY_6_REGION_KEY);
 
         countryService.saveCountry(countryJson);
 
-        country4Key = countryJson.getPrimaryKey();
+        country6Key = countryJson.getPrimaryKey();
     }
 
     /**
@@ -166,13 +172,13 @@ public class CountryServiceTest extends GTSportDataTesting {
      */
     @Test(dependsOnMethods = {"saveNewCountry"})
     public void updateCountry() throws CountryException {
-        logger.info("Update Country: " + country4Key);
+        logger.info("Update Country: " + country6Key);
 
         CountryJson countryJson = new CountryJson();
 
-        countryJson.setPrimaryKey(country4Key);
-        countryJson.setDescription(NEW_COUNTRY_4_DESCRIPTION);
-        countryJson.setRegionKey(COUNTRY_4_REGION_KEY);
+        countryJson.setPrimaryKey(country6Key);
+        countryJson.setDescription(NEW_COUNTRY_6_DESCRIPTION);
+        countryJson.setRegionKey(COUNTRY_6_REGION_KEY);
 
         countryService.saveCountry(countryJson);
     }
@@ -184,9 +190,9 @@ public class CountryServiceTest extends GTSportDataTesting {
      */
     @Test(dependsOnMethods = {"updateCountry"})
     public void deleteCountry() throws CountryException {
-        logger.info("Delete Country: " + country4Key);
+        logger.info("Delete Country: " + country6Key);
 
-        countryService.deleteCountry(country4Key);
+        countryService.deleteCountry(country6Key);
     }
 
     /**
@@ -207,12 +213,12 @@ public class CountryServiceTest extends GTSportDataTesting {
      */
     @Test(dependsOnMethods = {"deleteCountry"})
     public void getCountryListByRegionKey() {
-        logger.info("Get Country List by Region Key: " + REGION1.getPrimaryKey());
+        logger.info("Get Country List by Region Key: " + REGION2.getPrimaryKey());
 
-        List<CountryJson> countryJsons = countryService.getCountryListByRegionKey(REGION1.getPrimaryKey());
+        List<CountryJson> countryJsons = countryService.getCountryListByRegionKey(REGION2.getPrimaryKey());
 
         assertEquals(countryJsons.size(), EXPECTED_NUMBER_OF_COUNTRIES_BY_REGION);
-        assertEquals(countryJsons.get(0).getPrimaryKey(), COUNTRY1.getPrimaryKey());
+        assertEquals(countryJsons.get(0).getPrimaryKey(), COUNTRY2.getPrimaryKey());
     }
 
     /**
@@ -229,13 +235,13 @@ public class CountryServiceTest extends GTSportDataTesting {
         CountryJson countryJson = new CountryJson();
 
         countryJson.setPrimaryKey("");
-        countryJson.setDescription(COUNTRY_4_DESCRIPTION);
-        countryJson.setRegionKey(COUNTRY_4_REGION_KEY);
+        countryJson.setDescription(COUNTRY_6_DESCRIPTION);
+        countryJson.setRegionKey(COUNTRY_6_REGION_KEY);
 
         countryService.saveCountry(countryJson);
 
-        country4Key = countryJson.getPrimaryKey();
+        country6Key = countryJson.getPrimaryKey();
 
-        assertEquals(country4Key, EXPECTED_COUNTRY_4_KEY);
+        assertEquals(country6Key, EXPECTED_COUNTRY_6_KEY);
     }
 }

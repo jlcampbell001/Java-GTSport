@@ -1,11 +1,11 @@
 package backEnd.general.cars;
 
-import backEnd.general.dealers.DealerRepository;
 import backEnd.general.ownerCars.OwnerCar;
 import backEnd.general.ownerCars.OwnerCarRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import backEnd.general.manufacturers.ManufacturerRepository;
 
 /**
  * The save and delete validates for a car.
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class CarValidate {
 
     @Autowired
-    private DealerRepository dealerRepository;
+    private ManufacturerRepository dealerRepository;
 
     @Autowired
     private CarRepository carRepository;

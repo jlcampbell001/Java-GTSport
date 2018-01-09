@@ -34,7 +34,7 @@ public class RegionValidateTest extends GTSportDataTesting {
         regionRepository.saveAndFlush(REGION3);
 
         // add a country to work with.
-        countryRepository.saveAndFlush(COUNTRY1);
+        countryRepository.saveAndFlush(COUNTRY3);
     }
 
     /**
@@ -46,7 +46,7 @@ public class RegionValidateTest extends GTSportDataTesting {
         logger.info("After Class");
 
         // delete the test records.
-        deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());

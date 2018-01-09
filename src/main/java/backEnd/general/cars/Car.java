@@ -1,6 +1,6 @@
 package backEnd.general.cars;
 
-import backEnd.general.dealers.Dealer;
+import backEnd.general.manufacturers.Manufacturer;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,11 +29,11 @@ public class Car implements Serializable {
     private String name = "";
 
     @Column(name = "CarDeaKey")
-    private String dealerKey = "";
+    private String manufacturerKey = "";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CarDeaKey", insertable = false, updatable = false)
-    private Dealer dealer;
+    private Manufacturer manufacturer;
 
     @Column(name = "CarYear")
     private int year = 0;
@@ -108,7 +108,7 @@ public class Car implements Serializable {
             Aspiration aspiration, double length, double width, double height, double weight) {
         this.primaryKey = primaryKey;
         this.name = name;
-        this.dealerKey = dealerKey;
+        this.manufacturerKey = dealerKey;
         this.year = year;
         this.level = level;
         this.powerPoints = powerPoints;
@@ -175,17 +175,17 @@ public class Car implements Serializable {
      *
      * @return The dealer foreign key.
      */
-    public String getDealerKey() {
-        return dealerKey;
+    public String getManufacturerKey() {
+        return manufacturerKey;
     }
 
     /**
      * Set the dealer foreign key for the car.
      *
-     * @param dealerKey the dealer key to set to
+     * @param manufacturerKey the dealer key to set to
      */
-    public void setDealerKey(String dealerKey) {
-        this.dealerKey = dealerKey;
+    public void setManufacturerKey(String manufacturerKey) {
+        this.manufacturerKey = manufacturerKey;
     }
 
     /**
@@ -461,7 +461,7 @@ public class Car implements Serializable {
     @Override
     public String toString() {
         return "Car[ " + "primaryKey=" + primaryKey + ", name=" + name
-                + ", dealerKey=" + dealerKey + ", year=" + year + ", level="
+                + ", dealerKey=" + manufacturerKey + ", year=" + year + ", level="
                 + level + ", powerPoints=" + powerPoints + ", price=" + price
                 + ", displacementCC=" + displacementCC + ", horsePower=" + horsePower
                 + ", powerRPM=" + powerRPM + ", torqueFtLb=" + torqueFtLb

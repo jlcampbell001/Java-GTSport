@@ -17,7 +17,7 @@ public class CarValidateTest extends GTSportDataTesting {
 
     private static final String CAR_4_KEY = "XXX900000004";
     private static final String CAR_4_NAME = "Esperante GTR-1 Race Car '98";
-    private static final String CAR_4_DEALER_KEY = DEALER1.getPrimaryKey();
+    private static final String CAR_4_DEALER_KEY = MANUFACTURER1.getPrimaryKey();
 
     private static final DriveTrain BAD_DRIVETRAIN = null;
     private static final Aspiration BAD_ASPIRATION = null;
@@ -37,13 +37,15 @@ public class CarValidateTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
 
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
 
-        dealerRepository.saveAndFlush(DEALER1);
-        dealerRepository.saveAndFlush(DEALER2);
-        dealerRepository.saveAndFlush(DEALER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER2);
+        manufacturerRepository.saveAndFlush(MANUFACTURER3);
 
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
@@ -70,15 +72,17 @@ public class CarValidateTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR2.getPrimaryKey());
         deleteCarTestRecord(CAR3.getPrimaryKey());
 
-        deleteDealerTestRecord(DEALER1.getPrimaryKey());
-        deleteDealerTestRecord(DEALER2.getPrimaryKey());
-        deleteDealerTestRecord(DEALER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
-        deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());        
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -93,7 +97,7 @@ public class CarValidateTest extends GTSportDataTesting {
         CarJson carJson = new CarJson();
 
         carJson.setPrimaryKey(CAR1.getPrimaryKey());
-        carJson.setDealerKey(DEALER1.getPrimaryKey());
+        carJson.setDealerKey(MANUFACTURER1.getPrimaryKey());
         carJson.setName(CAR1.getName());
         carJson.setDriveTrain(CAR1.getDriveTrain());
         carJson.setAspiration(CAR1.getAspiration());
@@ -113,7 +117,7 @@ public class CarValidateTest extends GTSportDataTesting {
         CarJson carJson = new CarJson();
 
         carJson.setPrimaryKey(CAR1.getPrimaryKey());
-        carJson.setDealerKey(DEALER1.getPrimaryKey());
+        carJson.setDealerKey(MANUFACTURER1.getPrimaryKey());
         carJson.setName(CAR1.getName());
         carJson.setDriveTrain(DriveTrain.EMPTY);
 
@@ -132,7 +136,7 @@ public class CarValidateTest extends GTSportDataTesting {
         CarJson carJson = new CarJson();
 
         carJson.setPrimaryKey(CAR1.getPrimaryKey());
-        carJson.setDealerKey(DEALER1.getPrimaryKey());
+        carJson.setDealerKey(MANUFACTURER1.getPrimaryKey());
         carJson.setName(CAR1.getName());
         carJson.setDriveTrain(CAR1.getDriveTrain());
         carJson.setAspiration(Aspiration.EMPTY);
@@ -155,7 +159,7 @@ public class CarValidateTest extends GTSportDataTesting {
             CarJson carJson = new CarJson();
 
             carJson.setPrimaryKey(CAR1.getPrimaryKey());
-            carJson.setDealerKey(DEALER1.getPrimaryKey());
+            carJson.setDealerKey(MANUFACTURER1.getPrimaryKey());
             carJson.setName("");
 
             carValidate.validateCarSave(carJson);
@@ -205,7 +209,7 @@ public class CarValidateTest extends GTSportDataTesting {
             CarJson carJson = new CarJson();
 
             carJson.setPrimaryKey(CAR1.getPrimaryKey());
-            carJson.setDealerKey(CAR1.getDealerKey());
+            carJson.setDealerKey(CAR1.getManufacturerKey());
             carJson.setName(CAR1.getName());
             carJson.setDriveTrain(BAD_DRIVETRAIN);
 
@@ -231,7 +235,7 @@ public class CarValidateTest extends GTSportDataTesting {
             CarJson carJson = new CarJson();
 
             carJson.setPrimaryKey(CAR1.getPrimaryKey());
-            carJson.setDealerKey(CAR1.getDealerKey());
+            carJson.setDealerKey(CAR1.getManufacturerKey());
             carJson.setName(CAR1.getName());
             carJson.setDriveTrain(CAR1.getDriveTrain());
             carJson.setAspiration(BAD_ASPIRATION);

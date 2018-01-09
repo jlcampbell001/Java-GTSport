@@ -1,4 +1,4 @@
-package backEnd.general.dealers;
+package backEnd.general.manufacturers;
 
 import backEnd.general.countries.Country;
 import java.io.Serializable;
@@ -11,52 +11,52 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * The entity that represents a Dealer record.
+ * The entity that represents a Manufacturer record.
  *
  * @author jonathan
  */
 @Entity
-@Table(name = "Dealers")
-public class Dealer implements Serializable {
+@Table(name = "Manufacturers")
+public class Manufacturer implements Serializable {
 
     private static final long serialVersionUID = 100L;
 
     @Id
-    @Column(name = "DeaKey")
+    @Column(name = "ManKey")
     private String primaryKey = "";
 
-    @Column(name = "DeaName")
+    @Column(name = "ManName")
     private String name = "";
 
-    @Column(name = "DeaCouKey")
+    @Column(name = "ManCouKey")
     private String countryKey = "";
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DeaCouKey", insertable = false, updatable = false)
+    @JoinColumn(name = "ManCouKey", insertable = false, updatable = false)
     private Country country;
 
     /**
-     * Creates a dealer with the passed parameters.
+     * Creates a manufacturer with the passed parameters.
      *
      * @param primaryKey - the primary key to set to
      * @param name - the name to set to
-     * @param countryKey - the country key to set the dealer to
+     * @param countryKey - the country key to set the manufacturer to
      */
-    public Dealer(String primaryKey, String name, String countryKey) {
+    public Manufacturer(String primaryKey, String name, String countryKey) {
         this.primaryKey = primaryKey;
         this.name = name;
         this.countryKey = countryKey;
     }
 
     /**
-     * Creates a dealer with default values.
+     * Creates a manufacturer with default values.
      */
-    public Dealer() {
+    public Manufacturer() {
         this("", "", "");
     }
 
     /**
-     * Gets the dealer primary key.
+     * Gets the manufacturer primary key.
      *
      * @return - the primary key
      */
@@ -65,7 +65,7 @@ public class Dealer implements Serializable {
     }
 
     /**
-     * Sets the dealer primary key.
+     * Sets the manufacturer primary key.
      *
      * @param primaryKey - the primary key to set to
      */
@@ -74,7 +74,7 @@ public class Dealer implements Serializable {
     }
 
     /**
-     * Get the dealer name.
+     * Get the manufacturer name.
      *
      * @return - the name
      */
@@ -83,7 +83,7 @@ public class Dealer implements Serializable {
     }
 
     /**
-     * Set the dealer name.
+     * Set the manufacturer name.
      *
      * @param name - the name to set to
      */
@@ -92,7 +92,7 @@ public class Dealer implements Serializable {
     }
 
     /**
-     * Get the country key the dealer is set to.
+     * Get the country key the manufacturer is set to.
      *
      * @return - the country key
      */
@@ -101,7 +101,7 @@ public class Dealer implements Serializable {
     }
 
     /**
-     * Set the country key for the dealer.
+     * Set the country key for the manufacturer.
      *
      * @param countryKey - the country key to set to
      */
@@ -111,7 +111,7 @@ public class Dealer implements Serializable {
 
     @Override
     public String toString() {
-        return "Dealer[ primaryKey=" + primaryKey + ", name=" + name + ", countryKey=" + countryKey + " ]";
+        return "Manufacturer[ primaryKey=" + primaryKey + ", name=" + name + ", countryKey=" + countryKey + " ]";
     }
 
 }

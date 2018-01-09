@@ -142,7 +142,7 @@ public class CarService {
     public List<CarJson> getCarListByDealerKey(String dealerKey) {
         List<CarJson> carJsons = new ArrayList<CarJson>();
 
-        List<Car> cars = carRepository.findAllByDealerKey(dealerKey);
+        List<Car> cars = carRepository.findAllByManufacturerKey(dealerKey);
 
         for (Car car : cars) {
             CarJson carJson = toJson(car);
@@ -173,7 +173,7 @@ public class CarService {
 
         carJson.setPrimaryKey(car.getPrimaryKey());
         carJson.setName(car.getName());
-        carJson.setDealerKey(car.getDealerKey());
+        carJson.setDealerKey(car.getManufacturerKey());
         carJson.setDisplacementCC(car.getDisplacementCC());
         carJson.setPowerRPM(car.getPowerRPM());
         carJson.setTorqueRPM(car.getTorqueRPM());
@@ -200,7 +200,7 @@ public class CarService {
 
         car.setPrimaryKey(carJson.getPrimaryKey());
         car.setName(carJson.getName());
-        car.setDealerKey(carJson.getDealerKey());
+        car.setManufacturerKey(carJson.getDealerKey());
         car.setDisplacementCC(carJson.getDisplacementCC());
         car.setPowerRPM(carJson.getPowerRPM());
         car.setTorqueRPM(carJson.getTorqueRPM());

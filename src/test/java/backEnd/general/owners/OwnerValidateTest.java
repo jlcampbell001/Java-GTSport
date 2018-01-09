@@ -34,11 +34,11 @@ public class OwnerValidateTest extends GTSportDataTesting {
         ownerRepository.saveAndFlush(OWNER2);
         ownerRepository.saveAndFlush(OWNER3);
         
-        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION3);
 
         countryRepository.saveAndFlush(COUNTRY1);
 
-        dealerRepository.saveAndFlush(DEALER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER1);
 
         carRepository.saveAndFlush(CAR3);
 
@@ -62,11 +62,11 @@ public class OwnerValidateTest extends GTSportDataTesting {
 
         deleteCarTestRecord(CAR3.getPrimaryKey());
 
-        deleteDealerTestRecord(DEALER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
 
-        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
      }
 
     /**

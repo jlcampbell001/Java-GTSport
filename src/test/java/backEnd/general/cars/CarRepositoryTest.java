@@ -36,13 +36,15 @@ public class CarRepositoryTest extends GTSportDataTesting {
 
         regionRepository.saveAndFlush(REGION1);
         regionRepository.saveAndFlush(REGION2);
+        regionRepository.saveAndFlush(REGION3);
 
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
 
-        dealerRepository.saveAndFlush(DEALER1);
-        dealerRepository.saveAndFlush(DEALER2);
-        dealerRepository.saveAndFlush(DEALER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER2);
+        manufacturerRepository.saveAndFlush(MANUFACTURER3);
 
         // add the cars to work with.
         carRepository.saveAndFlush(CAR1);
@@ -75,15 +77,17 @@ public class CarRepositoryTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR8.getPrimaryKey());
         deleteCarTestRecord(CAR9.getPrimaryKey());
 
-        deleteDealerTestRecord(DEALER1.getPrimaryKey());
-        deleteDealerTestRecord(DEALER2.getPrimaryKey());
-        deleteDealerTestRecord(DEALER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
+        deleteRegionTestRecord(REGION3.getPrimaryKey());
     }
 
     /**
@@ -117,7 +121,7 @@ public class CarRepositoryTest extends GTSportDataTesting {
     public void findAllByDealerKey() {
         logger.info("Find All By Dealer Key");
 
-        List<Car> cars = carRepository.findAllByDealerKey(DEALER1.getPrimaryKey());
+        List<Car> cars = carRepository.findAllByManufacturerKey(MANUFACTURER1.getPrimaryKey());
 
         assertEquals(cars.size(), EXPECTED_NUMBER_OF_CARS);
         assertEquals(cars.get(0).getPrimaryKey(), CAR1.getPrimaryKey());

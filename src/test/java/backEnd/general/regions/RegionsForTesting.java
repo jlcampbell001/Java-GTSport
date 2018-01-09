@@ -6,13 +6,13 @@ package backEnd.general.regions;
  */
 public class RegionsForTesting {
     private static final String REGION_1_KEY = "REG900000001";
-    private static final String REGION_1_DESCRIPTION = "TEST_REGION_1";
+    private static final String REGION_1_DESCRIPTION = "AMERICA";
 
     private static final String REGION_2_KEY = "REG900000002";
-    private static final String REGION_2_DESCRIPTION = "TEST_REGION_2";
+    private static final String REGION_2_DESCRIPTION = "EUROPE";
 
     private static final String REGION_3_KEY = "REG900000003";
-    private static final String REGION_3_DESCRIPTION = "TEST_REGION_3";
+    private static final String REGION_3_DESCRIPTION = "ASIAN-PACIFIC";
     
     /**
      * Test data for a region.

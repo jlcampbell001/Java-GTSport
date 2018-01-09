@@ -6,9 +6,8 @@ import backEnd.general.cars.CarsForTesting;
 import backEnd.general.countries.CountriesForTesting;
 import backEnd.general.countries.Country;
 import backEnd.general.countries.CountryRepository;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.DealerRepository;
-import backEnd.general.dealers.DealersForTesting;
+import backEnd.general.manufacturers.Manufacturer;
+import backEnd.general.manufacturers.ManufacturerForTesting;
 import backEnd.general.ownerCars.OwnerCar;
 import backEnd.general.ownerCars.OwnerCarRepository;
 import backEnd.general.ownerCars.OwnerCarsForTesting;
@@ -22,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import backEnd.general.manufacturers.ManufacturerRepository;
 
 /**
  * Basic testing class for database testing.
@@ -78,19 +78,59 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
     protected static final Country COUNTRY3 = CountriesForTesting.COUNTRY3;
 
     /**
-     * Testing data for a dealer.
+     * Testing data for a country.
      */
-    protected static final Dealer DEALER1 = DealersForTesting.DEALER1;
+    protected static final Country COUNTRY4 = CountriesForTesting.COUNTRY4;
 
     /**
-     * Testing data for a dealer.
+     * Testing data for a country.
      */
-    protected static final Dealer DEALER2 = DealersForTesting.DEALER2;
+    protected static final Country COUNTRY5 = CountriesForTesting.COUNTRY5;
 
     /**
-     * testing data for a dealer.
+     * Testing data for a manufacturer.
      */
-    protected static final Dealer DEALER3 = DealersForTesting.DEALER3;
+    protected static final Manufacturer MANUFACTURER1 = ManufacturerForTesting.MANUFACTURER1;
+
+    /**
+     * Testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER2 = ManufacturerForTesting.MANUFACTURER2;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER3 = ManufacturerForTesting.MANUFACTURE3;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER4 = ManufacturerForTesting.MANUFACTURE4;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER5 = ManufacturerForTesting.MANUFACTURE5;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER6 = ManufacturerForTesting.MANUFACTURE6;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER7 = ManufacturerForTesting.MANUFACTURE7;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER8 = ManufacturerForTesting.MANUFACTURE8;
+
+    /**
+     * testing data for a manufacturer.
+     */
+    protected static final Manufacturer MANUFACTURER9 = ManufacturerForTesting.MANUFACTURE9;
 
     /**
      * Testing data for a car.
@@ -171,10 +211,10 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
     protected CountryRepository countryRepository;
 
     /**
-     * The dealer repository so data can be setup/deleted for a dealer.
+     * The manufacturer repository so data can be setup/deleted for a manufacturer.
      */
     @Autowired
-    protected DealerRepository dealerRepository;
+    protected ManufacturerRepository manufacturerRepository;
 
     /**
      * The car repository so data can be setup/deleted for a car.
@@ -215,15 +255,15 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
     }
 
     /**
-     * Deletes a dealer test record.
+     * Deletes a manufacturer test record.
      *
-     * @param deleteKey the dealer primary key to delete
+     * @param deleteKey the manufacturer primary key to delete
      */
-    protected void deleteDealerTestRecord(String deleteKey) {
-        Dealer dealer = dealerRepository.findOne(deleteKey);
+    protected void deleteManufacturerTestRecord(String deleteKey) {
+        Manufacturer manufacturer = manufacturerRepository.findOne(deleteKey);
 
-        if (dealer != null) {
-            dealerRepository.delete(dealer);
+        if (manufacturer != null) {
+            manufacturerRepository.delete(manufacturer);
         }
     }
 

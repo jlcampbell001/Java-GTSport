@@ -27,9 +27,9 @@
             <class name="backEnd.general.countries.CountryRepositoryTest"/>
         </classes>
     </test>
-    <test name="DealerRepository">
+    <test name="ManufacturerRepository">
         <classes>
-            <class name="backEnd.general.dealers.DealerRepositoryTest"/>
+            <class name="backEnd.general.manufacturers.ManufacturerRepositoryTest"/>
         </classes>
     </test>
     <test name="CarRepository">
@@ -77,14 +77,14 @@
             <class name="backEnd.general.countries.CountryServiceTest"/>
         </classes>
     </test>
-    <test name="DealerValidate">
+    <test name="ManufacturerValidate">
         <classes>
-            <class name="backEnd.general.dealers.DealerValidateTest"/>
+            <class name="backEnd.general.manufacturers.ManufacturerValidateTest"/>
         </classes>
     </test>
-    <test name="DealerService">
+    <test name="ManufacturerService">
         <classes>
-            <class name="backEnd.general.dealers.DealerServiceTest"/>
+            <class name="backEnd.general.manufacturers.ManufacturerServiceTest"/>
         </classes>
     </test>
     <test name="CarValidate">

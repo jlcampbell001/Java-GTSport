@@ -2,8 +2,8 @@ package backEnd.general.cars;
 
 import backEnd.general.countries.Country;
 import backEnd.general.countries.Country_;
-import backEnd.general.dealers.Dealer;
-import backEnd.general.dealers.Dealer_;
+import backEnd.general.manufacturers.Manufacturer;
+import backEnd.general.manufacturers.Manufacturer_;
 import backEnd.general.regions.Region;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -34,8 +34,8 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
         boolean addCountryJoin = false;
         boolean addRegionJoin = false;
 
-        Join<Car, Dealer> dealerJoin = null;
-        Join<Dealer, Country> countryJoin = null;
+        Join<Car, Manufacturer> dealerJoin = null;
+        Join<Manufacturer, Country> countryJoin = null;
         Join<Country, Region> regionJoin = null;
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -145,11 +145,11 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
         }
 
         if (addDealerJoin) {
-            dealerJoin = criteriaRoot.join(Car_.dealer, JoinType.INNER);
+            dealerJoin = criteriaRoot.join(Car_.manufacturer, JoinType.INNER);
         }
 
         if (addCountryJoin && dealerJoin != null) {
-            countryJoin = dealerJoin.join(Dealer_.country, JoinType.INNER);
+            countryJoin = dealerJoin.join(Manufacturer_.country, JoinType.INNER);
         }
 
         if (addRegionJoin && countryJoin != null) {

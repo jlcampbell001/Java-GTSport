@@ -1,6 +1,6 @@
 package backEnd.general.cars;
 
-import backEnd.general.dealers.DealersForTesting;
+import backEnd.general.manufacturers.ManufacturerForTesting;
 
 /**
  * Car setup values for testing.
@@ -11,7 +11,7 @@ public class CarsForTesting {
 
     private static final String CAR_1_KEY = "CAR900000001";
     private static final String CAR_1_NAME = "Corvette Coupe (C2) '63";
-    private static final String CAR_1_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Chevrolet North America USA
+    private static final String CAR_1_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Chevrolet North America USA
     private static final int CAR_1_YEAR = 1963;
     private static final int CAR_1_LEVEL = 4;
     private static final int CAR_1_POWER_POINTS = 430;
@@ -30,7 +30,7 @@ public class CarsForTesting {
 
     private static final String CAR_2_KEY = "CAR900000002";
     private static final String CAR_2_NAME = "Firebird Trans AM '78";
-    private static final String CAR_2_DEALER_KEY = DealersForTesting.DEALER2.getPrimaryKey(); // Pontiac North American USA
+    private static final String CAR_2_DEALER_KEY = ManufacturerForTesting.MANUFACTURER2.getPrimaryKey(); // Pontiac North American USA
     private static final int CAR_2_YEAR = 1978;
     private static final int CAR_2_LEVEL = 4;
     private static final int CAR_2_POWER_POINTS = 415;
@@ -49,7 +49,7 @@ public class CarsForTesting {
 
     private static final String CAR_3_KEY = "CAR900000003";
     private static final String CAR_3_NAME = "Esperante GTR-1 Race Car '98";
-    private static final String CAR_3_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Panoz North American USA
+    private static final String CAR_3_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Panoz North American USA
     private static final int CAR_3_YEAR = 1998;
     private static final int CAR_3_LEVEL = 6;
     private static final int CAR_3_POWER_POINTS = 633;
@@ -68,7 +68,7 @@ public class CarsForTesting {
 
     private static final String CAR_4_KEY = "CAR900000004";
     private static final String CAR_4_NAME = "500 R '72";
-    private static final String CAR_4_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Fiat Europe Italy
+    private static final String CAR_4_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Fiat Europe Italy
     private static final int CAR_4_YEAR = 1972;
     private static final int CAR_4_LEVEL = 2;
     private static final int CAR_4_POWER_POINTS = 221;
@@ -87,7 +87,7 @@ public class CarsForTesting {
 
     private static final String CAR_5_KEY = "CAR900000005";
     private static final String CAR_5_NAME = "1500 Biposto Bertone B.A.T. 1 '52";
-    private static final String CAR_5_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Abarth Europe Italy
+    private static final String CAR_5_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Abarth Europe Italy
     private static final int CAR_5_YEAR = 1952;
     private static final int CAR_5_LEVEL = 3;
     private static final int CAR_5_POWER_POINTS = 300;
@@ -106,7 +106,7 @@ public class CarsForTesting {
 
     private static final String CAR_6_KEY = "CAR900000006";
     private static final String CAR_6_NAME = "599 '06";
-    private static final String CAR_6_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Ferrari Europe Italy
+    private static final String CAR_6_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Ferrari Europe Italy
     private static final int CAR_6_YEAR = 2006;
     private static final int CAR_6_LEVEL = 5;
     private static final int CAR_6_POWER_POINTS = 545;
@@ -125,7 +125,7 @@ public class CarsForTesting {
 
     private static final String CAR_7_KEY = "CAR900000007";
     private static final String CAR_7_NAME = "Chaparral 2X Vision Gran Turismo";
-    private static final String CAR_7_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Chevrolet North American USA
+    private static final String CAR_7_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Chevrolet North American USA
     private static final int CAR_7_YEAR = 2025;
     private static final int CAR_7_LEVEL = 7;
     private static final int CAR_7_POWER_POINTS = 793;
@@ -144,7 +144,7 @@ public class CarsForTesting {
 
     private static final String CAR_8_KEY = "CAR900000008";
     private static final String CAR_8_NAME = "Formula Gran Turismo";
-    private static final String CAR_8_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // Gran Turismo Asia-Pacific PDI
+    private static final String CAR_8_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // Gran Turismo Asia-Pacific PDI
     private static final int CAR_8_YEAR = 0;
     private static final int CAR_8_LEVEL = 8;
     private static final int CAR_8_POWER_POINTS = 880;
@@ -163,7 +163,7 @@ public class CarsForTesting {
 
     private static final String CAR_9_KEY = "CAR900000009";
     private static final String CAR_9_NAME = "Tomahawk X Vision Gran Turismo";
-    private static final String CAR_9_DEALER_KEY = DealersForTesting.DEALER1.getPrimaryKey(); // SRT North America USA
+    private static final String CAR_9_DEALER_KEY = ManufacturerForTesting.MANUFACTURER1.getPrimaryKey(); // SRT North America USA
     private static final int CAR_9_YEAR = 2035;
     private static final int CAR_9_LEVEL = 9;
     private static final int CAR_9_POWER_POINTS = 962;

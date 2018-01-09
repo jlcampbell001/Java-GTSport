@@ -32,13 +32,13 @@ public interface CarRepository extends JpaRepository<Car, String>, CarRepository
     String getMaxKey();
 
     /**
-     * Get a list of cars for the dealer key.
+     * Get a list of cars for the manufacturer key.
      *
-     * @param dealerKey the dealer key to look for cars against
-     * @return The list of car found for the dealer.
+     * @param manufacturerKey the manufacturer key to look for cars against
+     * @return The list of car found for the manufacturer.
      */
-    @Query("Select car from Car car where car.dealerKey = :dealerKey")
-    List<Car> findAllByDealerKey(@Param("dealerKey") String dealerKey);
+    @Query("Select car from Car car where car.manufacturerKey = :manufacturerKey")
+    List<Car> findAllByManufacturerKey(@Param("manufacturerKey") String manufacturerKey);
 
     /**
      * Get a list of car level statistics as a list of Objects[]. <br>
