@@ -133,16 +133,16 @@ public class CarService {
     }
 
     /**
-     * Gets a list of all the car for a dealer key.
+     * Gets a list of all the car for a manufacturer key.
      *
-     * @param dealerKey the dealer key to filter the cars on
+     * @param manufacturerKey the manufacturer key to filter the cars on
      * @return a list of cars
      */
     @Transactional
-    public List<CarJson> getCarListByDealerKey(String dealerKey) {
+    public List<CarJson> getCarListByManufacturerKey(String manufacturerKey) {
         List<CarJson> carJsons = new ArrayList<CarJson>();
 
-        List<Car> cars = carRepository.findAllByManufacturerKey(dealerKey);
+        List<Car> cars = carRepository.findAllByManufacturerKey(manufacturerKey);
 
         for (Car car : cars) {
             CarJson carJson = toJson(car);
@@ -173,7 +173,7 @@ public class CarService {
 
         carJson.setPrimaryKey(car.getPrimaryKey());
         carJson.setName(car.getName());
-        carJson.setDealerKey(car.getManufacturerKey());
+        carJson.setManufacturerKey(car.getManufacturerKey());
         carJson.setDisplacementCC(car.getDisplacementCC());
         carJson.setPowerRPM(car.getPowerRPM());
         carJson.setTorqueRPM(car.getTorqueRPM());
@@ -181,9 +181,8 @@ public class CarService {
         carJson.setAspiration(car.getAspiration());
 
         carJson.setYear(car.getYear());
-        carJson.setLevel(car.getLevel());
-        carJson.setPowerPoints(car.getPowerPoints());
-        carJson.setHorsePower(car.getHorsePower());
+        carJson.setCategory(car.getCategory());
+        carJson.setMaxPower(car.getMaxPower());
 
         carJson.setPrice(car.getPrice());
         carJson.setTorqueFtLb(car.getTorqueFtLb());
@@ -191,6 +190,11 @@ public class CarService {
         carJson.setWidth(car.getWidth());
         carJson.setHeight(car.getHeight());
         carJson.setWeight(car.getWeight());
+        carJson.setMaxSpeed(car.getMaxSpeed());
+        carJson.setAcceleration(car.getAcceleration());
+        carJson.setBraking(car.getBraking());
+        carJson.setCornering(car.getCornering());
+        carJson.setStability(car.getStability());
 
         return carJson;
     }
@@ -200,7 +204,7 @@ public class CarService {
 
         car.setPrimaryKey(carJson.getPrimaryKey());
         car.setName(carJson.getName());
-        car.setManufacturerKey(carJson.getDealerKey());
+        car.setManufacturerKey(carJson.getManufacturerKey());
         car.setDisplacementCC(carJson.getDisplacementCC());
         car.setPowerRPM(carJson.getPowerRPM());
         car.setTorqueRPM(carJson.getTorqueRPM());
@@ -208,9 +212,8 @@ public class CarService {
         car.setAspiration(carJson.getAspiration());
 
         car.setYear(carJson.getYear());
-        car.setLevel(carJson.getLevel());
-        car.setPowerPoints(carJson.getPowerPoints());
-        car.setHorsePower(carJson.getHorsePower());
+        car.setCategory(carJson.getCategory());
+        car.setMaxPower(carJson.getMaxPower());
 
         car.setPrice(carJson.getPrice());
         car.setTorqueFtLb(carJson.getTorqueFtLb());
@@ -218,6 +221,11 @@ public class CarService {
         car.setWidth(carJson.getWidth());
         car.setHeight(carJson.getHeight());
         car.setWeight(carJson.getWeight());
+        car.setMaxSpeed(carJson.getMaxSpeed());
+        car.setAcceleration(carJson.getAcceleration());
+        car.setBraking(carJson.getBraking());
+        car.setCornering(carJson.getCornering());
+        car.setStability(carJson.getStability());
 
         return car;
     }

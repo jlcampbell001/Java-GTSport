@@ -9,17 +9,16 @@ public class CarJson {
 
     private String primaryKey = "";
     private String name = "";
-    private String dealerKey = "";
+    private String manufacturerKey = "";
     private String displacementCC = "";
     private String powerRPM = "";
     private String torqueRPM = "";
     private DriveTrain driveTrain = DriveTrain.EMPTY;
     private Aspiration aspiration = Aspiration.EMPTY;
+    private Category category = Category.EMPTY;
 
     private int year = 0;
-    private int level = 0;
-    private int powerPoints = 0;
-    private int horsePower = 0;
+    private int maxPower = 0;
 
     private double price = 0.00;
     private double torqueFtLb = 0.00;
@@ -27,6 +26,11 @@ public class CarJson {
     private double width = 0.00;
     private double height = 0.00;
     private double weight = 0.00;
+    private double maxSpeed = 0.0;
+    private double acceleration = 0.0;
+    private double braking = 0.0;
+    private double cornering = 0.0;
+    private double stability = 0.0;
 
     /**
      * Get the car primary key.
@@ -67,19 +71,19 @@ public class CarJson {
     /**
      * Get the dealer key.
      *
-     * @return The dealer key.
+     * @return The manufacturer key.
      */
-    public String getDealerKey() {
-        return dealerKey;
+    public String getManufacturerKey() {
+        return manufacturerKey;
     }
 
     /**
-     * Set the dealer key.
+     * Set the manufacturer key.
      *
-     * @param dealerKey the dealer key
+     * @param manufacturerKey the manufacturer key
      */
-    public void setDealerKey(String dealerKey) {
-        this.dealerKey = dealerKey;
+    public void setManufacturerKey(String manufacturerKey) {
+        this.manufacturerKey = manufacturerKey;
     }
 
     /**
@@ -191,57 +195,21 @@ public class CarJson {
     }
 
     /**
-     * Get the cars level.
-     *
-     * @return The cars level.
-     */
-    public int getLevel() {
-        return level;
-    }
-
-    /**
-     * Set the cars level.
-     *
-     * @param level the level
-     */
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    /**
-     * Get the cars power points.
-     *
-     * @return The power points.
-     */
-    public int getPowerPoints() {
-        return powerPoints;
-    }
-
-    /**
-     * Set the cars power points.
-     *
-     * @param powerPoints the power points
-     */
-    public void setPowerPoints(int powerPoints) {
-        this.powerPoints = powerPoints;
-    }
-
-    /**
      * Get the cars horse power.
      *
      * @return The horse power.
      */
-    public int getHorsePower() {
-        return horsePower;
+    public int getMaxPower() {
+        return maxPower;
     }
 
     /**
      * Set the cars power points.
      *
-     * @param horsePower the power points
+     * @param maxPower the power points
      */
-    public void setHorsePower(int horsePower) {
-        this.horsePower = horsePower;
+    public void setMaxPower(int maxPower) {
+        this.maxPower = maxPower;
     }
 
     /**
@@ -352,8 +320,56 @@ public class CarJson {
         this.weight = weight;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public double getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(double acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public double getBraking() {
+        return braking;
+    }
+
+    public void setBraking(double braking) {
+        this.braking = braking;
+    }
+
+    public double getCornering() {
+        return cornering;
+    }
+
+    public void setCornering(double cornering) {
+        this.cornering = cornering;
+    }
+
+    public double getStability() {
+        return stability;
+    }
+
+    public void setStability(double stability) {
+        this.stability = stability;
+    }
+
     @Override
     public String toString() {
-        return "CarJson[" + "primaryKey=" + primaryKey + ", name=" + name + ", dealerKey=" + dealerKey + ", displacementCC=" + displacementCC + ", powerRPM=" + powerRPM + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain + ", apiration=" + aspiration + ", year=" + year + ", level=" + level + ", powerPoints=" + powerPoints + ", horsePower=" + horsePower + ", price=" + price + ", torqueFtLb=" + torqueFtLb + ", length=" + length + ", width=" + width + ", height=" + height + ", weight=" + weight + ']';
+        return "CarJson[" + "primaryKey=" + primaryKey + ", name=" + name + ", manufacturerKey=" + manufacturerKey + ", displacementCC=" + displacementCC + ", powerRPM=" + powerRPM + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain + ", aspiration=" + aspiration + ", category=" + category + ", year=" + year + ", maxPower=" + maxPower + ", price=" + price + ", torqueFtLb=" + torqueFtLb + ", length=" + length + ", width=" + width + ", height=" + height + ", weight=" + weight + ", maxSpeed=" + maxSpeed + ", acceleration=" + acceleration + ", braking=" + braking + ", cornering=" + cornering + ", stability=" + stability + ']';
     }
 }

@@ -13,9 +13,9 @@ public class CarException extends Exception {
     public static final String NAME_NOT_SET = "The car name is not filled.";
 
     /**
-     * The error for the dealer key not being set.
+     * The error for the manufacturer key not being set.
      */
-    public static final String DEALER_KEY_NOT_SET = "The dealer key is not filled.";
+    public static final String MANUFACTURER_KEY_NOT_SET = "The manufacturer key is not filled.";
 
     /**
      * The error for the drive train not being valid.
@@ -26,6 +26,8 @@ public class CarException extends Exception {
      * The error for the aspiration not being valid.
      */
     public static final String ASPIRATION_NOT_VALID = "The aspiration is not valid.";
+    
+    public static final String CATEGORY_NOT_VALID = "The category is not valid.";
 
     /**
      * The error for a car name already existing.
@@ -33,9 +35,9 @@ public class CarException extends Exception {
     public static final String NAME_ALREADY_EXISTS = "The car name already exists.";
 
     /**
-     * The error for a dealer key that is not in the dealer table.
+     * The error for a manufacturer key that is not in the dealer table.
      */
-    public static final String DEALER_KEY_DOES_NOT_EXIST = "The dealer key does not exist: ";
+    public static final String MANUFACTURER_KEY_DOES_NOT_EXIST = "The manufacturer key does not exist: ";
 
     /**
      * The error for trying to delete a car but the car key can not be found in

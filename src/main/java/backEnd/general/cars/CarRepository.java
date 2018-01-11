@@ -41,16 +41,15 @@ public interface CarRepository extends JpaRepository<Car, String>, CarRepository
     List<Car> findAllByManufacturerKey(@Param("manufacturerKey") String manufacturerKey);
 
     /**
-     * Get a list of car level statistics as a list of Objects[]. <br>
-     * Element 0 = the car level. <br>
-     * Element 1 = the number of cars in that level <br>
-     * Element 2 = the average power points of the cars in that level <br>
-     * Element 3 = the average horse power of the cars in that level <br>
-     * Element 4 = the average price of the cars in that level <br>
+     * Get a list of car category statistics as a list of Objects[]. <br>
+     * Element 0 = the car category. <br>
+     * Element 1 = the number of cars in that category <br>
+     * Element 2 = the average horse power of the cars in that category <br>
+     * Element 3 = the average price of the cars in that category <br>
      *
      * @return The list of car level statistics.
      */
-    @Query("Select car.level, count(car), avg(car.powerPoints), avg(car.horsePower), "
-            + "avg(car.price) from Car car group by car.level order by car.level")
+    @Query("Select car.category, count(car), avg(car.maxPower), "
+            + "avg(car.price) from Car car group by car.category order by car.category")
     List<Object[]> getCarsStatistics();
 }

@@ -28,21 +28,18 @@ public class Car implements Serializable {
     @Column(name = "CarName")
     private String name = "";
 
-    @Column(name = "CarDeaKey")
+    @Column(name = "CarManKey")
     private String manufacturerKey = "";
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CarDeaKey", insertable = false, updatable = false)
+    @JoinColumn(name = "CarManKey", insertable = false, updatable = false)
     private Manufacturer manufacturer;
 
     @Column(name = "CarYear")
     private int year = 0;
 
-    @Column(name = "CarLevel")
-    private int level = 0;
-
-    @Column(name = "CarPowerPoints")
-    private int powerPoints = 0;
+    @Column(name = "CarCategory")
+    private Category category = Category.EMPTY;
 
     @Column(name = "CarPrice")
     private double price = 0.00;
@@ -50,8 +47,8 @@ public class Car implements Serializable {
     @Column(name = "CarDisplacementCC")
     private String displacementCC = "";
 
-    @Column(name = "CarHorsePower")
-    private int horsePower = 0;
+    @Column(name = "CarMaxPower")
+    private int maxPower = 0;
 
     @Column(name = "CarPowerRPM")
     private String powerRPM = "";
@@ -79,19 +76,32 @@ public class Car implements Serializable {
 
     @Column(name = "CarWeight")
     private double weight = 0.00;
+    
+    @Column(name = "CarMaxSpeed")
+    private double maxSpeed = 0.0;
+    
+    @Column(name = "CarAcceleration")
+    private double acceleration = 0.0;
+    
+    @Column(name = "CarBraking")
+    private double braking = 0.0;
+    
+    @Column(name = "CarCornering")
+    private double cornering = 0.0;
+    
+    @Column(name = "CarStability")
+    private double stability = 0.0;
 
     /**
      * Creates a new car object with the passed values.
      *
      * @param primaryKey The primary key of the car record.
      * @param name The name of the car.
-     * @param dealerKey The dealer foreign key.
+     * @param manufacturerKey The manufacturer foreign key.
      * @param year The year of the car.
-     * @param level The level of the car.
-     * @param powerPoints The power points of the car.
      * @param price The cost of the car.
      * @param displacementCC The displacement value.
-     * @param horsePower The horse power value.
+     * @param maxPower The max power value.
      * @param powerRPM The power rpms.
      * @param torqueFtLb The torque ft/lb.
      * @param torqueRPM The torque rpms.
@@ -102,19 +112,19 @@ public class Car implements Serializable {
      * @param height The height of the car.
      * @param weight The weight of the car.
      */
-    public Car(String primaryKey, String name, String dealerKey, int year, int level,
-            int powerPoints, double price, String displacementCC, int horsePower,
+    public Car(String primaryKey, String name, String dealerKey, int year, Category category,
+            double price, String displacementCC, int maxPower,
             String powerRPM, double torqueFtLb, String torqueRPM, DriveTrain driveTrain,
-            Aspiration aspiration, double length, double width, double height, double weight) {
+            Aspiration aspiration, double length, double width, double height, double weight,
+            double maxSpeed, double acceleration, double braking, double cornering, double stability) {
         this.primaryKey = primaryKey;
         this.name = name;
         this.manufacturerKey = dealerKey;
         this.year = year;
-        this.level = level;
-        this.powerPoints = powerPoints;
+        this.category = category;
         this.price = price;
         this.displacementCC = displacementCC;
-        this.horsePower = horsePower;
+        this.maxPower = maxPower;
         this.powerRPM = powerRPM;
         this.torqueFtLb = torqueFtLb;
         this.torqueRPM = torqueRPM;
@@ -124,14 +134,19 @@ public class Car implements Serializable {
         this.width = width;
         this.height = height;
         this.weight = weight;
+        this.maxSpeed = maxSpeed;
+        this.acceleration = acceleration;
+        this.braking = braking;
+        this.cornering = cornering;
+        this.stability = stability;
     }
 
     /**
      * Creates a new car object with default values.
      */
     public Car() {
-        this("", "", "", 0, 0, 0, 0.00, "", 0, "", 0.00, "", DriveTrain.EMPTY,
-                Aspiration.EMPTY, 0.00, 0.00, 0.00, 0.00);
+        this("", "", "", 0, Category.EMPTY, 0.00, "", 0, "", 0.00, "", DriveTrain.EMPTY,
+                Aspiration.EMPTY, 0.00, 0.00, 0.00, 0.00, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
 
     /**
@@ -171,18 +186,18 @@ public class Car implements Serializable {
     }
 
     /**
-     * Get the dealer foreign key for the car.
+     * Get the manufacturer foreign key for the car.
      *
-     * @return The dealer foreign key.
+     * @return The manufacturer foreign key.
      */
     public String getManufacturerKey() {
         return manufacturerKey;
     }
 
     /**
-     * Set the dealer foreign key for the car.
+     * Set the manufacturer foreign key for the car.
      *
-     * @param manufacturerKey the dealer key to set to
+     * @param manufacturerKey the manufacturer key to set to
      */
     public void setManufacturerKey(String manufacturerKey) {
         this.manufacturerKey = manufacturerKey;
@@ -207,39 +222,21 @@ public class Car implements Serializable {
     }
 
     /**
-     * Get the level of the car.
+     * Get the category of the car.
      *
-     * @return The level of the car.
+     * @return The category of the car.
      */
-    public int getLevel() {
-        return level;
+    public Category getCategory() {
+        return category;
     }
 
     /**
-     * Set the level of the car.
+     * Set the category of the car.
      *
-     * @param level the level of the car
+     * @param category the category of the car
      */
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    /**
-     * Get the power points of the car.
-     *
-     * @return The power points.
-     */
-    public int getPowerPoints() {
-        return powerPoints;
-    }
-
-    /**
-     * Set the power points of the car.
-     *
-     * @param powerPoints the power points of the car
-     */
-    public void setPowerPoints(int powerPoints) {
-        this.powerPoints = powerPoints;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     /**
@@ -279,21 +276,21 @@ public class Car implements Serializable {
     }
 
     /**
-     * Get the cars horse power.
+     * Get the cars max power.
      *
-     * @return The horse power.
+     * @return The max power.
      */
-    public int getHorsePower() {
-        return horsePower;
+    public int getMaxPower() {
+        return maxPower;
     }
 
     /**
-     * Set the cars horse power.
+     * Set the cars max power.
      *
-     * @param horsePower the horse power
+     * @param maxPower the max power
      */
-    public void setHorsePower(int horsePower) {
-        this.horsePower = horsePower;
+    public void setMaxPower(int maxPower) {
+        this.maxPower = maxPower;
     }
 
     /**
@@ -458,15 +455,58 @@ public class Car implements Serializable {
         this.weight = weight;
     }
 
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public double getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(double acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public double getBraking() {
+        return braking;
+    }
+
+    public void setBraking(double braking) {
+        this.braking = braking;
+    }
+
+    public double getCornering() {
+        return cornering;
+    }
+
+    public void setCornering(double cornering) {
+        this.cornering = cornering;
+    }
+
+    public double getStability() {
+        return stability;
+    }
+
+    public void setStability(double stability) {
+        this.stability = stability;
+    }
+
     @Override
     public String toString() {
         return "Car[ " + "primaryKey=" + primaryKey + ", name=" + name
-                + ", dealerKey=" + manufacturerKey + ", year=" + year + ", level="
-                + level + ", powerPoints=" + powerPoints + ", price=" + price
-                + ", displacementCC=" + displacementCC + ", horsePower=" + horsePower
+                + ", dealerKey=" + manufacturerKey + ", year=" + year + ", category="
+                + category + ", price=" + price
+                + ", displacementCC=" + displacementCC + ", maxPower=" + maxPower
                 + ", powerRPM=" + powerRPM + ", torqueFtLb=" + torqueFtLb
                 + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain
                 + ", aspiration=" + aspiration + ", length=" + length
-                + ", width=" + width + ", height=" + height + ", weight=" + weight + " ]";
+                + ", width=" + width + ", height=" + height + ", weight=" + weight 
+                + ", maxSpeed=" + maxSpeed + ", acceleration=" + acceleration
+                + ", braking=" + braking + ", cornering=" + cornering 
+                + ", stability=" + stability + " ]";
     }
 }

@@ -100,37 +100,37 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER3 = ManufacturerForTesting.MANUFACTURE3;
+    protected static final Manufacturer MANUFACTURER3 = ManufacturerForTesting.MANUFACTURER3;
 
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER4 = ManufacturerForTesting.MANUFACTURE4;
+    protected static final Manufacturer MANUFACTURER4 = ManufacturerForTesting.MANUFACTURER4;
 
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER5 = ManufacturerForTesting.MANUFACTURE5;
+    protected static final Manufacturer MANUFACTURER5 = ManufacturerForTesting.MANUFACTURER5;
 
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER6 = ManufacturerForTesting.MANUFACTURE6;
+    protected static final Manufacturer MANUFACTURER6 = ManufacturerForTesting.MANUFACTURER6;
 
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER7 = ManufacturerForTesting.MANUFACTURE7;
+    protected static final Manufacturer MANUFACTURER7 = ManufacturerForTesting.MANUFACTURER7;
 
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER8 = ManufacturerForTesting.MANUFACTURE8;
+    protected static final Manufacturer MANUFACTURER8 = ManufacturerForTesting.MANUFACTURER8;
 
     /**
      * testing data for a manufacturer.
      */
-    protected static final Manufacturer MANUFACTURER9 = ManufacturerForTesting.MANUFACTURE9;
+    protected static final Manufacturer MANUFACTURER9 = ManufacturerForTesting.MANUFACTURER9;
 
     /**
      * Testing data for a car.
@@ -176,6 +176,36 @@ public class GTSportDataTesting extends AbstractTestNGSpringContextTests {
      * Testing data for a car.
      */
     protected static final Car CAR9 = CarsForTesting.CAR9;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR10 = CarsForTesting.CAR10;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR11 = CarsForTesting.CAR11;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR12 = CarsForTesting.CAR12;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR13 = CarsForTesting.CAR13;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR14 = CarsForTesting.CAR14;
+
+    /**
+     * Testing data for a car.
+     */
+    protected static final Car CAR15 = CarsForTesting.CAR15;
 
     /**
      * Testing data for an owner car.

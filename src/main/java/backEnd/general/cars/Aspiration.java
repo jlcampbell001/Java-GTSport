@@ -15,7 +15,7 @@ public enum Aspiration {
     /**
      * Turbo. Uses a turbine to suck the air in.
      */
-    T("T"),
+    TB("TB"),
     /**
      * Supercharged. Uses a turbine to suck the air in.
      */

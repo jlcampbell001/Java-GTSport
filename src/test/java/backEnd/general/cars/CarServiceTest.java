@@ -16,35 +16,40 @@ import org.testng.annotations.Test;
  */
 public class CarServiceTest extends GTSportDataTesting {
 
-    private static final String CAR_4_NAME = "Mustang Mach 1 '71";
-    private static final String CAR_4_DEALER_KEY = MANUFACTURER1.getPrimaryKey();
-    private static final int CAR_4_YEAR = 1971;
-    private static final int CAR_4_LEVEL = 4;
-    private static final int CAR_4_POWER_POINTS = 453;
-    private static final double CAR_4_PRICE = 50000.00;
-    private static final String CAR_4_DISPLACEMENTCC = "5752";
-    private static final int CAR_4_HORSE_POWER = 299;
-    private static final String CAR_4_POWER_RPM = "";
-    private static final double CAR_4_TORQUE_FTLB = 0.00;
-    private static final String CAR_4_TORQUE_RPM = "";
-    private static final DriveTrain CAR_4_DRIVETRAIN = DriveTrain.FR;
-    private static final Aspiration CAR_4_ASPIRATION = Aspiration.NA;
-    private static final double CAR_4_LENGTH = 189.50;
-    private static final double CAR_4_WIDTH = 74.10;
-    private static final double CAR_4_HEIGHT = 50.10;
-    private static final double CAR_4_WEIGHT = 1615;
+    private static final String CAR_XX_NAME = "Mustang Mach 1 '71";
+    private static final String CAR_XX_MANUFACTURER_KEY = MANUFACTURER3.getPrimaryKey();
+    private static final int CAR_XX_YEAR = 1971;
+    private static final Category CAR_XX_CATEGORY = Category.N400;
+    private static final double CAR_XX_PRICE = 50000.00;
+    private static final String CAR_XX_DISPLACEMENTCC = "5752";
+    private static final int CAR_XX_MAX_POWER = 299;
+    private static final String CAR_XX_POWER_RPM = "";
+    private static final double CAR_XX_TORQUE_FTLB = 0.00;
+    private static final String CAR_XX_TORQUE_RPM = "";
+    private static final DriveTrain CAR_XX_DRIVETRAIN = DriveTrain.FR;
+    private static final Aspiration CAR_XX_ASPIRATION = Aspiration.NA;
+    private static final double CAR_XX_LENGTH = 189.50;
+    private static final double CAR_XX_WIDTH = 74.10;
+    private static final double CAR_XX_HEIGHT = 50.10;
+    private static final double CAR_XX_WEIGHT = 1615;
+    private static final double CAR_XX_MAXSPEED = 7.2;
+    private static final double CAR_XX_ACCELERATION = 5.0;
+    private static final double CAR_XX_BRAKING = 1.8;
+    private static final double CAR_XX_CORNERING = 1.6;
+    private static final double CAR_XX_STABILITY = 5.0;        
 
-    private static final String CAR_4_NEW_NAME = "Mustang Mach 1 1971";
+
+    private static final String CAR_XX_NEW_NAME = "Mustang Mach 1 1971";
 
     private static final String BAD_CAR_KEY = "xx!!!xx";
     private static final String BAD_CAR_NAME = "GTR";
 
-    private static final int EXPECTED_NUMBER_OF_ROWS = 3;
-    private static final int EXPECTED_NUMBER_OF_ROWS_BY_DEALER = 2;
+    private static final int EXPECTED_NUMBER_OF_ROWS = 15;
+    private static final int EXPECTED_NUMBER_OF_ROWS_BY_MANUFACTURER = 2;
 
-    private static final String EXPECTED_MAX_KEY = "CAR900000004";
+    private static final String EXPECTED_MAX_KEY = "CAR900000016";
 
-    private String car4Key = "";
+    private String carXXKey = "";
 
     @Autowired
     private CarService carService;
@@ -64,15 +69,37 @@ public class CarServiceTest extends GTSportDataTesting {
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
         countryRepository.saveAndFlush(COUNTRY3);
+        countryRepository.saveAndFlush(COUNTRY4);
+        countryRepository.saveAndFlush(COUNTRY5);
 
         manufacturerRepository.saveAndFlush(MANUFACTURER1);
         manufacturerRepository.saveAndFlush(MANUFACTURER2);
         manufacturerRepository.saveAndFlush(MANUFACTURER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER4);
+        manufacturerRepository.saveAndFlush(MANUFACTURER5);
+        manufacturerRepository.saveAndFlush(MANUFACTURER6);
+        manufacturerRepository.saveAndFlush(MANUFACTURER7);
+        manufacturerRepository.saveAndFlush(MANUFACTURER8);
+        manufacturerRepository.saveAndFlush(MANUFACTURER9);
 
-        // add the 3 cars to work with.
+        // add the cars to work with.
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
         carRepository.saveAndFlush(CAR3);
+        carRepository.saveAndFlush(CAR3);
+        carRepository.saveAndFlush(CAR4);
+        carRepository.saveAndFlush(CAR5);
+        carRepository.saveAndFlush(CAR6);
+        carRepository.saveAndFlush(CAR7);
+        carRepository.saveAndFlush(CAR8);
+        carRepository.saveAndFlush(CAR9);
+        carRepository.saveAndFlush(CAR10);
+        carRepository.saveAndFlush(CAR11);
+        carRepository.saveAndFlush(CAR12);
+        carRepository.saveAndFlush(CAR13);
+        carRepository.saveAndFlush(CAR14);
+        carRepository.saveAndFlush(CAR15);
+
     }
 
     /**
@@ -87,17 +114,37 @@ public class CarServiceTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR1.getPrimaryKey());
         deleteCarTestRecord(CAR2.getPrimaryKey());
         deleteCarTestRecord(CAR3.getPrimaryKey());
-        deleteCarTestRecord(car4Key);
+        deleteCarTestRecord(CAR4.getPrimaryKey());
+        deleteCarTestRecord(CAR5.getPrimaryKey());
+        deleteCarTestRecord(CAR6.getPrimaryKey());
+        deleteCarTestRecord(CAR7.getPrimaryKey());
+        deleteCarTestRecord(CAR8.getPrimaryKey());
+        deleteCarTestRecord(CAR9.getPrimaryKey());
+        deleteCarTestRecord(CAR10.getPrimaryKey());
+        deleteCarTestRecord(CAR11.getPrimaryKey());
+        deleteCarTestRecord(CAR12.getPrimaryKey());
+        deleteCarTestRecord(CAR13.getPrimaryKey());
+        deleteCarTestRecord(CAR14.getPrimaryKey());
+        deleteCarTestRecord(CAR15.getPrimaryKey());
+        deleteCarTestRecord(carXXKey);
 
         carService.resetKeys();
 
         deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER4.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER5.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER6.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER7.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER8.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER9.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY4.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY5.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
@@ -181,27 +228,31 @@ public class CarServiceTest extends GTSportDataTesting {
 
         CarJson carJson = new CarJson();
         carJson.setPrimaryKey("");
-        carJson.setName(CAR_4_NAME);
-        carJson.setDealerKey(CAR_4_DEALER_KEY);
-        carJson.setYear(CAR_4_YEAR);
-        carJson.setLevel(CAR_4_LEVEL);
-        carJson.setPowerPoints(CAR_4_POWER_POINTS);
-        carJson.setPrice(CAR_4_PRICE);
-        carJson.setDisplacementCC(CAR_4_DISPLACEMENTCC);
-        carJson.setHorsePower(CAR_4_HORSE_POWER);
-        carJson.setPowerRPM(CAR_4_POWER_RPM);
-        carJson.setTorqueFtLb(CAR_4_TORQUE_FTLB);
-        carJson.setTorqueRPM(CAR_4_TORQUE_RPM);
-        carJson.setDriveTrain(CAR_4_DRIVETRAIN);
-        carJson.setAspiration(CAR_4_ASPIRATION);
-        carJson.setLength(CAR_4_LENGTH);
-        carJson.setWidth(CAR_4_WIDTH);
-        carJson.setHeight(CAR_4_HEIGHT);
-        carJson.setWeight(CAR_4_WEIGHT);
+        carJson.setName(CAR_XX_NAME);
+        carJson.setManufacturerKey(CAR_XX_MANUFACTURER_KEY);
+        carJson.setYear(CAR_XX_YEAR);
+        carJson.setCategory(CAR_XX_CATEGORY);
+        carJson.setPrice(CAR_XX_PRICE);
+        carJson.setDisplacementCC(CAR_XX_DISPLACEMENTCC);
+        carJson.setMaxPower(CAR_XX_MAX_POWER);
+        carJson.setPowerRPM(CAR_XX_POWER_RPM);
+        carJson.setTorqueFtLb(CAR_XX_TORQUE_FTLB);
+        carJson.setTorqueRPM(CAR_XX_TORQUE_RPM);
+        carJson.setDriveTrain(CAR_XX_DRIVETRAIN);
+        carJson.setAspiration(CAR_XX_ASPIRATION);
+        carJson.setLength(CAR_XX_LENGTH);
+        carJson.setWidth(CAR_XX_WIDTH);
+        carJson.setHeight(CAR_XX_HEIGHT);
+        carJson.setWeight(CAR_XX_WEIGHT);
+        carJson.setMaxPower(CAR_XX_MAX_POWER);
+        carJson.setAcceleration(CAR_XX_ACCELERATION);
+        carJson.setBraking(CAR_XX_BRAKING);
+        carJson.setCornering(CAR_XX_CORNERING);
+        carJson.setStability(CAR_XX_STABILITY);
 
         carService.saveCar(carJson);
 
-        car4Key = carJson.getPrimaryKey();
+        carXXKey = carJson.getPrimaryKey();
     }
 
     /**
@@ -214,24 +265,29 @@ public class CarServiceTest extends GTSportDataTesting {
         logger.info("Update Car");
 
         CarJson carJson = new CarJson();
-        carJson.setPrimaryKey(car4Key);
-        carJson.setName(CAR_4_NEW_NAME);
-        carJson.setDealerKey(CAR_4_DEALER_KEY);
-        carJson.setYear(CAR_4_YEAR);
-        carJson.setLevel(CAR_4_LEVEL);
-        carJson.setPowerPoints(CAR_4_POWER_POINTS);
-        carJson.setPrice(CAR_4_PRICE);
-        carJson.setDisplacementCC(CAR_4_DISPLACEMENTCC);
-        carJson.setHorsePower(CAR_4_HORSE_POWER);
-        carJson.setPowerRPM(CAR_4_POWER_RPM);
-        carJson.setTorqueFtLb(CAR_4_TORQUE_FTLB);
-        carJson.setTorqueRPM(CAR_4_TORQUE_RPM);
-        carJson.setDriveTrain(CAR_4_DRIVETRAIN);
-        carJson.setAspiration(CAR_4_ASPIRATION);
-        carJson.setLength(CAR_4_LENGTH);
-        carJson.setWidth(CAR_4_WIDTH);
-        carJson.setHeight(CAR_4_HEIGHT);
-        carJson.setWeight(CAR_4_WEIGHT);
+        carJson.setPrimaryKey(carXXKey);
+        carJson.setName(CAR_XX_NEW_NAME);
+        carJson.setManufacturerKey(CAR_XX_MANUFACTURER_KEY);
+        carJson.setYear(CAR_XX_YEAR);
+        carJson.setCategory(CAR_XX_CATEGORY);
+        carJson.setPrice(CAR_XX_PRICE);
+        carJson.setDisplacementCC(CAR_XX_DISPLACEMENTCC);
+        carJson.setMaxPower(CAR_XX_MAX_POWER);
+        carJson.setPowerRPM(CAR_XX_POWER_RPM);
+        carJson.setTorqueFtLb(CAR_XX_TORQUE_FTLB);
+        carJson.setTorqueRPM(CAR_XX_TORQUE_RPM);
+        carJson.setDriveTrain(CAR_XX_DRIVETRAIN);
+        carJson.setAspiration(CAR_XX_ASPIRATION);
+        carJson.setLength(CAR_XX_LENGTH);
+        carJson.setWidth(CAR_XX_WIDTH);
+        carJson.setHeight(CAR_XX_HEIGHT);
+        carJson.setWeight(CAR_XX_WEIGHT);
+                carJson.setMaxPower(CAR_XX_MAX_POWER);
+        carJson.setAcceleration(CAR_XX_ACCELERATION);
+        carJson.setBraking(CAR_XX_BRAKING);
+        carJson.setCornering(CAR_XX_CORNERING);
+        carJson.setStability(CAR_XX_STABILITY);
+
 
         carService.saveCar(carJson);
     }
@@ -243,9 +299,9 @@ public class CarServiceTest extends GTSportDataTesting {
      */
     @Test(dependsOnMethods = {"updateCar"})
     public void deleteCar() throws CarException {
-        logger.info("Delete Car: " + car4Key);
+        logger.info("Delete Car: " + carXXKey);
 
-        carService.deleteCar(car4Key);
+        carService.deleteCar(carXXKey);
     }
 
     /**
@@ -268,9 +324,9 @@ public class CarServiceTest extends GTSportDataTesting {
     public void getCarListByDealerKey() {
         logger.info("Get Car List By Dealer Key: " + MANUFACTURER1.getPrimaryKey());
 
-        List<CarJson> carJsons = carService.getCarListByDealerKey(MANUFACTURER1.getPrimaryKey());
+        List<CarJson> carJsons = carService.getCarListByManufacturerKey(MANUFACTURER1.getPrimaryKey());
 
-        assertEquals(carJsons.size(), EXPECTED_NUMBER_OF_ROWS_BY_DEALER);
+        assertEquals(carJsons.size(), EXPECTED_NUMBER_OF_ROWS_BY_MANUFACTURER);
         assertEquals(carJsons.get(0).getPrimaryKey(), CAR1.getPrimaryKey());
     }
 
@@ -287,28 +343,33 @@ public class CarServiceTest extends GTSportDataTesting {
 
         CarJson carJson = new CarJson();
         carJson.setPrimaryKey("");
-        carJson.setName(CAR_4_NAME);
-        carJson.setDealerKey(CAR_4_DEALER_KEY);
-        carJson.setYear(CAR_4_YEAR);
-        carJson.setLevel(CAR_4_LEVEL);
-        carJson.setPowerPoints(CAR_4_POWER_POINTS);
-        carJson.setPrice(CAR_4_PRICE);
-        carJson.setDisplacementCC(CAR_4_DISPLACEMENTCC);
-        carJson.setHorsePower(CAR_4_HORSE_POWER);
-        carJson.setPowerRPM(CAR_4_POWER_RPM);
-        carJson.setTorqueFtLb(CAR_4_TORQUE_FTLB);
-        carJson.setTorqueRPM(CAR_4_TORQUE_RPM);
-        carJson.setDriveTrain(CAR_4_DRIVETRAIN);
-        carJson.setAspiration(CAR_4_ASPIRATION);
-        carJson.setLength(CAR_4_LENGTH);
-        carJson.setWidth(CAR_4_WIDTH);
-        carJson.setHeight(CAR_4_HEIGHT);
-        carJson.setWeight(CAR_4_WEIGHT);
+        carJson.setName(CAR_XX_NAME);
+        carJson.setManufacturerKey(CAR_XX_MANUFACTURER_KEY);
+        carJson.setYear(CAR_XX_YEAR);
+        carJson.setCategory(CAR_XX_CATEGORY);
+        carJson.setPrice(CAR_XX_PRICE);
+        carJson.setDisplacementCC(CAR_XX_DISPLACEMENTCC);
+        carJson.setMaxPower(CAR_XX_MAX_POWER);
+        carJson.setPowerRPM(CAR_XX_POWER_RPM);
+        carJson.setTorqueFtLb(CAR_XX_TORQUE_FTLB);
+        carJson.setTorqueRPM(CAR_XX_TORQUE_RPM);
+        carJson.setDriveTrain(CAR_XX_DRIVETRAIN);
+        carJson.setAspiration(CAR_XX_ASPIRATION);
+        carJson.setLength(CAR_XX_LENGTH);
+        carJson.setWidth(CAR_XX_WIDTH);
+        carJson.setHeight(CAR_XX_HEIGHT);
+        carJson.setWeight(CAR_XX_WEIGHT);
+        carJson.setMaxPower(CAR_XX_MAX_POWER);
+        carJson.setAcceleration(CAR_XX_ACCELERATION);
+        carJson.setBraking(CAR_XX_BRAKING);
+        carJson.setCornering(CAR_XX_CORNERING);
+        carJson.setStability(CAR_XX_STABILITY);
+        
 
         carService.saveCar(carJson);
 
-        car4Key = carJson.getPrimaryKey();
+        carXXKey = carJson.getPrimaryKey();
 
-        assertEquals(EXPECTED_MAX_KEY, car4Key);
+        assertEquals(EXPECTED_MAX_KEY, carXXKey);
     }
 }

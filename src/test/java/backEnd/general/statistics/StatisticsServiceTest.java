@@ -43,12 +43,20 @@ public class StatisticsServiceTest extends GTSportDataTesting {
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
         countryRepository.saveAndFlush(COUNTRY3);
+        countryRepository.saveAndFlush(COUNTRY4);
+        countryRepository.saveAndFlush(COUNTRY5);
 
         manufacturerRepository.saveAndFlush(MANUFACTURER1);
         manufacturerRepository.saveAndFlush(MANUFACTURER2);
         manufacturerRepository.saveAndFlush(MANUFACTURER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER4);
+        manufacturerRepository.saveAndFlush(MANUFACTURER5);
+        manufacturerRepository.saveAndFlush(MANUFACTURER6);
+        manufacturerRepository.saveAndFlush(MANUFACTURER7);
+        manufacturerRepository.saveAndFlush(MANUFACTURER8);
+        manufacturerRepository.saveAndFlush(MANUFACTURER9);
 
-        // add the 3 cars to work with.
+        // add the cars to work with.
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
         carRepository.saveAndFlush(CAR3);
@@ -82,10 +90,18 @@ public class StatisticsServiceTest extends GTSportDataTesting {
         deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER4.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER5.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER6.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER7.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER8.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER9.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY4.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY5.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());

@@ -24,7 +24,7 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
     private static final String OWNERCAR4_CAR_KEY = CAR4.getPrimaryKey();
     private static final String OWNERCAR4_ID = CAR4.getName() + "_TESTING";
     private static final String OWNERCAR4_COLOUR = "White";
-    private static final int OWNERCAR4_POWER_POINTS = CAR4.getPowerPoints();
+    private static final int OWNERCAR4_POWER_POINTS = 123;
     private static final LocalDate OWNERCAR4_AQUIRED_DATE = LocalDate.of(2017, Month.AUGUST, 20);
 
     private static final String OWNERCAR4_NEW_ID = "Testing owner car 4 update";
@@ -54,10 +54,18 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
         countryRepository.saveAndFlush(COUNTRY3);
+        countryRepository.saveAndFlush(COUNTRY4);
+        countryRepository.saveAndFlush(COUNTRY5);
 
         manufacturerRepository.saveAndFlush(MANUFACTURER1);
         manufacturerRepository.saveAndFlush(MANUFACTURER2);
         manufacturerRepository.saveAndFlush(MANUFACTURER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER4);
+        manufacturerRepository.saveAndFlush(MANUFACTURER5);
+        manufacturerRepository.saveAndFlush(MANUFACTURER6);
+        manufacturerRepository.saveAndFlush(MANUFACTURER7);
+        manufacturerRepository.saveAndFlush(MANUFACTURER8);
+        manufacturerRepository.saveAndFlush(MANUFACTURER9);
 
         carRepository.saveAndFlush(CAR1);
         carRepository.saveAndFlush(CAR2);
@@ -68,6 +76,12 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         carRepository.saveAndFlush(CAR7);
         carRepository.saveAndFlush(CAR8);
         carRepository.saveAndFlush(CAR9);
+        carRepository.saveAndFlush(CAR10);
+        carRepository.saveAndFlush(CAR11);
+        carRepository.saveAndFlush(CAR12);
+        carRepository.saveAndFlush(CAR13);
+        carRepository.saveAndFlush(CAR14);
+        carRepository.saveAndFlush(CAR15);
 
         ownerRepository.saveAndFlush(OWNER1);
         ownerRepository.saveAndFlush(OWNER2);
@@ -105,14 +119,28 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR7.getPrimaryKey());
         deleteCarTestRecord(CAR8.getPrimaryKey());
         deleteCarTestRecord(CAR9.getPrimaryKey());
+        deleteCarTestRecord(CAR10.getPrimaryKey());
+        deleteCarTestRecord(CAR11.getPrimaryKey());
+        deleteCarTestRecord(CAR12.getPrimaryKey());
+        deleteCarTestRecord(CAR13.getPrimaryKey());
+        deleteCarTestRecord(CAR14.getPrimaryKey());
+        deleteCarTestRecord(CAR15.getPrimaryKey());
 
         deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER4.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER5.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER6.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER7.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER8.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER9.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY4.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY5.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());

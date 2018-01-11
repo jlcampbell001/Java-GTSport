@@ -15,16 +15,15 @@ import org.testng.annotations.Test;
  */
 public class CarRepositoryTest extends GTSportDataTesting {
 
-    private static final String EXPECTED_MAX_KEY = CAR9.getPrimaryKey();
+    private static final String EXPECTED_MAX_KEY = CAR15.getPrimaryKey();
 
-    private static final int EXPECTED_NUMBER_OF_CARS = 8;
+    private static final int EXPECTED_NUMBER_OF_CARS = 2;
 
-    private static final int EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS = 8;
-    private static final int EXPECTED_LEVEL_4_ROW = 2;
-    private static final long LEVEL_4_NUMBER_OF_CARS = 2L;
-    private static final double LEVEL_4_AVG_PP = 422.5;
-    private static final double LEVEL_4_AVG_HP = 234.0;
-    private static final double LEVEL_4_AVG_PRICE = 57445.00;
+    private static final int EXPECTED_NUMBER_OF_CAR_CATEGORY_STAT_ROWS = 14;
+    private static final int EXPECTED_CATEGORY_N400_ROW = 3;
+    private static final long CATEGORY_N400_NUMBER_OF_CARS = 2L;
+    private static final double CATEGORY_N400_AVG_HP = 394.5;
+    private static final double CATEGORY_N400_AVG_PRICE = 54155.00;
 
     /**
      * Setup records to test against.
@@ -41,10 +40,18 @@ public class CarRepositoryTest extends GTSportDataTesting {
         countryRepository.saveAndFlush(COUNTRY1);
         countryRepository.saveAndFlush(COUNTRY2);
         countryRepository.saveAndFlush(COUNTRY3);
+        countryRepository.saveAndFlush(COUNTRY4);
+        countryRepository.saveAndFlush(COUNTRY5);
 
         manufacturerRepository.saveAndFlush(MANUFACTURER1);
         manufacturerRepository.saveAndFlush(MANUFACTURER2);
         manufacturerRepository.saveAndFlush(MANUFACTURER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER4);
+        manufacturerRepository.saveAndFlush(MANUFACTURER5);
+        manufacturerRepository.saveAndFlush(MANUFACTURER6);
+        manufacturerRepository.saveAndFlush(MANUFACTURER7);
+        manufacturerRepository.saveAndFlush(MANUFACTURER8);
+        manufacturerRepository.saveAndFlush(MANUFACTURER9);
 
         // add the cars to work with.
         carRepository.saveAndFlush(CAR1);
@@ -56,6 +63,12 @@ public class CarRepositoryTest extends GTSportDataTesting {
         carRepository.saveAndFlush(CAR7);
         carRepository.saveAndFlush(CAR8);
         carRepository.saveAndFlush(CAR9);
+        carRepository.saveAndFlush(CAR10);
+        carRepository.saveAndFlush(CAR11);
+        carRepository.saveAndFlush(CAR12);
+        carRepository.saveAndFlush(CAR13);
+        carRepository.saveAndFlush(CAR14);
+        carRepository.saveAndFlush(CAR15);
     }
 
     /**
@@ -76,14 +89,28 @@ public class CarRepositoryTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR7.getPrimaryKey());
         deleteCarTestRecord(CAR8.getPrimaryKey());
         deleteCarTestRecord(CAR9.getPrimaryKey());
+        deleteCarTestRecord(CAR10.getPrimaryKey());
+        deleteCarTestRecord(CAR11.getPrimaryKey());
+        deleteCarTestRecord(CAR12.getPrimaryKey());
+        deleteCarTestRecord(CAR13.getPrimaryKey());
+        deleteCarTestRecord(CAR14.getPrimaryKey());
+        deleteCarTestRecord(CAR15.getPrimaryKey());
 
         deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER4.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER5.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER6.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER7.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER8.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER9.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
         deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY4.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY5.getPrimaryKey());
 
         deleteRegionTestRecord(REGION1.getPrimaryKey());
         deleteRegionTestRecord(REGION2.getPrimaryKey());
@@ -136,11 +163,10 @@ public class CarRepositoryTest extends GTSportDataTesting {
 
         List<Object[]> carsStats = carRepository.getCarsStatistics();
 
-        assertEquals(carsStats.size(), EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS);
-        assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[0], 4);
-        assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[1], LEVEL_4_NUMBER_OF_CARS);
-        assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[2], LEVEL_4_AVG_PP);
-        assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[3], LEVEL_4_AVG_HP);
-        assertEquals(carsStats.get(EXPECTED_LEVEL_4_ROW)[4], LEVEL_4_AVG_PRICE);
+        assertEquals(carsStats.size(), EXPECTED_NUMBER_OF_CAR_CATEGORY_STAT_ROWS);
+        assertEquals(carsStats.get(EXPECTED_CATEGORY_N400_ROW)[0], Category.N400);
+        assertEquals(carsStats.get(EXPECTED_CATEGORY_N400_ROW)[1], CATEGORY_N400_NUMBER_OF_CARS);
+        assertEquals(carsStats.get(EXPECTED_CATEGORY_N400_ROW)[2], CATEGORY_N400_AVG_HP);
+        assertEquals(carsStats.get(EXPECTED_CATEGORY_N400_ROW)[3], CATEGORY_N400_AVG_PRICE);
     }
 }

@@ -33,12 +33,26 @@ public class OwnerValidateTest extends GTSportDataTesting {
         ownerRepository.saveAndFlush(OWNER1);
         ownerRepository.saveAndFlush(OWNER2);
         ownerRepository.saveAndFlush(OWNER3);
-        
+
+        regionRepository.saveAndFlush(REGION1);
+        regionRepository.saveAndFlush(REGION2);
         regionRepository.saveAndFlush(REGION3);
 
         countryRepository.saveAndFlush(COUNTRY1);
+        countryRepository.saveAndFlush(COUNTRY2);
+        countryRepository.saveAndFlush(COUNTRY3);
+        countryRepository.saveAndFlush(COUNTRY4);
+        countryRepository.saveAndFlush(COUNTRY5);
 
         manufacturerRepository.saveAndFlush(MANUFACTURER1);
+        manufacturerRepository.saveAndFlush(MANUFACTURER2);
+        manufacturerRepository.saveAndFlush(MANUFACTURER3);
+        manufacturerRepository.saveAndFlush(MANUFACTURER4);
+        manufacturerRepository.saveAndFlush(MANUFACTURER5);
+        manufacturerRepository.saveAndFlush(MANUFACTURER6);
+        manufacturerRepository.saveAndFlush(MANUFACTURER7);
+        manufacturerRepository.saveAndFlush(MANUFACTURER8);
+        manufacturerRepository.saveAndFlush(MANUFACTURER9);
 
         carRepository.saveAndFlush(CAR3);
 
@@ -54,20 +68,34 @@ public class OwnerValidateTest extends GTSportDataTesting {
         logger.info("After Class");
 
         // delete the test records.
-       deleteOwnerCarTestRecord(OWNERCAR3.getPrimaryKey());
- 
-       deleteOwnerTestRecord(OWNER1.getPrimaryKey());
+        deleteOwnerCarTestRecord(OWNERCAR3.getPrimaryKey());
+
+        deleteOwnerTestRecord(OWNER1.getPrimaryKey());
         deleteOwnerTestRecord(OWNER2.getPrimaryKey());
         deleteOwnerTestRecord(OWNER3.getPrimaryKey());
 
         deleteCarTestRecord(CAR3.getPrimaryKey());
 
         deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER3.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER4.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER5.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER6.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER7.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER8.getPrimaryKey());
+        deleteManufacturerTestRecord(MANUFACTURER9.getPrimaryKey());
 
         deleteCountryTestRecord(COUNTRY1.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY2.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY3.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY4.getPrimaryKey());
+        deleteCountryTestRecord(COUNTRY5.getPrimaryKey());
 
+        deleteRegionTestRecord(REGION1.getPrimaryKey());
+        deleteRegionTestRecord(REGION2.getPrimaryKey());
         deleteRegionTestRecord(REGION3.getPrimaryKey());
-     }
+    }
 
     /**
      * Validate a good owner to save.

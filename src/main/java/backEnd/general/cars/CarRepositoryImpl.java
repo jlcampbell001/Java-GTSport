@@ -46,22 +46,23 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
         //Figure out the criteria using the passed search json.
         Predicate criteria = builder.conjunction();
 
-        // level criteria
-        if (searchJson.getLevelFrom() != null || searchJson.getLevelTo() != null) {
-            Expression<Integer> levelExpression = criteriaRoot.get("level");
+        // category criteria
+        if (searchJson.getCategoryFrom()!= null || searchJson.getCategoryTo()!= null) {
+            Expression<Category> categoryExpression = criteriaRoot.get("category");
 
-            Integer levelFrom = searchJson.getLevelFrom();
-            Integer levelTo = searchJson.getLevelTo();
+            Category categoryFrom = searchJson.getCategoryFrom();
+            Category categoryTo = searchJson.getCategoryTo();
 
-            if (levelFrom == null) {
-                levelFrom = 0;
+            if (categoryFrom == null) {
+                categoryFrom = Category.EMPTY;
             }
 
-            if (levelTo == null) {
-                levelTo = Integer.MAX_VALUE;
+            if (categoryTo == null) {
+                categoryTo = Category.MAX;
             }
 
-            criteria = builder.and(criteria, builder.between(levelExpression, levelFrom, levelTo));
+            criteria = builder.and(criteria, builder.between(categoryExpression, 
+                    categoryFrom, categoryTo));
         }
 
         // year criteria
@@ -82,42 +83,23 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
             criteria = builder.and(criteria, builder.between(yearExpression, yearFrom, yearTo));
         }
 
-        // power points criteria
-        if (searchJson.getPowerPointsFrom() != null || searchJson.getPowerPointsTo() != null) {
-            Expression<Integer> powerPointsExpression = criteriaRoot.get("powerPoints");
+        // max power criteria
+        if (searchJson.getMaxPowerFrom() != null || searchJson.getMaxPowerTo() != null) {
+            Expression<Integer> maxPowerExpression = criteriaRoot.get("maxPower");
 
-            Integer powerPointsFrom = searchJson.getPowerPointsFrom();
-            Integer powerPointsTo = searchJson.getPowerPointsTo();
+            Integer maxPowerFrom = searchJson.getMaxPowerFrom();
+            Integer maxPowerTo = searchJson.getMaxPowerTo();
 
-            if (powerPointsFrom == null) {
-                powerPointsFrom = 0;
+            if (maxPowerFrom == null) {
+                maxPowerFrom = 0;
             }
 
-            if (powerPointsTo == null) {
-                powerPointsTo = Integer.MAX_VALUE;
+            if (maxPowerTo == null) {
+                maxPowerTo = Integer.MAX_VALUE;
             }
 
-            criteria = builder.and(criteria, builder.between(powerPointsExpression,
-                    powerPointsFrom, powerPointsTo));
-        }
-
-        // horse power criteria
-        if (searchJson.getHorsePowerFrom() != null || searchJson.getHorsePowerTo() != null) {
-            Expression<Integer> horsePowerExpression = criteriaRoot.get("horsePower");
-
-            Integer horsePowerFrom = searchJson.getHorsePowerFrom();
-            Integer horsePowerTo = searchJson.getHorsePowerTo();
-
-            if (horsePowerFrom == null) {
-                horsePowerFrom = 0;
-            }
-
-            if (horsePowerTo == null) {
-                horsePowerTo = Integer.MAX_VALUE;
-            }
-
-            criteria = builder.and(criteria, builder.between(horsePowerExpression,
-                    horsePowerFrom, horsePowerTo));
+            criteria = builder.and(criteria, builder.between(maxPowerExpression,
+                    maxPowerFrom, maxPowerTo));
         }
 
         // drive train criteria

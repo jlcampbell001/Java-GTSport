@@ -4,11 +4,11 @@ package backEnd.general.cars;
  * The Json used for searching for cars by criteria.<br>
  * Values set to null will be ignored in the search.<br>
  * <p>
- * <b>Level search (Range search):</b><br>
- * - If levelFrom is set to null but a value is in levelTo, levelFrom will be
- * set to 0.<br>
- * - If levelTo is set to null but a value is in levelFrom, levelTo will be set
- * to Integer.MAX_VALUE.<br></p>
+ * <b>category search (Range search):</b><br>
+ * - If categoryFrom is set to null but a value is in categoryTo, categoryFrom will be
+ * set to "".<br>
+ * - If categoryTo is set to null but a value is in categoryFrom, categoryTo will be set
+ * to Category.MAX.<br></p>
  * <p>
  * <b>Year search (Range search):</b><br>
  * - If yearFrom is set to null but a value is in yearTo, yearFrom will be set
@@ -16,17 +16,11 @@ package backEnd.general.cars;
  * - If yearTo is set to null but a value is in yearFrom, yearTo will be set to
  * Integer.MAX_VALUE.<br></p>
  * <p>
- * <b>Power Points search (Range search):</b><br>
- * - If powerPointsFrom is set to null but a value is in powerPointsTo,
- * powerPointsFrom will be set to 0.<br>
- * - If powerPointsTo is set to null but a value is in powerPointsFrom,
- * powerPointsTo will be set to Integer.MAX_VALUE.<br></p>
- * <p>
- * <b>Horse Power search (Range search):</b><br>
- * - If horsePowerFrom is set to null but a value is in horsePowerTo,
- * horsePowerFrom will be set to 0.<br>
- * - If horsePowerTo is set to null but a value is in horsePowerFrom,
- * horsePowerTo will be set to Integer.MAX_VALUE.<br></p>
+ * <b>Max Power search (Range search):</b><br>
+ * - If maxPowerFrom is set to null but a value is in maxPowerTo,
+ * maxPowerFrom will be set to 0.<br>
+ * - If maxPowerTo is set to null but a value is in maxPowerFrom,
+ * maxPowerTo will be set to Integer.MAX_VALUE.<br></p>
  * <p>
  * <b>Drivetrain search (Exact search):</b><br>
  * - Looks for an exact value of the drivetrain to match.
@@ -45,54 +39,32 @@ package backEnd.general.cars;
  */
 public class CarSearchJson {
 
-    private Integer levelFrom = null;
-    private Integer levelTo = null;
+    private Category categoryFrom = null;
+    private Category categoryTo = null;
     private Integer yearFrom = null;
     private Integer yearTo = null;
-    private Integer powerPointsFrom = null;
-    private Integer powerPointsTo = null;
-    private Integer horsePowerFrom = null;
-    private Integer horsePowerTo = null;
+    private Integer maxPowerFrom = null;
+    private Integer maxPowerTo = null;
 
     private DriveTrain driveTrain = null;
     private String dealerName = null;
     private String countryDescription = null;
     private String regionDescription = null;
 
-    /**
-     * Get the level from search value.
-     *
-     * @return The level from value.
-     */
-    public Integer getLevelFrom() {
-        return levelFrom;
+    public Category getCategoryFrom() {
+        return categoryFrom;
     }
 
-    /**
-     * Set the level from search value.
-     *
-     * @param levelFrom the level from value
-     */
-    public void setLevelFrom(Integer levelFrom) {
-        this.levelFrom = levelFrom;
+    public void setCategoryFrom(Category categoryFrom) {
+        this.categoryFrom = categoryFrom;
     }
 
-    /**
-     * Get the level to search value.
-     *
-     * @return The level to value.
-     */
-    public Integer getLevelTo() {
-        return levelTo;
+    public Category getCategoryTo() {
+        return categoryTo;
     }
 
-    /**
-     * Set the level to search value.
-     *
-     * @param levelTo the level to value
-     */
-    public void setLevelTo(Integer levelTo) {
-        this.levelTo = levelTo;
+    public void setCategoryTo(Category categoryTo) {
+        this.categoryTo = categoryTo;
     }
 
     /**
@@ -131,76 +103,41 @@ public class CarSearchJson {
         this.yearTo = yearTo;
     }
 
+
     /**
-     * Get the power points from value.
+     * Get the max power from value.
      *
-     * @return The power points from value.
+     * @return The max power from value.
      */
-    public Integer getPowerPointsFrom() {
-        return powerPointsFrom;
+    public Integer getMaxPowerFrom() {
+        return maxPowerFrom;
     }
 
     /**
-     * set the power points from value.
+     * Set the max power from value.
      *
-     * @param powerPointsFrom the power points from value
+     * @param maxPowerFrom the max power from value
      */
-    public void setPowerPointsFrom(Integer powerPointsFrom) {
-        this.powerPointsFrom = powerPointsFrom;
+    public void setMaxPowerFrom(Integer maxPowerFrom) {
+        this.maxPowerFrom = maxPowerFrom;
     }
 
     /**
-     * Get the power points to value.
+     * Get the max power to value.
      *
-     * @return The power points value.
+     * @return The max power to value.
      */
-    public Integer getPowerPointsTo() {
-        return powerPointsTo;
+    public Integer getMaxPowerTo() {
+        return maxPowerTo;
     }
 
     /**
-     * set the power points value.
+     * Set the max power to value.
      *
-     * @param powerPointsTo the power points value
+     * @param maxPowerTo the max power to value
      */
-    public void setPowerPointsTo(Integer powerPointsTo) {
-        this.powerPointsTo = powerPointsTo;
-    }
-
-    /**
-     * Get the horse power from value.
-     *
-     * @return The horse power from value.
-     */
-    public Integer getHorsePowerFrom() {
-        return horsePowerFrom;
-    }
-
-    /**
-     * Set the horse power from value.
-     *
-     * @param horsePowerFrom the horse power from value
-     */
-    public void setHorsePowerFrom(Integer horsePowerFrom) {
-        this.horsePowerFrom = horsePowerFrom;
-    }
-
-    /**
-     * Get the horse power to value.
-     *
-     * @return The horse power to value.
-     */
-    public Integer getHorsePowerTo() {
-        return horsePowerTo;
-    }
-
-    /**
-     * Set the horse power to value.
-     *
-     * @param horsePowerTo the horse power to value
-     */
-    public void setHorsePowerTo(Integer horsePowerTo) {
-        this.horsePowerTo = horsePowerTo;
+    public void setMaxPowerTo(Integer maxPowerTo) {
+        this.maxPowerTo = maxPowerTo;
     }
 
     /**

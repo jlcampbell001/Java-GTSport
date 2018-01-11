@@ -43,8 +43,8 @@ public class CarValidate {
         }
 
         // Make sure the dealer is set.
-        if (carJson.getDealerKey().trim().isEmpty()) {
-            throw new CarException(CarException.DEALER_KEY_NOT_SET);
+        if (carJson.getManufacturerKey().trim().isEmpty()) {
+            throw new CarException(CarException.MANUFACTURER_KEY_NOT_SET);
         }
 
         // Make sure the drivetrain is set.
@@ -55,6 +55,11 @@ public class CarValidate {
         // Make sure the aspiration is (NA, T, SC, EV) if not empty.
         if (carJson.getAspiration() == null) {
             throw new CarException(CarException.ASPIRATION_NOT_VALID);
+        }
+        
+        // Make sure the category is valid if not empty.
+        if (carJson.getCategory() == null) {
+            throw new CarException(CarException.CATEGORY_NOT_VALID);
         }
 
         // Make sure the name is unique.
@@ -68,8 +73,8 @@ public class CarValidate {
         }
 
         // Make sure the dealer key exists.
-        if (!dealerRepository.exists(carJson.getDealerKey())) {
-            throw new CarException(CarException.DEALER_KEY_DOES_NOT_EXIST + carJson.getDealerKey());
+        if (!dealerRepository.exists(carJson.getManufacturerKey())) {
+            throw new CarException(CarException.MANUFACTURER_KEY_DOES_NOT_EXIST + carJson.getManufacturerKey());
         }
     }
 
