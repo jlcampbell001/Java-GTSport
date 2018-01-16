@@ -4,7 +4,7 @@
 <suite name="Suite">
     <test name="NotDBDependent">
         <classes>
-            <class name="backEnd.general.statistics.CarLevelStatisticTest"/>
+            <class name="backEnd.general.statistics.CarCategoryStatisticTest"/>
         </classes>
     </test>
     <test name="KeySequence">

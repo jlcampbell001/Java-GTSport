@@ -24,7 +24,9 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
     private static final String OWNERCAR4_CAR_KEY = CAR4.getPrimaryKey();
     private static final String OWNERCAR4_ID = CAR4.getName() + "_TESTING";
     private static final String OWNERCAR4_COLOUR = "White";
-    private static final int OWNERCAR4_POWER_POINTS = 123;
+    private static final int OWNERCAR4_MAX_POWER = CAR4.getMaxPower();
+    private static final int OWNERCAR4_POWER_LEVEL = 0;
+    private static final int OWNERCAR4_WEIGHT_REDUCTION_LEVEL =1;
     private static final LocalDate OWNERCAR4_AQUIRED_DATE = LocalDate.of(2017, Month.AUGUST, 20);
 
     private static final String OWNERCAR4_NEW_ID = "Testing owner car 4 update";
@@ -196,7 +198,9 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR4_CAR_KEY);
         ownerCarJson.setCarId(OWNERCAR4_ID);
         ownerCarJson.setColour(OWNERCAR4_COLOUR);
-        ownerCarJson.setPowerPoints(OWNERCAR4_POWER_POINTS);
+        ownerCarJson.setMaxPower(OWNERCAR4_MAX_POWER);
+        ownerCarJson.setPowerLevel(OWNERCAR4_POWER_LEVEL);
+        ownerCarJson.setWeightReductionLevel(OWNERCAR4_WEIGHT_REDUCTION_LEVEL);
         ownerCarJson.setAcquiredDate(OWNERCAR4_AQUIRED_DATE);
 
         ownerCarService.saveOwnerCar(ownerCarJson);
@@ -220,7 +224,9 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR4_CAR_KEY);
         ownerCarJson.setCarId(OWNERCAR4_NEW_ID);
         ownerCarJson.setColour(OWNERCAR4_COLOUR);
-        ownerCarJson.setPowerPoints(OWNERCAR4_POWER_POINTS);
+        ownerCarJson.setMaxPower(OWNERCAR4_MAX_POWER);
+        ownerCarJson.setPowerLevel(OWNERCAR4_POWER_LEVEL);
+        ownerCarJson.setWeightReductionLevel(OWNERCAR4_WEIGHT_REDUCTION_LEVEL);
         ownerCarJson.setAcquiredDate(OWNERCAR4_AQUIRED_DATE);
 
         ownerCarService.saveOwnerCar(ownerCarJson);
@@ -281,7 +287,9 @@ public class OwnerCarServiceTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR4_CAR_KEY);
         ownerCarJson.setCarId(OWNERCAR4_ID);
         ownerCarJson.setColour(OWNERCAR4_COLOUR);
-        ownerCarJson.setPowerPoints(OWNERCAR4_POWER_POINTS);
+        ownerCarJson.setMaxPower(OWNERCAR4_MAX_POWER);
+        ownerCarJson.setPowerLevel(OWNERCAR4_POWER_LEVEL);
+        ownerCarJson.setWeightReductionLevel(OWNERCAR4_WEIGHT_REDUCTION_LEVEL);
         ownerCarJson.setAcquiredDate(OWNERCAR4_AQUIRED_DATE);
 
         ownerCarService.saveOwnerCar(ownerCarJson);

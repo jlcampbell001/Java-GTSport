@@ -1,6 +1,7 @@
 package backEnd.general.statistics;
 
 import backEnd.general.GTSportDataTesting;
+import backEnd.general.cars.Category;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -16,14 +17,11 @@ import org.testng.annotations.Test;
  */
 public class StatisticsServiceTest extends GTSportDataTesting {
 
-    private static final int EXPECTED_NUMBER_OF_CARS = 8;
-
-    private static final int EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS = 8;
-    private static final Integer LEVEL_4_ID = 4;
-    private static final Long LEVEL_4_NUMBER_OF_CARS = 2L;
-    private static final Double LEVEL_4_AVG_PP = 422.5;
-    private static final Double LEVEL_4_AVG_HP = 234.0;
-    private static final Double LEVEL_4_AVG_PRICE = 57445.00;
+    private static final int EXPECTED_NUMBER_OF_CAR_CATEGORY_STAT_ROWS = 14;
+    private static final Category CATEGORY_4_ID = Category.N400;
+    private static final Long CATEGORY_4_NUMBER_OF_CARS = 2L;
+    private static final Double CATEGORY_4_AVG_MAX_POWER = 394.5;
+    private static final Double CATEGORY_4_AVG_PRICE = 54155.00;
 
     @Autowired
     private StatisticsService statisticsService;
@@ -66,6 +64,12 @@ public class StatisticsServiceTest extends GTSportDataTesting {
         carRepository.saveAndFlush(CAR7);
         carRepository.saveAndFlush(CAR8);
         carRepository.saveAndFlush(CAR9);
+        carRepository.saveAndFlush(CAR10);
+        carRepository.saveAndFlush(CAR11);
+        carRepository.saveAndFlush(CAR12);
+        carRepository.saveAndFlush(CAR13);
+        carRepository.saveAndFlush(CAR14);
+        carRepository.saveAndFlush(CAR15);
     }
 
     /**
@@ -86,6 +90,12 @@ public class StatisticsServiceTest extends GTSportDataTesting {
         deleteCarTestRecord(CAR7.getPrimaryKey());
         deleteCarTestRecord(CAR8.getPrimaryKey());
         deleteCarTestRecord(CAR9.getPrimaryKey());
+        deleteCarTestRecord(CAR10.getPrimaryKey());
+        deleteCarTestRecord(CAR11.getPrimaryKey());
+        deleteCarTestRecord(CAR12.getPrimaryKey());
+        deleteCarTestRecord(CAR13.getPrimaryKey());
+        deleteCarTestRecord(CAR14.getPrimaryKey());
+        deleteCarTestRecord(CAR15.getPrimaryKey());
 
         deleteManufacturerTestRecord(MANUFACTURER1.getPrimaryKey());
         deleteManufacturerTestRecord(MANUFACTURER2.getPrimaryKey());
@@ -111,23 +121,22 @@ public class StatisticsServiceTest extends GTSportDataTesting {
     /**
      * Test to get a car level statistics list.
      *
-     * @throws CarLevelStatisticException should find no errors
+     * @throws CarCategoryStatisticException should find no errors
      */
     @Test
-    public void getCarLevelStatistics() throws CarLevelStatisticException {
+    public void getCarLevelStatistics() throws CarCategoryStatisticException {
         logger.info("Get Car Level Statistics");
 
-        Map<Integer, CarLevelStatistic> carLevelStatistics = statisticsService.getCarLevelStatistics();
+        Map<Category, CarCategoryStatistic> carLevelStatistics = statisticsService.getCarLevelStatistics();
 
-        assertEquals(carLevelStatistics.size(), EXPECTED_NUMBER_OF_CAR_LEVEL_STAT_ROWS);
+        assertEquals(carLevelStatistics.size(), EXPECTED_NUMBER_OF_CAR_CATEGORY_STAT_ROWS);
 
-        CarLevelStatistic carLevelStatistic4 = carLevelStatistics.get(LEVEL_4_ID);
+        CarCategoryStatistic carCategoryStatistic4 = carLevelStatistics.get(CATEGORY_4_ID);
 
-        assertNotNull(carLevelStatistic4, "Can not find level 4 record.");
-        assertEquals(carLevelStatistic4.getLevel(), LEVEL_4_ID);
-        assertEquals(carLevelStatistic4.getNoOfCars(), LEVEL_4_NUMBER_OF_CARS);
-        assertEquals(carLevelStatistic4.getAvgPowerPoints(), LEVEL_4_AVG_PP);
-        assertEquals(carLevelStatistic4.getAvgHorsePower(), LEVEL_4_AVG_HP);
-        assertEquals(carLevelStatistic4.getAvgPrice(), LEVEL_4_AVG_PRICE);
+        assertNotNull(carCategoryStatistic4, "Can not find category 4 record.");
+        assertEquals(carCategoryStatistic4.getCategory(), CATEGORY_4_ID);
+        assertEquals(carCategoryStatistic4.getNoOfCars(), CATEGORY_4_NUMBER_OF_CARS);
+        assertEquals(carCategoryStatistic4.getAvgMaxPower(), CATEGORY_4_AVG_MAX_POWER);
+        assertEquals(carCategoryStatistic4.getAvgPrice(), CATEGORY_4_AVG_PRICE);
     }
 }

@@ -46,9 +46,16 @@ public class OwnerCar implements Serializable {
 
     @Column(name = "OwcColour")
     private String carColour = "";
+    
+    @Column(name = "OwcMaxPower")
+    private Integer maxPower = 0;
+    
+    @Column(name = "OwcPowerLevel")
+    private Integer powerLevel = 0;
+    
+    @Column(name = "OwcWeightReductionLevel")
+    private Integer weightReductionLevel = 0;
 
-    @Column(name = "OwcPowerPoints")
-    private int powerPoints = 0;
 
     @Column(name = "OwcDateAquired")
     private LocalDate acquiredDate = LocalDate.now();
@@ -61,17 +68,19 @@ public class OwnerCar implements Serializable {
      * @param carKey - the car that is owned key
      * @param carId - the id of the owned car
      * @param colour - the color of the car
-     * @param powerPoints - the cars power points
      * @param acquiredDate - the date the car was acquired
      */
     public OwnerCar(String primaryKey, String ownerKey, String carKey, String carId,
-            String colour, int powerPoints, LocalDate acquiredDate) {
+            String colour, int maxPower, int powerLevel, int weightReductionLevel, 
+            LocalDate acquiredDate) {
         this.primaryKey = primaryKey;
         this.ownerKey = ownerKey;
         this.carKey = carKey;
         this.carId = carId;
         this.carColour = colour;
-        this.powerPoints = powerPoints;
+        this.maxPower = maxPower;
+        this.powerLevel = powerLevel;
+        this.weightReductionLevel = weightReductionLevel;
         this.acquiredDate = acquiredDate;
     }
 
@@ -79,7 +88,7 @@ public class OwnerCar implements Serializable {
      * Create an owned car with default values.
      */
     public OwnerCar() {
-        this("", "", "", "", "", 0, LocalDate.now());
+        this("", "", "", "", "", 0, 0, 0, LocalDate.now());
     }
 
     /**
@@ -172,23 +181,31 @@ public class OwnerCar implements Serializable {
         this.carColour = carColour;
     }
 
-    /**
-     * Get the power points of the car.
-     *
-     * @return The power points.
-     */
-    public int getPowerPoints() {
-        return powerPoints;
+    public Integer getMaxPower() {
+        return maxPower;
     }
 
-    /**
-     * Set the power points of the car.
-     *
-     * @param powerPoints the power points
-     */
-    public void setPowerPoints(int powerPoints) {
-        this.powerPoints = powerPoints;
+    public void setMaxPower(Integer maxPower) {
+        this.maxPower = maxPower;
     }
+
+    public Integer getPowerLevel() {
+        return powerLevel;
+    }
+
+    public void setPowerLevel(Integer powerLevel) {
+        this.powerLevel = powerLevel;
+    }
+
+    public Integer getWeightReductionLevel() {
+        return weightReductionLevel;
+    }
+
+    public void setWeightReductionLevel(Integer weightReductionLevel) {
+        this.weightReductionLevel = weightReductionLevel;
+    }
+
+    
 
     /**
      * Get the date the car was acquired.
@@ -210,8 +227,12 @@ public class OwnerCar implements Serializable {
 
     @Override
     public String toString() {
-        return "ownerCar[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey
-                + ", carKey=" + carKey + ", carId=" + carId + ", carColour=" + carColour
-                + ", powerPoints=" + powerPoints + ", acquiredDate=" + acquiredDate + ']';
+        return "OwnerCar[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey 
+                + ", carKey=" + carKey + ", carId=" + carId + ", carColour=" + carColour 
+                + ", maxPower=" + maxPower + ", powerLevel=" + powerLevel 
+                + ", weightReductionLevel=" + weightReductionLevel 
+                + ", acquiredDate=" + acquiredDate + ']';
     }
+
+    
 }

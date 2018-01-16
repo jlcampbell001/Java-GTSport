@@ -1,6 +1,7 @@
 package backEnd.general.statistics;
 
 import backEnd.general.cars.CarRepository;
+import backEnd.general.cars.Category;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -22,20 +23,20 @@ public class StatisticsService {
      * Gets the list of the car level statistics.
      *
      * @return The list of car level statistics.
-     * @throws CarLevelStatisticException if there are issues with a car level
+     * @throws CarCategoryStatisticException if there are issues with a car level
      * statistic
      */
-    public Map<Integer, CarLevelStatistic> getCarLevelStatistics() throws CarLevelStatisticException {
+    public Map<Category, CarCategoryStatistic> getCarLevelStatistics() throws CarCategoryStatisticException {
         List<Object[]> carsStats = carRepository.getCarsStatistics();
 
-        Map<Integer, CarLevelStatistic> carLevelStatistics = new TreeMap<Integer, CarLevelStatistic>();
+        Map<Category, CarCategoryStatistic> carLevelStatistics = new TreeMap<Category, CarCategoryStatistic>();
 
         if (carsStats != null) {
             for (int i = 0; i < carsStats.size(); i++) {
                 Object[] carStat = carsStats.get(i);
 
-                CarLevelStatistic carLevelStatistic = new CarLevelStatistic(carStat);
-                carLevelStatistics.put(carLevelStatistic.getLevel(), carLevelStatistic);
+                CarCategoryStatistic carLevelStatistic = new CarCategoryStatistic(carStat);
+                carLevelStatistics.put(carLevelStatistic.getCategory(), carLevelStatistic);
             }
         }
 

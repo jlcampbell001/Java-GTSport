@@ -151,7 +151,9 @@ public class OwnerCarService {
         ownerCarJson.setCarKey(ownerCar.getCarKey());
         ownerCarJson.setCarId(ownerCar.getCarId());
         ownerCarJson.setColour(ownerCar.getCarColour());
-        ownerCarJson.setPowerPoints(ownerCar.getPowerPoints());
+        ownerCarJson.setMaxPower(ownerCar.getMaxPower());
+        ownerCarJson.setPowerLevel(ownerCar.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(ownerCar.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(ownerCar.getAcquiredDate());
 
         return ownerCarJson;
@@ -165,7 +167,9 @@ public class OwnerCarService {
         ownerCar.setCarKey(ownerCarJson.getCarKey());
         ownerCar.setCarId(ownerCarJson.getCarId());
         ownerCar.setCarColour(ownerCarJson.getColour());
-        ownerCar.setPowerPoints(ownerCarJson.getPowerPoints());
+        ownerCar.setMaxPower(ownerCarJson.getMaxPower());
+        ownerCar.setPowerLevel(ownerCarJson.getPowerLevel());
+        ownerCar.setWeightReductionLevel(ownerCarJson.getWeightReductionLevel());
         ownerCar.setAcquiredDate(ownerCarJson.getAcquiredDate());
 
         return ownerCar;

@@ -15,7 +15,10 @@ public class OwnerCarJson {
     private String carId = "";
     private String colour = "";
 
-    private int powerPoints = 0;
+    private int maxPower = 0;
+    private int powerLevel = 0;
+    private int weightReductionLevel = 0;
+    
     private LocalDate acquiredDate = LocalDate.now();
 
     /**
@@ -108,23 +111,31 @@ public class OwnerCarJson {
         this.colour = colour;
     }
 
-    /**
-     * Get the power points of the car.
-     *
-     * @return The power points.
-     */
-    public int getPowerPoints() {
-        return powerPoints;
+    public int getMaxPower() {
+        return maxPower;
     }
 
-    /**
-     * Set the power points of the car.
-     *
-     * @param powerPoints the power points
-     */
-    public void setPowerPoints(int powerPoints) {
-        this.powerPoints = powerPoints;
+    public void setMaxPower(int maxPower) {
+        this.maxPower = maxPower;
     }
+
+    public int getPowerLevel() {
+        return powerLevel;
+    }
+
+    public void setPowerLevel(int powerLevel) {
+        this.powerLevel = powerLevel;
+    }
+
+    public int getWeightReductionLevel() {
+        return weightReductionLevel;
+    }
+
+    public void setWeightReductionLevel(int weightReductionLevel) {
+        this.weightReductionLevel = weightReductionLevel;
+    }
+
+    
 
     /**
      * Get the date the car was acquired.
@@ -146,9 +157,12 @@ public class OwnerCarJson {
 
     @Override
     public String toString() {
-        return "OwnerCarJson[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey
-                + ", carKey=" + carKey + ", carId=" + carId + ", Colour=" + colour
-                + ", powerPoints=" + powerPoints + ", acquiredDate=" + acquiredDate + ']';
+        return "OwnerCarJson[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey 
+                + ", carKey=" + carKey + ", carId=" + carId + ", colour=" + colour 
+                + ", maxPower=" + maxPower + ", powerLevel=" + powerLevel 
+                + ", weightReductionLevel=" + weightReductionLevel 
+                + ", acquiredDate=" + acquiredDate + ']';
     }
+
 
 }

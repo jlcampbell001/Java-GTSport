@@ -145,7 +145,9 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR1.getCarKey());
         ownerCarJson.setCarId(OWNERCAR1.getCarId());
         ownerCarJson.setColour(OWNERCAR1.getCarColour());
-        ownerCarJson.setPowerPoints(OWNERCAR1.getPowerPoints());
+        ownerCarJson.setMaxPower(OWNERCAR1.getMaxPower());
+        ownerCarJson.setPowerLevel(OWNERCAR1.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(OWNERCAR1.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(OWNERCAR1.getAcquiredDate());
 
         ownerCarValidate.validateOwnerCarSave(ownerCarJson);
@@ -169,7 +171,9 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR1.getCarKey());
         ownerCarJson.setCarId("");
         ownerCarJson.setColour(OWNERCAR1.getCarColour());
-        ownerCarJson.setPowerPoints(OWNERCAR1.getPowerPoints());
+        ownerCarJson.setMaxPower(OWNERCAR1.getMaxPower());
+        ownerCarJson.setPowerLevel(OWNERCAR1.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(OWNERCAR1.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(OWNERCAR1.getAcquiredDate());
 
         try {
@@ -200,7 +204,9 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR1.getCarKey());
         ownerCarJson.setCarId(OWNERCAR1.getCarId());
         ownerCarJson.setColour(OWNERCAR1.getCarColour());
-        ownerCarJson.setPowerPoints(OWNERCAR1.getPowerPoints());
+        ownerCarJson.setMaxPower(OWNERCAR1.getMaxPower());
+        ownerCarJson.setPowerLevel(OWNERCAR1.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(OWNERCAR1.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(OWNERCAR1.getAcquiredDate());
 
         try {
@@ -230,7 +236,9 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarJson.setCarKey("");
         ownerCarJson.setCarId(OWNERCAR1.getCarId());
         ownerCarJson.setColour(OWNERCAR1.getCarColour());
-        ownerCarJson.setPowerPoints(OWNERCAR1.getPowerPoints());
+        ownerCarJson.setMaxPower(OWNERCAR1.getMaxPower());
+        ownerCarJson.setPowerLevel(OWNERCAR1.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(OWNERCAR1.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(OWNERCAR1.getAcquiredDate());
 
         try {
@@ -260,7 +268,9 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(OWNERCAR1.getCarKey());
         ownerCarJson.setCarId(OWNERCAR1.getCarId());
         ownerCarJson.setColour(OWNERCAR1.getCarColour());
-        ownerCarJson.setPowerPoints(OWNERCAR1.getPowerPoints());
+        ownerCarJson.setMaxPower(OWNERCAR1.getMaxPower());
+        ownerCarJson.setPowerLevel(OWNERCAR1.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(OWNERCAR1.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(OWNERCAR1.getAcquiredDate());
 
         try {
@@ -290,7 +300,9 @@ public class OwnerCarValidateTest extends GTSportDataTesting {
         ownerCarJson.setCarKey(BAD_CAR_KEY);
         ownerCarJson.setCarId(OWNERCAR1.getCarId());
         ownerCarJson.setColour(OWNERCAR1.getCarColour());
-        ownerCarJson.setPowerPoints(OWNERCAR1.getPowerPoints());
+        ownerCarJson.setMaxPower(OWNERCAR1.getMaxPower());
+        ownerCarJson.setPowerLevel(OWNERCAR1.getPowerLevel());
+        ownerCarJson.setWeightReductionLevel(OWNERCAR1.getWeightReductionLevel());
         ownerCarJson.setAcquiredDate(OWNERCAR1.getAcquiredDate());
 
         try {
