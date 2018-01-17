@@ -320,56 +320,125 @@ public class CarJson {
         this.weight = weight;
     }
 
+    /**
+     * Get the cars category.
+     *
+     * @return the cars category
+     */
     public Category getCategory() {
         return category;
     }
 
+    /**
+     * Set the cars category.
+     *
+     * @param category the cars category
+     */
     public void setCategory(Category category) {
         this.category = category;
     }
 
+    /**
+     * Get the cars max speed rating.
+     *
+     * @return the cars max speed rating
+     */
     public double getMaxSpeed() {
         return maxSpeed;
     }
 
+    /**
+     * Set the cars max speed rating.
+     *
+     * @param maxSpeed the cars max speed rating
+     */
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
+    /**
+     * Get the cars acceleration rating.
+     *
+     * @return the cars acceleration rating
+     */
     public double getAcceleration() {
         return acceleration;
     }
 
+    /**
+     * Set the cars acceleration rating.
+     *
+     * @param acceleration the cars acceleration rating
+     */
     public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
 
+    /**
+     * Get the cars braking rating.
+     *
+     * @return the cars braking rating
+     */
     public double getBraking() {
         return braking;
     }
 
+    /**
+     * Set the cars braking rating.
+     *
+     * @param braking the cars braking rating
+     */
     public void setBraking(double braking) {
         this.braking = braking;
     }
 
+    /**
+     * Get the cars cornering rating.
+     *
+     * @return the cars cornering rating
+     */
     public double getCornering() {
         return cornering;
     }
 
+    /**
+     * Set the cars cornering rating.
+     *
+     * @param cornering the cars cornering rating
+     */
     public void setCornering(double cornering) {
         this.cornering = cornering;
     }
 
+    /**
+     * Get the cars stability rating.
+     *
+     * @return the cars stability rating
+     */
     public double getStability() {
         return stability;
     }
 
+    /**
+     * Set the cars stability rating.
+     *
+     * @param stability the cars stability rating
+     */
     public void setStability(double stability) {
         this.stability = stability;
     }
 
     @Override
     public String toString() {
-        return "CarJson[" + "primaryKey=" + primaryKey + ", name=" + name + ", manufacturerKey=" + manufacturerKey + ", displacementCC=" + displacementCC + ", powerRPM=" + powerRPM + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain + ", aspiration=" + aspiration + ", category=" + category + ", year=" + year + ", maxPower=" + maxPower + ", price=" + price + ", torqueFtLb=" + torqueFtLb + ", length=" + length + ", width=" + width + ", height=" + height + ", weight=" + weight + ", maxSpeed=" + maxSpeed + ", acceleration=" + acceleration + ", braking=" + braking + ", cornering=" + cornering + ", stability=" + stability + ']';
+        return "CarJson[" + "primaryKey=" + primaryKey + ", name=" + name
+                + ", manufacturerKey=" + manufacturerKey + ", displacementCC=" + displacementCC
+                + ", powerRPM=" + powerRPM + ", torqueRPM=" + torqueRPM
+                + ", driveTrain=" + driveTrain + ", aspiration=" + aspiration
+                + ", category=" + category + ", year=" + year + ", maxPower=" + maxPower
+                + ", price=" + price + ", torqueFtLb=" + torqueFtLb + ", length=" + length
+                + ", width=" + width + ", height=" + height + ", weight=" + weight
+                + ", maxSpeed=" + maxSpeed + ", acceleration=" + acceleration
+                + ", braking=" + braking + ", cornering=" + cornering
+                + ", stability=" + stability + ']';
     }
 }

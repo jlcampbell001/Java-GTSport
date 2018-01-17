@@ -1,6 +1,5 @@
 package backEnd.general.manufacturers;
 
-import backEnd.general.manufacturers.Manufacturer;
 import backEnd.general.countries.CountriesForTesting;
 
 /**

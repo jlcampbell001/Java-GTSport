@@ -76,19 +76,19 @@ public class Car implements Serializable {
 
     @Column(name = "CarWeight")
     private double weight = 0.00;
-    
+
     @Column(name = "CarMaxSpeed")
     private double maxSpeed = 0.0;
-    
+
     @Column(name = "CarAcceleration")
     private double acceleration = 0.0;
-    
+
     @Column(name = "CarBraking")
     private double braking = 0.0;
-    
+
     @Column(name = "CarCornering")
     private double cornering = 0.0;
-    
+
     @Column(name = "CarStability")
     private double stability = 0.0;
 
@@ -97,8 +97,9 @@ public class Car implements Serializable {
      *
      * @param primaryKey The primary key of the car record.
      * @param name The name of the car.
-     * @param manufacturerKey The manufacturer foreign key.
+     * @param dealerKey The dealer key.
      * @param year The year of the car.
+     * @param category The category of the car.
      * @param price The cost of the car.
      * @param displacementCC The displacement value.
      * @param maxPower The max power value.
@@ -111,6 +112,11 @@ public class Car implements Serializable {
      * @param width The width of the car.
      * @param height The height of the car.
      * @param weight The weight of the car.
+     * @param maxSpeed The max speed rating of the car.
+     * @param acceleration The acceleration rating of the car.
+     * @param cornering The cornering rating of the car.
+     * @param braking The braking rating of the car.
+     * @param stability The stability rating of the car.
      */
     public Car(String primaryKey, String name, String dealerKey, int year, Category category,
             double price, String displacementCC, int maxPower,
@@ -455,42 +461,92 @@ public class Car implements Serializable {
         this.weight = weight;
     }
 
+    /**
+     * Get the cars max speed rating.
+     *
+     * @return the cars max speed rating
+     */
     public double getMaxSpeed() {
         return maxSpeed;
     }
 
+    /**
+     * Set the cars max speed rating.
+     *
+     * @param maxSpeed the cars max speed rating
+     */
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
+    /**
+     * Get the cars acceleration rating.
+     *
+     * @return the cars acceleration rating
+     */
     public double getAcceleration() {
         return acceleration;
     }
 
+    /**
+     * Set the cars acceleration rating.
+     *
+     * @param acceleration the cars acceleration rating
+     */
     public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
 
+    /**
+     * Get the cars braking rating.
+     *
+     * @return the cars braking rating
+     */
     public double getBraking() {
         return braking;
     }
 
+    /**
+     * Set the cars braking rating.
+     *
+     * @param braking the cars braking rating
+     */
     public void setBraking(double braking) {
         this.braking = braking;
     }
 
+    /**
+     * Get the cars cornering rating.
+     *
+     * @return the cars cornering rating
+     */
     public double getCornering() {
         return cornering;
     }
 
+    /**
+     * Set the cars cornering rating.
+     *
+     * @param cornering the cars cornering rating
+     */
     public void setCornering(double cornering) {
         this.cornering = cornering;
     }
 
+    /**
+     * Get the cars stability rating.
+     *
+     * @return the cars stability rating
+     */
     public double getStability() {
         return stability;
     }
 
+    /**
+     * Set the cars stability rating.
+     *
+     * @param stability the cars stability rating
+     */
     public void setStability(double stability) {
         this.stability = stability;
     }
@@ -504,9 +560,9 @@ public class Car implements Serializable {
                 + ", powerRPM=" + powerRPM + ", torqueFtLb=" + torqueFtLb
                 + ", torqueRPM=" + torqueRPM + ", driveTrain=" + driveTrain
                 + ", aspiration=" + aspiration + ", length=" + length
-                + ", width=" + width + ", height=" + height + ", weight=" + weight 
+                + ", width=" + width + ", height=" + height + ", weight=" + weight
                 + ", maxSpeed=" + maxSpeed + ", acceleration=" + acceleration
-                + ", braking=" + braking + ", cornering=" + cornering 
+                + ", braking=" + braking + ", cornering=" + cornering
                 + ", stability=" + stability + " ]";
     }
 }

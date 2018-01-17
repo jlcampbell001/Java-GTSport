@@ -25,6 +25,7 @@ public class CarCategoryStatistic {
      *
      * @param category the car category of the record
      * @param noOfCars the number of cars in that category
+     * @param avgMaxPower the average max power in that category
      * @param avgPrice the average price in that category
      */
     public CarCategoryStatistic(Category category, Long noOfCars, double avgMaxPower,
@@ -36,16 +37,16 @@ public class CarCategoryStatistic {
     }
 
     /**
-     * Creates a car category statistics with a passed object array. It depends on
-     * the exact format of the array.<br>
+     * Creates a car category statistics with a passed object array. It depends
+     * on the exact format of the array.<br>
      * Element 0 - car category - Category<br>
      * Element 1 - number of cars - Long<br>
      * Element 2 - average max points - Double<br>
      * Element 3 - average price - Double<br>
      *
      * @param carStatObjects the object array to create from
-     * @throws CarCategoryStatisticException if the object array is not the proper
-     * format
+     * @throws CarCategoryStatisticException if the object array is not the
+     * proper format
      */
     public CarCategoryStatistic(Object[] carStatObjects) throws CarCategoryStatisticException {
         if (carStatObjects == null) {
@@ -160,8 +161,8 @@ public class CarCategoryStatistic {
 
     @Override
     public String toString() {
-        return "CarCategoryStatistic[" + "category=" + category + ", noOfCars=" 
-                + noOfCars + ", avgMaxPower=" + avgMaxPower 
+        return "CarCategoryStatistic[" + "category=" + category + ", noOfCars="
+                + noOfCars + ", avgMaxPower=" + avgMaxPower
                 + ", avgPrice=" + avgPrice + ']';
     }
 

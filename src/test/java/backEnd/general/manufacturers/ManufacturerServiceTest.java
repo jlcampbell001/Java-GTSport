@@ -1,8 +1,5 @@
 package backEnd.general.manufacturers;
 
-import backEnd.general.manufacturers.ManufacturerJson;
-import backEnd.general.manufacturers.ManufacturerException;
-import backEnd.general.manufacturers.ManufacturerService;
 import backEnd.general.GTSportDataTesting;
 import backEnd.general.countries.CountriesForTesting;
 import java.util.List;
@@ -115,8 +112,8 @@ public class ManufacturerServiceTest extends GTSportDataTesting {
     }
 
     /**
-     * Test the get manufacturer by primary key and getting the error because it does
-     * not exist.
+     * Test the get manufacturer by primary key and getting the error because it
+     * does not exist.
      *
      * @throws ManufacturerException
      */

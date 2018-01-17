@@ -26,7 +26,10 @@ public class CarException extends Exception {
      * The error for the aspiration not being valid.
      */
     public static final String ASPIRATION_NOT_VALID = "The aspiration is not valid.";
-    
+
+    /**
+     * The error for the category not being valid.
+     */
     public static final String CATEGORY_NOT_VALID = "The category is not valid.";
 
     /**

@@ -46,16 +46,15 @@ public class OwnerCar implements Serializable {
 
     @Column(name = "OwcColour")
     private String carColour = "";
-    
+
     @Column(name = "OwcMaxPower")
     private Integer maxPower = 0;
-    
+
     @Column(name = "OwcPowerLevel")
     private Integer powerLevel = 0;
-    
+
     @Column(name = "OwcWeightReductionLevel")
     private Integer weightReductionLevel = 0;
-
 
     @Column(name = "OwcDateAquired")
     private LocalDate acquiredDate = LocalDate.now();
@@ -68,10 +67,13 @@ public class OwnerCar implements Serializable {
      * @param carKey - the car that is owned key
      * @param carId - the id of the owned car
      * @param colour - the color of the car
+     * @param maxPower - the max power of the car
      * @param acquiredDate - the date the car was acquired
+     * @param powerLevel - the current power level of the car
+     * @param weightReductionLevel - the weight reduction level of the car
      */
     public OwnerCar(String primaryKey, String ownerKey, String carKey, String carId,
-            String colour, int maxPower, int powerLevel, int weightReductionLevel, 
+            String colour, int maxPower, int powerLevel, int weightReductionLevel,
             LocalDate acquiredDate) {
         this.primaryKey = primaryKey;
         this.ownerKey = ownerKey;
@@ -181,31 +183,59 @@ public class OwnerCar implements Serializable {
         this.carColour = carColour;
     }
 
+    /**
+     * Get the cars max power.
+     *
+     * @return the cars max power
+     */
     public Integer getMaxPower() {
         return maxPower;
     }
 
+    /**
+     * Set the cars max power.
+     *
+     * @param maxPower the cars max power
+     */
     public void setMaxPower(Integer maxPower) {
         this.maxPower = maxPower;
     }
 
+    /**
+     * Get the cars power level.
+     *
+     * @return the cars power level
+     */
     public Integer getPowerLevel() {
         return powerLevel;
     }
 
+    /**
+     * Set the cars power level.
+     *
+     * @param powerLevel the cars power level
+     */
     public void setPowerLevel(Integer powerLevel) {
         this.powerLevel = powerLevel;
     }
 
+    /**
+     * Get the cars weight reduction level.
+     *
+     * @return the cars weight reduction level
+     */
     public Integer getWeightReductionLevel() {
         return weightReductionLevel;
     }
 
+    /**
+     * Set the cars weight reduction level.
+     *
+     * @param weightReductionLevel the cars weight reduction level
+     */
     public void setWeightReductionLevel(Integer weightReductionLevel) {
         this.weightReductionLevel = weightReductionLevel;
     }
-
-    
 
     /**
      * Get the date the car was acquired.
@@ -227,12 +257,11 @@ public class OwnerCar implements Serializable {
 
     @Override
     public String toString() {
-        return "OwnerCar[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey 
-                + ", carKey=" + carKey + ", carId=" + carId + ", carColour=" + carColour 
-                + ", maxPower=" + maxPower + ", powerLevel=" + powerLevel 
-                + ", weightReductionLevel=" + weightReductionLevel 
+        return "OwnerCar[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey
+                + ", carKey=" + carKey + ", carId=" + carId + ", carColour=" + carColour
+                + ", maxPower=" + maxPower + ", powerLevel=" + powerLevel
+                + ", weightReductionLevel=" + weightReductionLevel
                 + ", acquiredDate=" + acquiredDate + ']';
     }
 
-    
 }

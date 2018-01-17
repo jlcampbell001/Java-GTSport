@@ -1,8 +1,5 @@
 package backEnd.general.manufacturers;
 
-import backEnd.general.manufacturers.ManufacturerJson;
-import backEnd.general.manufacturers.ManufacturerException;
-import backEnd.general.manufacturers.ManufacturerValidate;
 import backEnd.general.GTSportDataTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -92,7 +89,8 @@ public class ManufacturerValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Test the validating the manufacturer on a save with the manufacturer name not filled.
+     * Test the validating the manufacturer on a save with the manufacturer name
+     * not filled.
      *
      * @throws ManufacturerException
      */
@@ -114,7 +112,8 @@ public class ManufacturerValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Test validating the manufacturer save where the country key is not filled.
+     * Test validating the manufacturer save where the country key is not
+     * filled.
      *
      * @throws ManufacturerException
      */
@@ -137,8 +136,8 @@ public class ManufacturerValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Test validating the manufacturer save where the name already exists on another
-     * manufacturer.
+     * Test validating the manufacturer save where the name already exists on
+     * another manufacturer.
      *
      * @throws ManufacturerException
      */
@@ -218,10 +217,11 @@ public class ManufacturerValidateTest extends GTSportDataTesting {
     }
 
     /**
-     * Test manufacturer delete validate where the manufacturer key is still in use.
+     * Test manufacturer delete validate where the manufacturer key is still in
+     * use.
      *
-     * @throws ManufacturerException should find an error that the dealer key is in
-     * use
+     * @throws ManufacturerException should find an error that the dealer key is
+     * in use
      */
     @Test(expectedExceptions = ManufacturerException.class)
     public void validateManufacturerDeleteInUse() throws ManufacturerException {

@@ -18,7 +18,7 @@ public class OwnerCarJson {
     private int maxPower = 0;
     private int powerLevel = 0;
     private int weightReductionLevel = 0;
-    
+
     private LocalDate acquiredDate = LocalDate.now();
 
     /**
@@ -111,31 +111,59 @@ public class OwnerCarJson {
         this.colour = colour;
     }
 
+    /**
+     * Get the cars max power.
+     *
+     * @return the cars max power
+     */
     public int getMaxPower() {
         return maxPower;
     }
 
+    /**
+     * Set the cars max power.
+     *
+     * @param maxPower the cars max power
+     */
     public void setMaxPower(int maxPower) {
         this.maxPower = maxPower;
     }
 
+    /**
+     * Get the cars power level.
+     *
+     * @return the cars power level
+     */
     public int getPowerLevel() {
         return powerLevel;
     }
 
+    /**
+     * Set the cars power level.
+     *
+     * @param powerLevel the cars power level
+     */
     public void setPowerLevel(int powerLevel) {
         this.powerLevel = powerLevel;
     }
 
+    /**
+     * Get the cars weight reduction level.
+     *
+     * @return the cars weight reduction level
+     */
     public int getWeightReductionLevel() {
         return weightReductionLevel;
     }
 
+    /**
+     * Set the cars weight reduction level.
+     *
+     * @param weightReductionLevel the cars weight reduction level
+     */
     public void setWeightReductionLevel(int weightReductionLevel) {
         this.weightReductionLevel = weightReductionLevel;
     }
-
-    
 
     /**
      * Get the date the car was acquired.
@@ -157,12 +185,11 @@ public class OwnerCarJson {
 
     @Override
     public String toString() {
-        return "OwnerCarJson[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey 
-                + ", carKey=" + carKey + ", carId=" + carId + ", colour=" + colour 
-                + ", maxPower=" + maxPower + ", powerLevel=" + powerLevel 
-                + ", weightReductionLevel=" + weightReductionLevel 
+        return "OwnerCarJson[" + "primaryKey=" + primaryKey + ", ownerKey=" + ownerKey
+                + ", carKey=" + carKey + ", carId=" + carId + ", colour=" + colour
+                + ", maxPower=" + maxPower + ", powerLevel=" + powerLevel
+                + ", weightReductionLevel=" + weightReductionLevel
                 + ", acquiredDate=" + acquiredDate + ']';
     }
-
 
 }

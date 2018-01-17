@@ -5,10 +5,11 @@ package backEnd.general.cars;
  * Values set to null will be ignored in the search.<br>
  * <p>
  * <b>category search (Range search):</b><br>
- * - If categoryFrom is set to null but a value is in categoryTo, categoryFrom will be
- * set to "".<br>
- * - If categoryTo is set to null but a value is in categoryFrom, categoryTo will be set
- * to Category.MAX.<br></p>
+ * - Works with the value put in the data base for the ordering. - If
+ * categoryFrom is set to null but a value is in categoryTo, categoryFrom will
+ * be set to "".<br>
+ * - If categoryTo is set to null but a value is in categoryFrom, categoryTo
+ * will be set to Category.MAX.<br></p>
  * <p>
  * <b>Year search (Range search):</b><br>
  * - If yearFrom is set to null but a value is in yearTo, yearFrom will be set
@@ -17,10 +18,10 @@ package backEnd.general.cars;
  * Integer.MAX_VALUE.<br></p>
  * <p>
  * <b>Max Power search (Range search):</b><br>
- * - If maxPowerFrom is set to null but a value is in maxPowerTo,
- * maxPowerFrom will be set to 0.<br>
- * - If maxPowerTo is set to null but a value is in maxPowerFrom,
- * maxPowerTo will be set to Integer.MAX_VALUE.<br></p>
+ * - If maxPowerFrom is set to null but a value is in maxPowerTo, maxPowerFrom
+ * will be set to 0.<br>
+ * - If maxPowerTo is set to null but a value is in maxPowerFrom, maxPowerTo
+ * will be set to Integer.MAX_VALUE.<br></p>
  * <p>
  * <b>Drivetrain search (Exact search):</b><br>
  * - Looks for an exact value of the drivetrain to match.
@@ -51,18 +52,38 @@ public class CarSearchJson {
     private String countryDescription = null;
     private String regionDescription = null;
 
+    /**
+     * Get the category from.
+     *
+     * @return get the category from
+     */
     public Category getCategoryFrom() {
         return categoryFrom;
     }
 
+    /**
+     * Set the category from.
+     *
+     * @param categoryFrom the category from
+     */
     public void setCategoryFrom(Category categoryFrom) {
         this.categoryFrom = categoryFrom;
     }
 
+    /**
+     * Get the category to.
+     *
+     * @return the category to
+     */
     public Category getCategoryTo() {
         return categoryTo;
     }
 
+    /**
+     * Set the category to.
+     *
+     * @param categoryTo the category to
+     */
     public void setCategoryTo(Category categoryTo) {
         this.categoryTo = categoryTo;
     }
@@ -102,7 +123,6 @@ public class CarSearchJson {
     public void setYearTo(Integer yearTo) {
         this.yearTo = yearTo;
     }
-
 
     /**
      * Get the max power from value.

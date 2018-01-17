@@ -1,6 +1,5 @@
 package backEnd.general.manufacturers;
 
-import backEnd.general.manufacturers.Manufacturer;
 import backEnd.general.GTSportDataTesting;
 import java.util.List;
 import org.springframework.test.annotation.Rollback;
